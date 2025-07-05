@@ -2,6 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Play } from "lucide-react";
 import { Card, CardContent, CardHeader } from "./card";
+import StyledWrapper from "./button-ui";
 
 interface DemoPopupProps {
   isOpen: boolean;
@@ -83,7 +84,7 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
             className="w-full max-w-4xl max-h-[85vh]"
           >
-            <Card className="bg-gradient-to-br from-white to-amber-50/30 rounded-[20px] shadow-2xl border border-amber-200/50">
+            <Card className="bg-gradient-to-br from-white to-amber-50 rounded-[20px] shadow-2xl border border-amber-200/50">
               <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50 to-blue-gray100/50 rounded-t-[20px]">
                 <button
                   onClick={onClose}
@@ -154,7 +155,7 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                   </div>
 
                   {/* CTA Section - Plus compact */}
-                  <div className="bg-gradient-to-r from-amber-100 to-blue-gray200 p-4 rounded-[12px] text-center border border-amber-200/50 shadow-inner">
+                  <div className="p-4 rounded-[12px] text-center">
                     <h3 className="text-lg font-bold text-blue-gray900 mb-1 font-heading-6">
                       Prêt pour votre projet ?
                     </h3>
@@ -162,12 +163,9 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                       190€ + 29€/mois sans engagement
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                      <button className="px-4 py-2 bg-gradient-to-r from-amber-900 to-amber-800 text-white rounded-lg hover:from-amber-800 hover:to-amber-700 transition-all duration-300 font-button-m text-sm shadow-lg hover:shadow-xl transform hover:scale-105">
+                      <StyledWrapper>
                         Commencer maintenant
-                      </button>
-                      <button className="px-4 py-2 border-2 border-amber-800 text-amber-900 bg-gradient-to-r from-amber-50 to-white rounded-lg hover:from-amber-100 hover:to-amber-50 transition-all duration-300 font-button-m text-sm shadow-md hover:shadow-lg transform hover:scale-105">
-                        Voir plus d'exemples
-                      </button>
+                      </StyledWrapper>
                     </div>
                   </div>
                 </div>
