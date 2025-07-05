@@ -1,10 +1,13 @@
 import { CheckIcon, PlayIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
-import StyledButton from "../../../../components/ui/styled-button";
+import StyledWrapper from "../../../../components/ui/button-ui";
+import { DemoPopup } from "../../../../components/ui/demo-popup";
 
 export const MainContentSection = (): JSX.Element => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   // Benefits list data
   const benefits = [
     "Est et in pharetra magna adipiscing ornare aliquam.",
@@ -20,8 +23,8 @@ export const MainContentSection = (): JSX.Element => {
             <AnimatedSection animation="slideRight" delay={200}>
               <div className="w-full lg:w-[520px] gap-6 flex flex-col items-start relative">
                 <div className="flex-col items-start gap-2 flex relative self-stretch w-full">
-                  <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 font-[number:var(--heading-2-font-weight)] text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
-                    Why join us
+                  <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 font-medium text-5xl md:text-6xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+                    Un résultat<div className="pt-4 font-serif italic text-amber-800">professionnel </div>
                   </h2>
                 </div>
               </div>
@@ -45,9 +48,11 @@ export const MainContentSection = (): JSX.Element => {
             </AnimatedSection>
 
             <AnimatedSection animation="slideUp" delay={800}>
-              <StyledButton variant="secondary">
-                Sign up now
-              </StyledButton>
+              <div onClick={() => setIsPopupOpen(true)} className="cursor-pointer">
+                <StyledWrapper>
+                  Voir une démo
+                </StyledWrapper>
+              </div>
             </AnimatedSection>
           </div>
 
@@ -80,8 +85,7 @@ export const MainContentSection = (): JSX.Element => {
               </div>
 
               <CardContent className="flex items-center justify-center gap-2.5 relative flex-1 self-stretch w-full grow [background:url(..//picture-4.png)_50%_50%_/_cover]">
-                <div className="inline-flex justify-center pl-7 pr-5 py-6 bg-overlaydark-75 rounded-[100px] items-center relative hover:bg-overlaydark-75/80 transition-colors duration-300 group">
-                  <PlayIcon className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 text-white transition-transform duration-300 group-hover:scale-110" />
+                <div className="w-32 inline-flex justify-center pl-7 pr-5 py-6 rounded-[100px] items-center relative hover:bg-overlaydark-75/80 transition-colors duration-300 group">
                 </div>
               </CardContent>
             </Card>
@@ -91,6 +95,9 @@ export const MainContentSection = (): JSX.Element => {
           <div className="hidden lg:block absolute w-[85px] h-[86px] top-[373px] left-[750px] bg-green-700 rounded-[50px] opacity-75" />
         </Card>
       </AnimatedSection>
+
+      {/* Demo Popup */}
+      <DemoPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </section>
   );
 };

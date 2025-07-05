@@ -11,7 +11,7 @@ export const AboutSection = (): JSX.Element => {
       <AnimatedSection animation="slideRight" className="flex flex-col items-start gap-8 lg:gap-12 relative flex-1 w-full lg:w-auto">
         <div className="flex flex-col items-start gap-6 lg:gap-8 relative self-stretch w-full">
           <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
-            <h1 className="relative self-stretch mt-[-1.00px] font-heading-1-m font-[500] text-blue-gray900 text-3xl md:text-6xl lg:text-5xl leading-[var(--heading-1-m-line-height)] [font-style:var(--heading-1-m-font-style)]">
+            <h1 className="relative self-stretch mt-[-1.00px] font-heading-1-m font-[500] text-blue-gray900 text-3xl md:text-6xl lg:text-6xl leading-[var(--heading-1-m-line-height)] [font-style:var(--heading-1-m-font-style)]">
               Site web et<br /> Réseaux sociaux<br /><div className="pt-2 font-serif italic text-amber-900">pour les artisans</div>
             </h1>
           </div>
