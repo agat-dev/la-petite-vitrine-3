@@ -1,0 +1,294 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+/* Prevent horizontal overflow */
+@layer base {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* Animation delays for staggered effects */
+@layer utilities {
+  .delay-\[0ms\] { transition-delay: 0ms; }
+  .delay-\[100ms\] { transition-delay: 100ms; }
+  .delay-\[200ms\] { transition-delay: 200ms; }
+  .delay-\[300ms\] { transition-delay: 300ms; }
+  .delay-\[400ms\] { transition-delay: 400ms; }
+  .delay-\[500ms\] { transition-delay: 500ms; }
+  .delay-\[600ms\] { transition-delay: 600ms; }
+  .delay-\[700ms\] { transition-delay: 700ms; }
+  .delay-\[800ms\] { transition-delay: 800ms; }
+  .delay-\[900ms\] { transition-delay: 900ms; }
+  .delay-\[1000ms\] { transition-delay: 1000ms; }
+}
+
+:root {
+  --amber-100: rgba(254, 243, 199, 1);
+  --amber-200: rgba(253, 230, 138, 1);
+  --amber-400: rgba(251, 191, 36, 1);
+  --amber-50: rgba(255, 251, 235, 1);
+  --amber-500: rgba(245, 158, 11, 1);
+  --amber-600: #D15382;
+  --amber-700: #2E66C1;
+  --amber-800: #2E66C1;
+  --amber-900: #2E66C1;
+  --black: rgba(0, 0, 0, 1);
+  --blue-600: rgba(37, 99, 235, 1);
+  --blue-gray100: rgba(241, 245, 249, 1);
+  --blue-gray200: rgba(226, 232, 240, 1);
+  --blue-gray400: rgba(148, 163, 184, 1);
+  --blue-gray600: rgba(71, 85, 105, 1);
+  --blue-gray700: rgba(51, 65, 85, 1);
+  --blue-gray900: rgba(15, 23, 42, 1);
+  --blue-light700: rgba(3, 105, 161, 1);
+  --body-l-font-family: "Montserrat", sans-serif;
+  --body-l-font-size: 18px;
+  --body-l-font-style: normal;
+  --body-l-font-weight: 400;
+  --body-l-letter-spacing: 0px;
+  --body-l-line-height: 160%;
+  --body-m-font-family: "Montserrat", sans-serif;
+  --body-m-font-size: 16px;
+  --body-m-font-style: normal;
+  --body-m-font-weight: 400;
+  --body-m-letter-spacing: 0px;
+  --body-m-line-height: 140%;
+  --body-s-font-family: "Montserrat", sans-serif;
+  --body-s-font-size: 14px;
+  --body-s-font-style: normal;
+  --body-s-font-weight: 400;
+  --body-s-letter-spacing: 0px;
+  --body-s-line-height: 140%;
+  --body-XL-font-family: "Montserrat", sans-serif;
+  --body-XL-font-size: 20px;
+  --body-XL-font-style: normal;
+  --body-XL-font-weight: 400;
+  --body-XL-letter-spacing: 0px;
+  --body-XL-line-height: 180%;
+  --body-XS-font-family: "Montserrat", sans-serif;
+  --body-XS-font-size: 12px;
+  --body-XS-font-style: normal;
+  --body-XS-font-weight: 400;
+  --body-XS-letter-spacing: 0px;
+  --body-XS-line-height: 140%;
+  --body-XXL-font-family: "Montserrat", sans-serif;
+  --body-XXL-font-size: 24px;
+  --body-XXL-font-style: normal;
+  --body-XXL-font-weight: 400;
+  --body-XXL-letter-spacing: 0px;
+  --body-XXL-line-height: 160%;
+  --button-l-font-family: "Montserrat", sans-serif;
+  --button-l-font-size: 20px;
+  --button-l-font-style: normal;
+  --button-l-font-weight: 500;
+  --button-l-letter-spacing: 0.5px;
+  --button-l-line-height: 24px;
+  --button-m-font-family: "Montserrat", sans-serif;
+  --button-m-font-size: 16px;
+  --button-m-font-style: normal;
+  --button-m-font-weight: 500;
+  --button-m-letter-spacing: 0.5px;
+  --button-m-line-height: 24px;
+  --button-s-font-family: "Montserrat", sans-serif;
+  --button-s-font-size: 14px;
+  --button-s-font-style: normal;
+  --button-s-font-weight: 500;
+  --button-s-letter-spacing: 0.5px;
+  --button-s-line-height: 24px;
+  --button-XL-font-family: "Montserrat", sans-serif;
+  --button-XL-font-size: 24px;
+  --button-XL-font-style: normal;
+  --button-XL-font-weight: 700;
+  --button-XL-letter-spacing: 0.5px;
+  --button-XL-line-height: 24px;
+  --caption-m-font-family: "Montserrat", sans-serif;
+  --caption-m-font-size: 20px;
+  --caption-m-font-style: normal;
+  --caption-m-font-weight: 700;
+  --caption-m-letter-spacing: 3px;
+  --caption-m-line-height: 100%;
+  --cool-gray200: rgba(229, 231, 235, 1);
+  --defaultalert: rgba(218, 30, 40, 1);
+  --defaultwhite: rgba(255, 255, 255, 1);
+  --fuchsia-700: rgba(162, 28, 175, 1);
+  --green-100: rgba(220, 252, 231, 1);
+  --green-500: rgba(34, 197, 94, 1);
+  --green-700: rgba(21, 128, 61, 1);
+  --green-800: rgba(22, 101, 52, 1);
+  --heading-1-l-font-family: "Montserrat", sans-serif;
+  --heading-1-l-font-size: 96px;
+  --heading-1-l-font-style: normal;
+  --heading-1-l-font-weight: 800;
+  --heading-1-l-letter-spacing: 0px;
+  --heading-1-l-line-height: 140%;
+  --heading-1-m-font-family: "Montserrat", sans-serif;
+  --heading-1-m-font-size: 72px;
+  --heading-1-m-font-style: normal;
+  --heading-1-m-font-weight: 800;
+  --heading-1-m-letter-spacing: 0px;
+  --heading-1-m-line-height: 140%;
+  --heading-2-font-family: "Montserrat", sans-serif;
+  --heading-2-font-size: 56px;
+  --heading-2-font-style: normal;
+  --heading-2-font-weight: 800;
+  --heading-2-letter-spacing: 0px;
+  --heading-2-line-height: 110%;
+  --heading-3-font-family: "Montserrat", sans-serif;
+  --heading-3-font-size: 48px;
+  --heading-3-font-style: normal;
+  --heading-3-font-weight: 800;
+  --heading-3-letter-spacing: 0px;
+  --heading-3-line-height: 110%;
+  --heading-4-font-family: "Montserrat", sans-serif;
+  --heading-4-font-size: 40px;
+  --heading-4-font-style: normal;
+  --heading-4-font-weight: 700;
+  --heading-4-letter-spacing: 0px;
+  --heading-4-line-height: 110%;
+  --heading-5-font-family: "Montserrat", sans-serif;
+  --heading-5-font-size: 32px;
+  --heading-5-font-style: normal;
+  --heading-5-font-weight: 700;
+  --heading-5-letter-spacing: 0px;
+  --heading-5-line-height: 110%;
+  --heading-6-font-family: "Montserrat", sans-serif;
+  --heading-6-font-size: 24px;
+  --heading-6-font-style: normal;
+  --heading-6-font-weight: 700;
+  --heading-6-letter-spacing: 0px;
+  --heading-6-line-height: 110%;
+  --indigo-600: rgba(79, 70, 229, 1);
+  --lime-200: rgba(217, 249, 157, 1);
+  --lime-400: rgba(163, 230, 53, 1);
+  --overlaydark-75: rgba(18, 22, 25, 0.75);
+  --pink-700: rgba(190, 24, 93, 1);
+  --purple-100: rgba(243, 232, 255, 1);
+  --purple-400: rgba(192, 132, 252, 1);
+  --purple-800: rgba(107, 33, 168, 1);
+  --red-100: rgba(254, 226, 226, 1);
+  --red-400: rgba(248, 113, 113, 1);
+  --red-800: rgba(153, 27, 27, 1);
+  --rose-600: rgba(225, 29, 72, 1);
+  --shadow-dark-l: 0px 0px 6px 0px rgba(0, 0, 0, 0.07), 0px 10px 15px -3px
+    rgba(0, 0, 0, 0.1);
+  --shadow-dark-m: 0px 0px 4px 0px rgba(0, 0, 0, 0.07), 0px 4px 6px -1px
+    rgba(0, 0, 0, 0.1);
+  --shadow-dark-s: 0px 0px 2px 0px rgba(0, 0, 0, 0.07), 0px 1px 3px 0px
+    rgba(0, 0, 0, 0.1);
+  --shadow-dark-XL: 0px 0px 10px 0px rgba(0, 0, 0, 0.07), 0px 20px 25px -5px
+    rgba(0, 0, 0, 0.1);
+  --shadow-dark-XXL: 0px 0px 15px 0px rgba(0, 0, 0, 0.07), 0px 25px 50px -12px
+    rgba(0, 0, 0, 0.25);
+  --shadow-light-XXL: 0px 0px 15px 0px rgba(255, 255, 255, 0.07), 0px 25px 50px
+    -12px rgba(255, 255, 255, 0.25);
+  --subtitle-m-font-family: "Montserrat", sans-serif;
+  --subtitle-m-font-size: 16px;
+  --subtitle-m-font-style: normal;
+  --subtitle-m-font-weight: 500;
+  --subtitle-m-letter-spacing: 0px;
+  --subtitle-m-line-height: 110%;
+  --subtitle-XL-font-family: "Montserrat", sans-serif;
+  --subtitle-XL-font-size: 20px;
+  --subtitle-XL-font-style: normal;
+  --subtitle-XL-font-weight: 500;
+  --subtitle-XL-letter-spacing: 0px;
+  --subtitle-XL-line-height: 110%;
+  --violet-300: rgba(196, 181, 253, 1);
+  --white: rgba(255, 255, 255, 1);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: transparent;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: transparent;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: "Montserrat", sans-serif;
+  }
+}
