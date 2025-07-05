@@ -80,15 +80,15 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
             animate="visible"
             exit="exit"
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
-            className="w-full max-w-4xl max-h-[85vh]"
+            className="w-full max-w-4xl max-h-[85vh] bg-blue-gray900/80"
           >
-            <Card className="bg-gradient-to-br from-white/95 to-amber-50/80 backdrop-blur-md border border-white/30 rounded-[20px]">
+            <Card className="bg-blue-gray900 backdrop-blur-md border border-white/30 rounded-[20px]">
               <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50/80 to-blue-gray100/30 backdrop-blur-md rounded-t-[20px]">
                 <button
                   onClick={onClose}
-                  className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-white/20 hover:backdrop-blur-md transition-all duration-200 border border-white/30"
+                  className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-white/20 hover:backdrop-blur-md transition-all duration-200"
                 >
-                  <X className="w-4 h-4 text-blue-gray700" />
+                  <X className="w-4 h-4 text-blue-gray100" />
                 </button>
 
                 <div className="flex items-center gap-3 mb-3">
@@ -96,10 +96,10 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                     <Play className="w-6 h-6 text-white ml-0.5" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-blue-gray900 font-heading-2">
+                    <h2 className="text-xl font-bold text-blue-gray100 font-heading-2">
                       Découvrez notre solution
                     </h2>
-                    <p className="text-blue-gray600 font-body-m text-sm">
+                    <p className="text-blue-gray400 font-body-m text-sm">
                       Votre site web professionnel en 5 jours
                     </p>
                   </div>
@@ -120,7 +120,7 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                         className="group cursor-pointer"
                         onClick={() => handleCardClick(card)}
                       >
-                        <Card className="overflow-hidden border border-white/20 backdrop-blur-md bg-white/10 hover:bg-white/20 hover:backdrop-blur-lg transition-all duration-500 rounded-[12px] hover:scale-105 hover:border-white/40">
+                        <Card className="overflow-hidden backdrop-blur-md bg-white/10 hover:bg-white/20 hover:backdrop-blur-lg transition-all duration-500 rounded-[12px] hover:scale-105 hover:border-white/40">
                           <div className="relative">
                             <img
                               src={card.image}
@@ -139,7 +139,7 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                               </div>
                             </div>
                           </div>
-                          <CardContent className="p-3 bg-white/5 backdrop-blur-sm">
+                          <CardContent className="p-3 bg-white backdrop-blur-sm">
                             <h4 className="text-sm font-bold text-blue-gray900 font-heading-6 mb-1 group-hover:text-amber-900 transition-colors duration-300">
                               {card.title}
                             </h4>
@@ -154,10 +154,10 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
 
                   {/* CTA Section - Plus compact */}
                   <div className="p-4 rounded-[12px] text-center">
-                    <h3 className="text-lg font-bold text-blue-gray900 mb-1 font-heading-6">
+                    <h3 className="text-lg font-bold text-blue-gray200 mb-1 font-heading-6">
                       Prêt pour votre projet ?
                     </h3>
-                    <p className="text-blue-gray700 mb-3 font-body-m text-sm">
+                    <p className="text-blue-gray400 mb-3 font-body-m text-sm">
                       190€ + 29€/mois sans engagement
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2 justify-center">

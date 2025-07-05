@@ -25,7 +25,6 @@ export const LandingPage = (): JSX.Element => {
       <HeroSection />
       <MainContentSection />
       <CallToActionSection />
-      <FeaturesSection />
       <ProductsSection />
       <ContactSection />
       <FooterSection />

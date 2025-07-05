@@ -201,7 +201,7 @@ export const ProductsSection = (): JSX.Element => {
   };
 
   return (
-    <section className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full bg-amber-50 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
+    <section className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-48 lg:px-20 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
       {/* Background vector conservé */}
       <img
         className="hidden lg:block absolute w-full h-[327px] top-[436px] left-0 opacity-20"
@@ -223,11 +223,11 @@ export const ProductsSection = (): JSX.Element => {
           className="flex-1 flex flex-col items-start gap-6"
         >
           <div className="flex flex-col items-start gap-4 w-full">
-            <h2 className="text-blue-gray900 font-heading-2 font-[number:var(--heading-2-font-weight)] text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
-              Nos Packs Création Site Web
+            <h2 className="text-blue-gray200 font-heading-2 text-2xl md:text-4xl lg:text-6xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+              Nos Packs<br /><span className="text-5xl font-serif italic text-blue-gray100">Site web et Réseaux sociaux</span>
             </h2>
-            <p className="text-blue-gray700 font-body-l text-sm md:text-base lg:text-[length:var(--body-l-font-size)] leading-[var(--body-l-line-height)]">
-              Du site simple aux solutions complètes avec réseaux sociaux
+            <p className="mt-4 w-4/6 text-blue-gray200 font-body-l text-sm md:text-base lg:text-[length:var(--body-l-font-size)] leading-[var(--body-l-line-height)]">
+              Des solutions complètes de présence numérique pensées pour les artisans, pour vous développer en ligne tout en restant concentré sur votre métier.
             </p>
           </div>
         </AnimatedSection>
