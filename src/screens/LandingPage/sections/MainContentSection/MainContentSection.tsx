@@ -71,7 +71,7 @@ export const MainContentSection = (): JSX.Element => {
 
           <AnimatedSection animation="slideLeft" delay={600}>
             <Card className="flex flex-col h-[250px] md:h-[300px] lg:h-[350px] items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[5px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500">
-              <div className="h-[41px] items-center gap-7 px-4 py-2 flex relative self-stretch w-full">
+              <div className="bg-amber-100 h-[41px] items-center gap-7 px-4 py-2 flex relative self-stretch w-full">
                 <div className="flex items-start gap-[5px] relative flex-1 grow">
                   {[1, 2, 3].map((_, index) => (
                     <img
@@ -84,7 +84,7 @@ export const MainContentSection = (): JSX.Element => {
                 </div>
               </div>
 
-              <CardContent className="flex items-center justify-center gap-2.5 relative flex-1 self-stretch w-full grow [background:url(..//picture-4.png)_50%_50%_/_cover]">
+              <CardContent className="flex items-center justify-center gap-2.5 relative flex-1 self-stretch w-full grow [background:url(../artisan-mobile.jpg)_50%_50%_/_cover]">
                 <div className="w-32 inline-flex justify-center pl-7 pr-5 py-6 rounded-[100px] items-center relative hover:bg-overlaydark-75/80 transition-colors duration-300 group">
                 </div>
               </CardContent>

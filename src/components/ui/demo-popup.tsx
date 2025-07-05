@@ -16,7 +16,7 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
       title: "Site d'artisan rénovateur",
       description: "OnePage vitrine pour artisans avec réalisations et témoignages",
       category: "Vitrine",
-      url: "#",
+      url: "https://artisan-renov.lapetitevitrine.com",
     },
     {
       image: "/artisan-coiffeur.jpg",
@@ -24,14 +24,12 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
       description:
         "OnePage vitrine pour coiffeurs avec formulaire de contact",
       category: "Vitrine",
-      url: "#",
+      url: "https://artisan-coiffeur.lapetitevitrine.com",
     },
   ];
 
   const handleCardClick = (card: (typeof demoCards)[0]) => {
-    console.log("Carte cliquée:", card.title);
-    // Ici vous pouvez ajouter la logique pour ouvrir le site ou afficher plus de détails
-    // Par exemple: window.open(card.url, '_blank');
+    window.open(card.url, '_blank');
   };
 
   const backdropVariants = {
@@ -84,11 +82,11 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
             className="w-full max-w-4xl max-h-[85vh]"
           >
-            <Card className="bg-gradient-to-br from-white to-amber-50 rounded-[20px] shadow-2xl border border-amber-200/50">
-              <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50 to-blue-gray100/50 rounded-t-[20px]">
+            <Card className="bg-gradient-to-br from-white/95 to-amber-50/80 backdrop-blur-md border border-white/30 rounded-[20px]">
+              <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50/80 to-blue-gray100/30 backdrop-blur-md rounded-t-[20px]">
                 <button
                   onClick={onClose}
-                  className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-amber-100 transition-colors duration-200 border border-amber-200/50"
+                  className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-white/20 hover:backdrop-blur-md transition-all duration-200 border border-white/30"
                 >
                   <X className="w-4 h-4 text-blue-gray700" />
                 </button>
@@ -122,26 +120,26 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                         className="group cursor-pointer"
                         onClick={() => handleCardClick(card)}
                       >
-                        <Card className="overflow-hidden border-2 border-amber-200/50 hover:shadow-2xl hover:border-amber-600/60 hover:bg-amber-50/30 transition-all duration-300 rounded-[12px] hover:scale-105 bg-gradient-to-br from-white to-amber-50/20">
+                        <Card className="overflow-hidden border border-white/20 backdrop-blur-md bg-white/10 hover:bg-white/20 hover:backdrop-blur-lg transition-all duration-500 rounded-[12px] hover:scale-105 hover:border-white/40">
                           <div className="relative">
                             <img
                               src={card.image}
                               alt={card.title}
-                              className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-500"
+                              className="w-full h-32 object-cover scale-120 group-hover:scale-140 transition-transform duration-500"
                             />
                             <div className="absolute top-2 left-2">
-                              <span className="bg-gradient-to-r from-amber-900 to-amber-800 text-white text-xs font-medium px-2 py-0.5 rounded-full shadow-md">
+                              <span className="bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-medium px-2 py-0.5 rounded-full">
                                 {card.category}
                               </span>
                             </div>
                             {/* Overlay qui apparaît au hover */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-blue-gray900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                              <div className="bg-gradient-to-br from-amber-50 to-white rounded-full p-2 shadow-xl transform scale-75 group-hover:scale-100 transition-transform duration-300 border border-amber-200">
-                                <Play className="w-4 h-4 text-amber-900" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                              <div className="bg-white/30 backdrop-blur-md rounded-full p-2 border border-white/40 transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                <Play className="w-4 h-4 text-white" />
                               </div>
                             </div>
                           </div>
-                          <CardContent className="p-3 bg-gradient-to-b from-transparent to-amber-50/20">
+                          <CardContent className="p-3 bg-white/5 backdrop-blur-sm">
                             <h4 className="text-sm font-bold text-blue-gray900 font-heading-6 mb-1 group-hover:text-amber-900 transition-colors duration-300">
                               {card.title}
                             </h4>

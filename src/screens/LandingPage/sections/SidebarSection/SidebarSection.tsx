@@ -11,7 +11,7 @@ export const SidebarSection = (): JSX.Element => {
       iconAlt: "Icon iconoir trophy",
       title: "Votre site web",
       description:
-        "Sit bibendum donec dolor fames neque vulputate non sit aliquam. Consequat turpis natoque leo, massa.",
+        "Une vitrine One Page pour présenter vos services, vous contacter et donner toutes les informations pratiques à vos clients.",
       decoration: {
         src: "/rectangle-25.svg",
         alt: "Rectangle",
@@ -24,7 +24,7 @@ export const SidebarSection = (): JSX.Element => {
       iconAlt: "Icon iconoir tunnel",
       title: "Vos Réseaux Sociaux",
       description:
-        "Sit bibendum donec dolor fames neque vulputate non sit aliquam. Consequat turpis natoque leo, massa.",
+        "Votre fiche Google My Business et vos pages Facebook et Instagram pour être visible partout où vos clients vous cherchent.",
       decoration: {
         src: "/rectangle-26.svg",
         alt: "Rectangle",
@@ -68,7 +68,7 @@ export const SidebarSection = (): JSX.Element => {
 
                   <div className="mt-16 flex flex-col items-start gap-1 relative w-full">
                     <div className="flex items-center gap-2 relative w-full">
-                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-[number:var(--subtitle-XL-font-weight)] text-blue-gray900 text-lg md:text-3xl lg:text-2xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
+                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-[number:var(--subtitle-XL-font-weight)] text-amber-900 text-lg md:text-3xl lg:text-3xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
                         {card.title}
                       </h3>
                     </div>

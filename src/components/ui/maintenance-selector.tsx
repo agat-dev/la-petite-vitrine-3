@@ -103,7 +103,7 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
                   {service.title}
                 </h4>
                 <div className={cn("text-xl font-bold", service.priceColor)}>
-                  {service.price}
+                  {service.price} par mois
                 </div>
               </div>
 

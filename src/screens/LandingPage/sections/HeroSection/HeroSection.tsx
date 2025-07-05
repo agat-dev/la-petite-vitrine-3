@@ -13,19 +13,19 @@ export const HeroSection = (): JSX.Element => {
   // Card data for mapping
   const cards = [
     {
-      image: "..//picture-14.png",
+      image: "..//sans-engagement.png",
       title: "Sans engagement",
       description:
         "Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.",
     },
     {
-      image: "..//picture-5.png",
+      image: "..//keys.png",
       title: "Clé en main",
       description:
         "Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.",
     },
     {
-      image: "..//picture-2.png",
+      image: "..//time.png",
       title: "Sous 5 jours",
       description:
         "Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.",
