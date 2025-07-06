@@ -37,4 +37,6 @@ export interface CartItem {
 export interface CheckoutSession {
   sessionId: string;
   url: string;
+  mode?: string;
+  amount?: string;
 }

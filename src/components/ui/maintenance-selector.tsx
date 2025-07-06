@@ -16,32 +16,32 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
   onSelect
 }) => {
   return (
-    <div className="space-y-4">
-      <div className="text-center">
-        <h3 className="text-xl font-heading-4 text-blue-gray900 mb-4">
-          Ajouter une maintenance ? (Optionnel)
+    <div className="mt-12 space-y-4">
+      <div className="text-left">
+        <h3 className="text-2xl font-heading-4 text-blue-gray100 mb-4">
+          Ajouter une option réseaux sociaux ? (Optionnel)
         </h3>
-        <p className="text-blue-gray600 font-body-m mb-6">
-          Sélectionnez un abonnement maintenance pour votre site
+        <p className="text-blue-gray200 font-body-m mb-6">
+          Sélectionnez un abonnement mensuel pour vos réseaux sociaux.
         </p>
       </div>
 
       {/* Option "Aucune maintenance" */}
       <div 
         className={cn(
-          "p-4 rounded-lg border-2 cursor-pointer transition-all duration-300",
+          "p-4 rounded-xl bg-amber-50 border-2 cursor-pointer transition-all duration-300",
           selectedMaintenance === null
             ? "border-amber-400 bg-amber-50 shadow-md"
-            : "border-gray-200 hover:border-amber-200 hover:bg-amber-25"
+            : "border-gray-200 hover:border-amber-200 hover:bg-amber-50"
         )}
         onClick={() => onSelect(null)}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-2xl">🚫</div>
+            <div className="text-2xl"></div>
             <div>
-              <h4 className="font-heading-6 text-blue-gray900">Aucune maintenance</h4>
-              <p className="text-sm text-blue-gray600">Gérer mon site moi-même</p>
+              <h4 className="font-heading-6 text-blue-gray900">Maintenance du site uniquement</h4>
+              <p className="text-sm text-blue-gray600">Gérer mes réseaux moi-même</p>
             </div>
           </div>
           {selectedMaintenance === null && (
@@ -50,33 +50,8 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
         </div>
       </div>
 
-      {/* Option "Aucune maintenance" */}
-      <Card
-        className={cn(
-          "cursor-pointer transition-all duration-300 hover:scale-102",
-          selectedMaintenance === null
-            ? "border-2 border-amber-400 bg-amber-50"
-            : "border border-gray-200 hover:border-amber-200"
-        )}
-        onClick={() => onSelect(null)}
-      >
-        <CardContent className="p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h4 className="font-medium text-blue-gray900">Aucune maintenance</h4>
-              <p className="text-sm text-blue-gray600">Juste le pack, sans abonnement</p>
-            </div>
-            {selectedMaintenance === null && (
-              <div className="w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
-                <CheckIcon className="w-4 h-4 text-blue-gray900" />
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Services de maintenance */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {maintenanceServices.map((service) => (
           <Card
             key={service.id}

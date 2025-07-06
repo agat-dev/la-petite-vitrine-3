@@ -1,6 +1,6 @@
 import React from 'react';
 import { XIcon, ShoppingCartIcon } from 'lucide-react';
-import { Card, CardContent, CardHeader } from './card';
+import { CardContent, CardHeader } from './card';
 import StyledButton from './styled-button';
 import type { Pack, MaintenanceService } from '../../types/stripe';
 
@@ -21,13 +21,12 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
   onCheckout,
   loading
 }) => {
-  // Calculer le total
+  // Calculer les prix
   const packPrice = parseInt(selectedPack.price.replace('€', ''));
-  const maintenancePrice = selectedMaintenance ? parseInt(selectedMaintenance.price.replace('€/mois', '')) : 0;
-  const total = packPrice + (maintenancePrice * 12); // Maintenance sur 12 mois pour l'exemple
-
+  const maintenancePrice = selectedMaintenance ? parseInt(selectedMaintenance.price.replace('€', '')) : 0;
+  
   return (
-    <div className="bg-white rounded-lg border-2 border-amber-300 shadow-shadow-dark-l p-6">
+    <div className="sticky top-12 bg-amber-50 rounded-[30px] shadow-shadow-dark-l p-6">
       <CardHeader className="pb-4">
         <div className="flex items-center gap-2">
           <ShoppingCartIcon className="w-5 h-5 text-amber-900" />
@@ -37,10 +36,11 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
 
       <CardContent className="space-y-4">
         {/* Pack sélectionné */}
-        <div className="flex items-start justify-between p-3 bg-amber-50 rounded-lg border border-amber-200">
+        <div className="flex items-start justify-between p-3 bg-amber-100 rounded-lg border border-amber-200">
           <div className="flex-1">
             <h4 className="font-medium text-blue-gray900 text-sm">{selectedPack.title}</h4>
             <p className="text-amber-900 font-bold">{selectedPack.price}</p>
+            <p className="text-xs text-blue-gray600">Paiement unique</p>
           </div>
           <button
             onClick={onRemovePack}
@@ -55,8 +55,8 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
           <div className="flex items-start justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
             <div className="flex-1">
               <h4 className="font-medium text-blue-gray900 text-sm">{selectedMaintenance.title}</h4>
-              <p className="text-blue-600 font-bold">{selectedMaintenance.price}</p>
-              <p className="text-xs text-blue-gray600">Engagement 12 mois</p>
+              <p className="text-blue-600 font-bold">{selectedMaintenance.price}/mois</p>
+              <p className="text-xs text-blue-gray600">Abonnement mensuel sans engagement</p>
             </div>
             <button
               onClick={onRemoveMaintenance}
@@ -67,22 +67,23 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
           </div>
         )}
 
-        {/* Total */}
+        {/* Résumé des coûts */}
         <div className="border-t border-amber-200 pt-4">
-          <div className="flex justify-between items-center mb-2">
-            <span className="font-medium text-blue-gray900">Pack:</span>
-            <span className="font-bold text-blue-gray900">{selectedPack.price}</span>
-          </div>
           {selectedMaintenance && (
-            <div className="flex justify-between items-center mb-2">
-              <span className="font-medium text-blue-gray900">Maintenance (12 mois):</span>
-              <span className="font-bold text-blue-gray900">{maintenancePrice * 12}€</span>
+            <div className="bg-blue-50 p-2 rounded text-xs text-blue-gray700 mb-4">
+              <strong>Note:</strong> La maintenance sera facturée mensuellement après le premier paiement du pack.
             </div>
           )}
-          <div className="flex justify-between items-center text-lg font-bold text-amber-900 border-t border-amber-200 pt-2">
-            <span>Total:</span>
-            <span>{total}€</span>
+          <div className="flex justify-between items-center text-lg font-bold text-amber-900">
+            <span>Aujourd'hui:</span>
+            <span>{packPrice}€</span>
           </div>
+          {selectedMaintenance && (
+            <div className="flex justify-between items-center text-sm text-blue-gray600 mt-1">
+              <span>Puis chaque mois:</span>
+              <span>{maintenancePrice}€</span>
+            </div>
+          )}
         </div>
 
         {/* Bouton de paiement */}

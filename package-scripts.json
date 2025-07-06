@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm install && npm run dev",
+    "client": "npm run dev",
+    "start": "npm run dev",
+    "build": "npm run build",
+    "stripe:listen": "stripe listen --forward-to localhost:3001/api/webhook"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
