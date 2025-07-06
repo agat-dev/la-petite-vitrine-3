@@ -1,6 +1,6 @@
 import { ArrowRightIcon, CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import React, { useState } from "react";
-import { Card, CardFooter, CardHeader } from "../../../../components/ui/card";
+import { useState } from "react";
+import { Card } from "../../../../components/ui/card";
 import { Button } from "../../../../components/ui/button";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
 import { StaggeredContainer } from "../../../../components/ui/staggered-container";
@@ -60,14 +60,16 @@ export const ContactSection = (): JSX.Element => {
   return (
     <section className="flex flex-col items-end relative">
       {/* FAQ section with light background */}
-      <div className="flex flex-col w-full items-center justify-center gap-12 md:gap-16 lg:gap-20 p-6 md:p-12 lg:p-20 relative bg-[#FEF3C7]">
-        {/* Section header */}
-        <AnimatedSection animation="slideUp">
-          <header className="flex flex-col items-center gap-4 md:gap-6 relative w-full text-center">
-            <div className="flex flex-col items-center gap-4">
-              <h2 className="text-blue-gray900 font-heading-2 text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
-                Foire aux <span className="font-serif italic text-amber-900">Questions</span> 
-              </h2>
+      <div className="flex flex-col w-full items-center justify-center gap-12 md:gap-16 lg:gap-20 p-6 md:p-12 lg:p-20 3xl:p-24 4xl:p-32 relative bg-[#FEF3C7]">
+        {/* Container pour centrer le contenu sur très grands écrans */}
+        <div className="w-full max-w-[1400px] mx-auto">
+          {/* Section header */}
+          <AnimatedSection animation="slideUp">
+            <header className="flex flex-col items-center gap-4 md:gap-6 relative w-full text-center">
+              <div className="flex flex-col items-center gap-4">
+                <h2 className="text-blue-gray900 font-heading-2 text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+                  Foire aux <span className="font-serif italic text-amber-900">Questions</span> 
+                </h2>
               <p className="text-blue-gray700 font-body-l text-sm md:text-base lg:text-[length:var(--body-l-font-size)] leading-[var(--body-l-line-height)] max-w-2xl px-4 md:px-0">
                 Retrouvez les réponses aux questions les plus fréquentes sur nos services de création de sites web et de maintenance.
               </p>
@@ -81,7 +83,7 @@ export const ContactSection = (): JSX.Element => {
           staggerDelay={100}
           animation="slideUp"
         >
-          {faqData.map((faq, index) => (
+          {faqData.map((faq) => (
             <Card
               key={faq.id}
               className="bg-white rounded-[10px] md:rounded-[15px] shadow-shadow-dark-l overflow-hidden border border-amber-200 hover:shadow-shadow-dark-XL transition-all duration-300"
@@ -128,19 +130,7 @@ export const ContactSection = (): JSX.Element => {
         </AnimatedSection>
       </div>
 
-      {/* Courbe de délimitation simple */}
-      <div className="relative w-full">
-        <svg
-          className="relative block w-full h-16 md:h-20 lg:h-24"
-          viewBox="0 0 1200 100"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0 Q600,100 1200,0 L1200,100 L0,100 Z"
-            fill="#0f172a"
-          />
-        </svg>
-      </div>
+
 
       {/* Decorative shapes */}
       <div className="absolute w-64 h-[285px] top-[782px] left-[1255px] hidden xl:block">
@@ -154,26 +144,8 @@ export const ContactSection = (): JSX.Element => {
       {/* Call to action section */}
       <div className="relative w-full bg-blue-gray900 overflow-hidden">
         {/* Gradient overlay sophistiqué */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-gray900 via-blue-gray800 to-amber-900 opacity-90" />
         
-        {/* Formes géométriques animées */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-80 h-80 bg-amber-400 rounded-full opacity-10 animate-pulse" />
-          <div className="absolute top-1/2 -left-32 w-64 h-64 bg-fuchsia-700 rounded-full opacity-15 animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute bottom-0 right-1/3 w-48 h-48 bg-green-700 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '2s' }} />
-          
-          {/* Lignes géométriques */}
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 400" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.1" />
-              </linearGradient>
-            </defs>
-            <path d="M0,200 Q300,50 600,150 T1200,100" stroke="url(#lineGradient)" strokeWidth="2" fill="none" opacity="0.6" />
-            <path d="M0,300 Q400,150 800,250 T1200,200" stroke="url(#lineGradient)" strokeWidth="1.5" fill="none" opacity="0.4" />
-          </svg>
-        </div>
+
 
         {/* Contenu principal */}
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12 lg:gap-16 p-6 md:p-12 lg:p-20">
@@ -261,6 +233,7 @@ export const ContactSection = (): JSX.Element => {
               <span className="text-blue-gray200 text-sm">Garantie satisfaction 30 jours</span>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

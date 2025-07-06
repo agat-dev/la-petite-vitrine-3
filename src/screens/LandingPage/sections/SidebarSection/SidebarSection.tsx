@@ -34,7 +34,7 @@ export const SidebarSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="mt-8 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
+    <section className="max-w-[1400px] mx-auto mt-8 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
       <StaggeredContainer 
         className="flex flex-col md:flex-row w-full max-w-[1280px] items-start gap-8 md:gap-12 lg:gap-20 relative z-40"
         staggerDelay={150}

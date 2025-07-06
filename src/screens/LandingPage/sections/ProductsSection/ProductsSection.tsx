@@ -185,20 +185,22 @@ export const ProductsSection = (): JSX.Element => {
   };
 
   return (
-    <section className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-36 lg:px-20 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
-      {/* Background vector conservé */}
-      <img
-        className="hidden lg:block absolute w-full h-[327px] top-[436px] left-0 opacity-20"
-        alt="Vector"
-        src="/vector-13.svg"
-      />
+    <section className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-36 lg:px-20 3xl:px-24 3xl:py-40 4xl:px-32 4xl:py-48 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
+      {/* Container pour centrer le contenu sur très grands écrans */}
+      <div className="w-full max-w-[1400px] mx-auto">
+        {/* Background vector conservé */}
+        <img
+          className="hidden lg:block absolute w-full h-[327px] top-[436px] left-0 opacity-20"
+          alt="Vector"
+          src="/vector-13.svg"
+        />
 
-      {/* Formes décoratives */}
-      <div className="hidden lg:block absolute w-full h-full top-0 left-0 overflow-hidden">
-        {decorativeShapes.map((shape, index) => (
-          <div key={`shape-${index}`} className={shape.className} />
-        ))}
-      </div>
+        {/* Formes décoratives */}
+        <div className="hidden lg:block absolute w-full h-full top-0 left-0 overflow-hidden">
+          {decorativeShapes.map((shape, index) => (
+            <div key={`shape-${index}`} className={shape.className} />
+          ))}
+        </div>
 
       {/* En-tête de section */}
       <div className="flex items-center gap-6 w-full relative z-10">
@@ -347,6 +349,7 @@ export const ProductsSection = (): JSX.Element => {
             </div>
           )}
         </div>
+      </div>
       </div>
     </section>
   );

@@ -57,17 +57,19 @@ export const HeroSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="-mt-[14%] flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200 overflow-hidden z-10">
-      <div className=" pt-[16%] flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 relative w-full">
-        <AnimatedSection
-          animation="slideRight"
-          className="flex-1 flex flex-col items-start gap-8"
-        >
-          <div className="flex flex-col items-start gap-2 w-full">
-            <h2 className="w-full mt-[-1.00px] font-heading-2 font-medium text-white text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
-              Simple et sans risque
-            </h2>
-          </div>
+    <section className="-mt-[14%] flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 3xl:p-24 4xl:p-32 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200 overflow-hidden z-10">
+      {/* Container pour centrer le contenu sur très grands écrans */}
+      <div className="w-full max-w-[1400px] mx-auto">
+        <div className="pt-[16%] flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 3xl:gap-24 4xl:gap-32 relative w-full">
+          <AnimatedSection
+            animation="slideRight"
+            className="flex-1 flex flex-col items-start gap-8"
+          >
+            <div className="flex flex-col items-start gap-2 w-full">
+              <h2 className="w-full mt-[-1.00px] font-heading-2 font-medium text-white text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+                Simple et sans risque
+              </h2>
+            </div>
         </AnimatedSection>
 
         <AnimatedSection animation="slideLeft" delay={200}>
@@ -121,6 +123,7 @@ export const HeroSection = (): JSX.Element => {
             </Card>
           ))}
         </StaggeredContainer>
+        </div>
       </div>
     </section>
   );
