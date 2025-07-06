@@ -1,5 +1,5 @@
-import { CheckIcon, PlayIcon } from "lucide-react";
-import React, { useState } from "react";
+import { CheckIcon } from "lucide-react";
+import { useState } from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
 import StyledWrapper from "../../../../components/ui/button-ui";
@@ -16,18 +16,20 @@ export const MainContentSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="flex flex-col items-start px-4 md:px-8 lg:px-20 py-20 md:py-32 lg:py-40 relative self-stretch w-full">
-      <AnimatedSection animation="scaleIn" className="w-full">
-        <Card className="flex flex-col lg:flex-row min-h-[400px] lg:h-[496px] items-center gap-8 lg:gap-20 p-6 md:p-12 lg:p-20 relative self-stretch w-full rounded-[20px] lg:rounded-[30px] transition-all duration-500">
-          <div className="flex flex-col items-start gap-6 relative w-full lg:w-auto">
-            <AnimatedSection animation="slideRight" delay={200}>
-              <div className="w-full lg:w-[520px] gap-6 flex flex-col items-start relative">
-                <div className="flex-col items-start gap-2 flex relative self-stretch w-full">
-                  <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 font-medium text-5xl md:text-6xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
-                    Voir <span className="pt-4 font-serif italic text-amber-800">les démos</span>
-                  </h2>
+    <section className="max-w-[1400px] mx-auto flex flex-col items-start py-20 md:py-32 lg:py-40 3xl:py-48 4xl:py-56 relative self-stretch w-full">
+      {/* Container pour centrer le contenu sur très grands écrans */}
+      <div className="w-full max-w-[2400px] mx-auto">
+        <AnimatedSection animation="scaleIn" className="w-full">
+          <Card className="flex flex-col lg:flex-row min-h-[400px] lg:h-[496px] 3xl:h-[600px] 4xl:h-[700px] items-center gap-8 lg:gap-20 3xl:gap-24 4xl:gap-32 p-6 md:p-12 lg:p-20 3xl:p-24 4xl:p-32 relative self-stretch w-full rounded-[20px] lg:rounded-[30px] transition-all duration-500">
+            <div className="flex flex-col items-start gap-6 relative w-full lg:w-auto">
+              <AnimatedSection animation="slideRight" delay={200}>
+                <div className="w-full lg:w-[520px] 3xl:w-[640px] 4xl:w-[800px] gap-6 flex flex-col items-start relative">
+                  <div className="flex-col items-start gap-2 flex relative self-stretch w-full">
+                    <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 font-medium text-5xl md:text-6xl 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+                      Voir <span className="pt-4 font-serif italic text-amber-800">les démos</span>
+                    </h2>
+                  </div>
                 </div>
-              </div>
             </AnimatedSection>
 
             <AnimatedSection animation="slideUp" delay={400}>
@@ -98,6 +100,7 @@ export const MainContentSection = (): JSX.Element => {
 
       {/* Demo Popup */}
       <DemoPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
+      </div>
     </section>
   );
 };
