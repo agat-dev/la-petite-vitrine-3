@@ -13,15 +13,14 @@ app.use(express.json());
 const STRIPE_PRICES = {
   // Packs principaux (paiement unique)
   packs: {
-    'pack-base': 'price_1234567890abcdef', // 390€
-    'pack-presence': 'price_1234567890abcdef', // 489€
-    'pack-metier': 'price_1234567890abcdef' // 899€
+    'pack-base': 'price_pack_essentiel_290', // 290€ - Pack Essentiel
+    'pack-presence': 'price_pack_pro_490', // 490€ - Pack Pro
+    'pack-metier': 'price_pack_pro_plus_690' // 690€ - Pack Pro Plus
   },
   // Abonnements maintenance (récurrents)
   maintenance: {
-    'maintenance-essentielle': 'price_1234567890abcdef', // 19€/mois
-    'maintenance-plus': 'price_1234567890abcdef', // 39€/mois
-    'maintenance-pro': 'price_1234567890abcdef' // 79€/mois
+    'visibilite': 'price_maintenance_visibility_29', // 29€/mois - Option Visibilité
+    'maintenance-pro': 'price_maintenance_pro_39' // 39€/mois - Pack Pro Plus maintenance
   }
 };
 
@@ -36,7 +35,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
     const lineItems = [];
 
-    // Ajouter le pack sélectionné
+    // Ajouter le pack sélectionné (paiement unique)
     const packPriceId = STRIPE_PRICES.packs[selectedPack.id];
     if (!packPriceId) {
       return res.status(400).json({ error: 'Pack invalide' });
@@ -60,20 +59,43 @@ app.post('/api/create-checkout-session', async (req, res) => {
       });
     }
 
+    // Déterminer le mode de paiement
+    // Si maintenance sélectionnée, utiliser 'subscription' pour gérer l'abonnement
+    // Sinon, utiliser 'payment' pour le paiement unique du pack
+    const paymentMode = selectedMaintenance ? 'subscription' : 'payment';
+
     // Créer la session Stripe Checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
-      mode: selectedMaintenance ? 'subscription' : 'payment',
+      mode: paymentMode,
       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/cancel`,
       metadata: {
         pack_id: selectedPack.id,
+        pack_title: selectedPack.title,
+        pack_price: selectedPack.price,
         maintenance_id: selectedMaintenance?.id || '',
+        maintenance_title: selectedMaintenance?.title || '',
+        maintenance_price: selectedMaintenance?.price || '',
       },
+      // Configuration pour les abonnements
+      ...(selectedMaintenance && {
+        subscription_data: {
+          metadata: {
+            pack_id: selectedPack.id,
+            pack_title: selectedPack.title,
+          },
+        },
+      }),
     });
 
-    res.json({ sessionId: session.id, url: session.url });
+    res.json({ 
+      sessionId: session.id, 
+      url: session.url,
+      mode: paymentMode,
+      amount: selectedPack.price + (selectedMaintenance ? ` + ${selectedMaintenance.price}/mois` : '')
+    });
   } catch (error) {
     console.error('Erreur lors de la création de la session:', error);
     res.status(500).json({ error: 'Erreur serveur' });
@@ -89,6 +111,48 @@ app.get('/api/checkout-session/:sessionId', async (req, res) => {
     console.error('Erreur lors de la récupération de la session:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
+});
+
+// Webhook pour gérer les événements Stripe
+app.post('/api/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    console.log(`Webhook signature verification failed.`, err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  // Gérer les différents événements
+  switch (event.type) {
+    case 'checkout.session.completed':
+      const session = event.data.object;
+      console.log('Paiement réussi:', session.id);
+      // Ici, vous pouvez ajouter la logique pour traiter le paiement
+      // Par exemple, créer le site web, envoyer un email de confirmation, etc.
+      break;
+    case 'invoice.payment_succeeded':
+      const invoice = event.data.object;
+      console.log('Paiement d\'abonnement réussi:', invoice.id);
+      // Gérer le paiement récurrent de maintenance
+      break;
+    case 'invoice.payment_failed':
+      const failedInvoice = event.data.object;
+      console.log('Paiement d\'abonnement échoué:', failedInvoice.id);
+      // Gérer l'échec de paiement
+      break;
+    case 'customer.subscription.deleted':
+      const subscription = event.data.object;
+      console.log('Abonnement annulé:', subscription.id);
+      // Gérer l'annulation d'abonnement
+      break;
+    default:
+      console.log(`Événement non géré: ${event.type}`);
+  }
+
+  res.json({received: true});
 });
 
 app.listen(PORT, () => {

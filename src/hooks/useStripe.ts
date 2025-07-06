@@ -33,9 +33,19 @@ export const useStripe = () => {
       }
 
       const session: CheckoutSession = await response.json();
+      
+      // Log pour debug (à supprimer en production)
+      console.log('Session créée:', {
+        pack: selectedPack.title,
+        maintenance: selectedMaintenance?.title || 'Aucune',
+        mode: session.mode,
+        amount: session.amount
+      });
+      
       return session;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Une erreur est survenue');
+      console.error('Erreur lors de la création de la session:', err);
       return null;
     } finally {
       setLoading(false);

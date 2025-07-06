@@ -24,7 +24,7 @@ export const MainContentSection = (): JSX.Element => {
               <div className="w-full lg:w-[520px] gap-6 flex flex-col items-start relative">
                 <div className="flex-col items-start gap-2 flex relative self-stretch w-full">
                   <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 font-medium text-5xl md:text-6xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
-                    Un résultat<div className="pt-4 font-serif italic text-amber-800">professionnel </div>
+                    Voir <span className="pt-4 font-serif italic text-amber-800">les démos</span>
                   </h2>
                 </div>
               </div>
@@ -57,7 +57,7 @@ export const MainContentSection = (): JSX.Element => {
           </div>
 
           {/* Decorative shapes - hidden on mobile */}
-          <div className="hidden lg:block absolute w-[500px] h-[500px] top-[-60px] right-[100px] overflow-hidden">
+          <div className="hidden lg:block absolute w-[500px] h-[600px] top-[-60px] right-[100px] overflow-hidden">
             <div className="relative h-[500px] w-full">
               <div className="absolute w-[500px] h-[500px] top-0 left-0">
                 <div className="absolute w-[400px] h-[150px] top-[150px] left-[20px] bg-amber-200 -rotate-45" />
@@ -70,8 +70,8 @@ export const MainContentSection = (): JSX.Element => {
           </div>
 
           <AnimatedSection animation="slideLeft" delay={600}>
-            <Card className="flex flex-col h-[250px] md:h-[300px] lg:h-[350px] items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[5px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500">
-              <div className="bg-amber-100 h-[41px] items-center gap-7 px-4 py-2 flex relative self-stretch w-full">
+            <Card className="flex flex-col h-[300px] md:h-[350px] lg:h-[450px] items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[5px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500">
+              <div className="bg-amber-100 h-[30px] items-center gap-7 px-4 py-2 flex relative self-stretch w-full">
                 <div className="flex items-start gap-[5px] relative flex-1 grow">
                   {[1, 2, 3].map((_, index) => (
                     <img
@@ -84,8 +84,8 @@ export const MainContentSection = (): JSX.Element => {
                 </div>
               </div>
 
-              <CardContent className="flex items-center justify-center gap-2.5 relative flex-1 self-stretch w-full grow [background:url(../artisan-mobile.jpg)_50%_50%_/_cover]">
-                <div className="w-32 inline-flex justify-center pl-7 pr-5 py-6 rounded-[100px] items-center relative hover:bg-overlaydark-75/80 transition-colors duration-300 group">
+              <CardContent className="flex items-center justify-center gap-2.5 relative flex-1 self-stretch w-full grow [background:url(../artisan-mobile.jpg)_50%_50%] bg-no-repeat bg-center bg-cover">
+                <div className="w-40 inline-flex justify-center pl-7 pr-5 py-6 rounded-[100px] items-center relative hover:bg-overlaydark-75/80 transition-colors duration-300 group">
                 </div>
               </CardContent>
             </Card>

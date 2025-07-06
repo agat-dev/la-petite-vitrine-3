@@ -65,9 +65,8 @@ export const ContactSection = (): JSX.Element => {
         <AnimatedSection animation="slideUp">
           <header className="flex flex-col items-center gap-4 md:gap-6 relative w-full text-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="text-4xl md:text-5xl lg:text-6xl mb-2 md:mb-4">❓</div>
-              <h2 className="text-blue-gray900 font-heading-2 font-[number:var(--heading-2-font-weight)] text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
-                Foire aux Questions
+              <h2 className="text-blue-gray900 font-heading-2 text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+                Foire aux <span className="font-serif italic text-amber-900">Questions</span> 
               </h2>
               <p className="text-blue-gray700 font-body-l text-sm md:text-base lg:text-[length:var(--body-l-font-size)] leading-[var(--body-l-line-height)] max-w-2xl px-4 md:px-0">
                 Retrouvez les réponses aux questions les plus fréquentes sur nos services de création de sites web et de maintenance.
