@@ -8,8 +8,13 @@ import { AnimatedSection } from "../../../../components/ui/animated-section";
 import { StaggeredContainer } from "../../../../components/ui/staggered-container";
 import StyledButton from "../../../../components/ui/styled-button";
 import StyledWrapper from "../../../../components/ui/button-ui";
+import { useState } from "react";
+import { DemoPopup } from "../../../../components/ui/demo-popup";
 
 export const HeroSection = (): JSX.Element => {
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   // Card data for mapping
   const cards = [
     {
@@ -57,23 +62,25 @@ export const HeroSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="-mt-[14%] flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 3xl:p-24 4xl:p-32 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200 overflow-hidden z-10">
+    <section className="-mt-[12%] flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 3xl:p-24 4xl:p-32 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200 overflow-hidden z-10">
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1400px] mx-auto">
-        <div className="pt-[16%] flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 3xl:gap-24 4xl:gap-32 relative w-full">
+        <div className="pt-[18%] flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 3xl:gap-24 4xl:gap-32 relative w-full">
           <AnimatedSection
             animation="slideRight"
-            className="flex-1 flex flex-col items-start gap-8"
+            className="flex-1 flex flex-col items-start gap-8 mb-8"
           >
             <div className="flex flex-col items-start gap-2 w-full">
-              <h2 className="w-full mt-[-1.00px] font-heading-2 font-medium text-white text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+              <h2 className="w-full mt-[-1.00px] mb-8 font-heading-2 font-medium text-white text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
                 Simple et sans risque
               </h2>
             </div>
         </AnimatedSection>
 
         <AnimatedSection animation="slideLeft" delay={200}>
+          <div onClick={() => setIsPopupOpen(true)} className="cursor-pointer">
           <StyledWrapper>Voir une démo</StyledWrapper>
+          </div>
         </AnimatedSection>
       </div>
 
@@ -85,7 +92,7 @@ export const HeroSection = (): JSX.Element => {
         </div>
 
         <StaggeredContainer
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12 relative w-full"
+          className="mb-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12 relative w-full"
           staggerDelay={200}
           animation="slideUp"
         >
@@ -112,19 +119,24 @@ export const HeroSection = (): JSX.Element => {
               </CardContent>
 
               <CardFooter className="p-4 md:p-6 lg:p-8">
-                <div className="w-full">
-                  <StyledButton
-                    className="w-full flex items-center justify-center"
-                  >
-                    <span className="ml-2">Voir les offres</span>
-                  </StyledButton>
-                </div>
+
               </CardFooter>
             </Card>
           ))}
         </StaggeredContainer>
         </div>
+        <div className="w-64 mx-auto">
+                  <StyledButton
+                className="w-full flex items-center justify-center"
+              >
+                <a href="#products" className="flex items-center">
+                <span className="ml-2">Voir les offres</span>
+                </a>
+              </StyledButton>
+            </div>
       </div>
+            {/* Demo Popup */}
+      <DemoPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </section>
   );
 };

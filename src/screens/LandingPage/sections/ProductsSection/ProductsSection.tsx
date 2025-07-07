@@ -185,7 +185,7 @@ export const ProductsSection = (): JSX.Element => {
   };
 
   return (
-    <section className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-36 lg:px-20 3xl:px-24 3xl:py-40 4xl:px-32 4xl:py-48 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
+    <section id="products" className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-36 lg:px-20 3xl:px-24 3xl:py-40 4xl:px-32 4xl:py-48 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1400px] mx-auto">
         {/* Background vector conservé */}
@@ -203,7 +203,7 @@ export const ProductsSection = (): JSX.Element => {
         </div>
 
       {/* En-tête de section */}
-      <div className="flex items-center gap-6 w-full relative z-10">
+      <div className="pb-16 flex items-center gap-6 w-full relative z-10">
         <AnimatedSection
           animation="slideRight"
           className="flex-1 flex flex-col items-start gap-6"
@@ -248,11 +248,6 @@ export const ProductsSection = (): JSX.Element => {
                 )}
                 onClick={() => handlePackSelect(pack)}
               >
-                {pack.isRecommended && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-amber-400 text-blue-gray900 px-6 py-2 rounded-full text-sm font-bold z-50">
-                    RECOMMANDÉ
-                  </div>
-                )}
 
                 {selectedPack?.id === pack.id && (
                   <div className="absolute top-3 right-3 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">

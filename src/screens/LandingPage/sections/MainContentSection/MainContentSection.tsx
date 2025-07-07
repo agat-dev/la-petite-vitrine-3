@@ -1,12 +1,12 @@
 import { CheckIcon } from "lucide-react";
 import { useState } from "react";
-import { Card, CardContent } from "../../../../components/ui/card";
+import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
+import { AnimatePresence, motion } from "framer-motion";
+import { X, Play } from "lucide-react";
 import StyledWrapper from "../../../../components/ui/button-ui";
-import { DemoPopup } from "../../../../components/ui/demo-popup";
 
 export const MainContentSection = (): JSX.Element => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // Benefits list data
   const benefits = [
@@ -15,10 +15,28 @@ export const MainContentSection = (): JSX.Element => {
     "Ullamcorper ornare in et egestas dolor orci.",
   ];
 
+  const demoCards = [
+    {
+      image: "/artisan-renov.jpg",
+      title: "Site d'artisan rénovateur",
+      description: "OnePage vitrine pour artisans avec réalisations et témoignages",
+      category: "Vitrine",
+      url: "https://artisan-renov.lapetitevitrine.com",
+    },
+    {
+      image: "/artisan-coiffeur.jpg",
+      title: "Site d'artisan coiffeur",
+      description:
+        "OnePage vitrine pour coiffeurs avec formulaire de contact",
+      category: "Vitrine",
+      url: "https://artisan-coiffeur.lapetitevitrine.com",
+    },
+  ];
+
   return (
-    <section className="max-w-[1400px] mx-auto flex flex-col items-start py-20 md:py-32 lg:py-40 3xl:py-48 4xl:py-56 relative self-stretch w-full">
+    <section className="flex flex-col items-start py-20 md:py-32 lg:py-40 3xl:py-48 4xl:py-56 relative self-stretch w-full">
       {/* Container pour centrer le contenu sur très grands écrans */}
-      <div className="w-full max-w-[2400px] mx-auto">
+      <div className="w-full max-w-[1600px] mx-auto">
         <AnimatedSection animation="scaleIn" className="w-full">
           <Card className="flex flex-col lg:flex-row min-h-[400px] lg:h-[496px] 3xl:h-[600px] 4xl:h-[700px] items-center gap-8 lg:gap-20 3xl:gap-24 4xl:gap-32 p-6 md:p-12 lg:p-20 3xl:p-24 4xl:p-32 relative self-stretch w-full rounded-[20px] lg:rounded-[30px] transition-all duration-500">
             <div className="flex flex-col items-start gap-6 relative w-full lg:w-auto">
@@ -50,11 +68,11 @@ export const MainContentSection = (): JSX.Element => {
             </AnimatedSection>
 
             <AnimatedSection animation="slideUp" delay={800}>
-              <div onClick={() => setIsPopupOpen(true)} className="cursor-pointer">
+              <a href="#products" className="cursor-pointer">
                 <StyledWrapper>
-                  Voir une démo
+                  Voir les tarifs
                 </StyledWrapper>
-              </div>
+              </a>
             </AnimatedSection>
           </div>
 
@@ -72,24 +90,74 @@ export const MainContentSection = (): JSX.Element => {
           </div>
 
           <AnimatedSection animation="slideLeft" delay={600}>
-            <Card className="flex flex-col h-[300px] md:h-[350px] lg:h-[450px] items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[5px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500">
-              <div className="bg-amber-100 h-[30px] items-center gap-7 px-4 py-2 flex relative self-stretch w-full">
-                <div className="flex items-start gap-[5px] relative flex-1 grow">
-                  {[1, 2, 3].map((_, index) => (
-                    <img
-                      key={index}
-                      className="relative w-2.5 h-2.5"
-                      alt="Browser window control"
-                      src="/icon---jam-icons---filled---circle-f.svg"
-                    />
-                  ))}
-                </div>
-              </div>
+            <Card className="w-full flex items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[3px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500">
+                  <AnimatePresence>
+                        <Card className="bg-amber-600 backdrop-blur-md">
+                              <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50/80 to-blue-gray100/30 backdrop-blur-md rounded-t-[20px]">
+                                <div className="flex items-center gap-3 mb-3">
+                                  <div className="w-12 h-12 bg-gradient-to-br from-amber-900 to-amber-800 rounded-full flex items-center justify-center shadow-lg">
+                                    <Play className="w-6 h-6 text-white ml-0.5" />
+                                  </div>
+                                  <div>
+                                    <h2 className="text-xl font-bold text-blue-gray100 font-heading-2">
+                                      Découvrez nos sites d'artisans
+                                    </h2>
+                                    <p className="text-blue-gray200 font-body-m text-sm">
+                                      Votre site web professionnel en 5 jours
+                                    </p>
+                                  </div>
+                                </div>
+                              </CardHeader>
 
-              <CardContent className="flex items-center justify-center gap-2.5 relative flex-1 self-stretch w-full grow [background:url(../artisan-mobile.jpg)_50%_50%] bg-no-repeat bg-center bg-cover">
-                <div className="w-40 inline-flex justify-center pl-7 pr-5 py-6 rounded-[100px] items-center relative hover:bg-overlaydark-75/80 transition-colors duration-300 group">
-                </div>
-              </CardContent>
+                              <CardContent className="pt-8">
+                                <div className="space-y-4">
+
+                                  {/* Demo Cards - 2 colonnes */}
+                                  <div className="grid grid-cols-2 gap-4">
+                                    {demoCards.map((card, index) => (
+                                      <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1 }}
+                                        className="group cursor-pointer"
+                                        onClick={() => window.open(card.url, "_blank")}
+                                      >
+                                       <Card className="overflow-hidden backdrop-blur-md bg-white/10 hover:bg-white/20 hover:backdrop-blur-lg transition-all duration-500 rounded-[12px] hover:scale-105 hover:border-white/40">
+                                          <div className="relative">
+                                            <img
+                                              src={card.image}
+                                              alt={card.title}
+                                              className="w-full h-32 object-cover scale-120 group-hover:scale-140 transition-transform duration-500"
+                                            />
+                                            <div className="absolute top-2 left-2">
+                                              <span className="bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+                                                {card.category}
+                                              </span>
+                                            </div>
+                                            {/* Overlay qui apparaît au hover */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                              <div className="bg-white/30 backdrop-blur-md rounded-full p-2 border border-white/40 transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                                <Play className="w-4 h-4 text-white" />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <CardContent className="p-3 bg-white backdrop-blur-sm">
+                                            <h4 className="text-sm font-bold text-blue-gray900 font-heading-6 mb-1 group-hover:text-amber-900 transition-colors duration-300">
+                                              {card.title}
+                                            </h4>
+                                            <p className="text-blue-gray600 font-body-m text-xs leading-relaxed group-hover:text-blue-gray700 transition-colors duration-300">
+                                              {card.description}
+                                            </p>
+                                          </CardContent>
+                                        </Card>
+                                      </motion.div>
+                                    ))}
+                                  </div>
+                                </div>
+                              </CardContent>
+                            </Card>
+                       </AnimatePresence>
             </Card>
           </AnimatedSection>
 
@@ -98,8 +166,6 @@ export const MainContentSection = (): JSX.Element => {
         </Card>
       </AnimatedSection>
 
-      {/* Demo Popup */}
-      <DemoPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
       </div>
     </section>
   );

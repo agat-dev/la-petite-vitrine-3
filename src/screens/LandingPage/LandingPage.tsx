@@ -1,6 +1,5 @@
 import { AboutSection } from "./sections/AboutSection";
 import { CallToActionSection } from "./sections/CallToActionSection";
-import { ContactSection } from "./sections/ContactSection/ContactSection";
 import { FooterSection } from "./sections/FooterSection";
 import { HeaderSection } from "./sections/HeaderSection";
 import { HeroSection } from "./sections/HeroSection";

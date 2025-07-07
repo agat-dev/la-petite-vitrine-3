@@ -68,7 +68,7 @@ export const SidebarSection = (): JSX.Element => {
 
                   <div className="mt-16 flex flex-col items-start gap-1 relative w-full">
                     <div className="flex items-center gap-2 relative w-full">
-                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-[number:var(--subtitle-XL-font-weight)] text-amber-900 text-lg md:text-3xl lg:text-3xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
+                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-bold text-amber-900 text-lg md:text-3xl lg:text-4xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
                         {card.title}
                       </h3>
                     </div>
