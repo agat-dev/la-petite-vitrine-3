@@ -1,6 +1,5 @@
 
 import { AnimatedSection } from "../../../../components/ui/animated-section";
-import GoogleMapComponent from "../../../../components/ui/google-map";
 
 const tabs = [
   {
@@ -28,14 +27,6 @@ const tabs = [
       './artisan-elec.png',
   },  
   {
-    title: 'Paysagistes et jardiniers',
-    id: 'paysagiste',
-    description:
-      'Présentez vos créations paysagères avec des galeries photos immersives. Devis personnalisés pour vos projets d\'aménagement.',
-    imageUrl:
-      './artisan-paysagiste.jpg',
-  },
-  {
     title: 'Ébénistes et artisans manuels',
     id: 'ebeniste',
     description:
@@ -52,28 +43,12 @@ const tabs = [
       './artisan-coiffeur.jpg',
   },
   {
-    title: 'Musées et tourisme',
-    id: 'musee',
-    description:
-      'Sites web pour musées et attractions touristiques. Présentation de vos expositions et événements avec billetterie en ligne.',
-    imageUrl:
-      './tourisme.jpg',
-  },
-  {
     title: 'Hôtellerie et restauration',
     id: 'hotels',
     description:
       'Solutions digitales adaptées à tous les artisans. Présentation de vos services et prise de contact simplifiée.',
     imageUrl:
       './tourisme-valeur.jpg',
-  },
-  {
-    title: 'Gîtes et chambres d’hôtes',
-    id: 'gites',
-    description:
-      'Sites web pour gîtes et chambres d’hôtes. Présentation de vos hébergements avec réservation en ligne.',
-    imageUrl:
-      './tourisme-ferme.jpg',
   },
   {
     title: 'Lieux culturels et sportifs',
@@ -83,13 +58,21 @@ const tabs = [
     imageUrl:
       './tourisme-infos-pratiques.jpg',
   },
+  {
+    title: 'Paysagistes et jardiniers',
+    id: 'paysagiste',
+    description:
+      'Présentez vos créations paysagères avec des galeries photos immersives. Devis personnalisés pour vos projets d\'aménagement.',
+    imageUrl:
+      './artisan-paysagiste.jpg',
+  },
 ];
 
 export const CallToActionSection = (): JSX.Element => {
 
 
   return (
-    <section className="max-w-[1400px] mx-auto flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 pt-6 pb-20 md:pb-24 lg:pb-32 px-4 md:px-8 lg:px-20 relative self-stretch w-full overflow-hidden">
+    <section className="max-w-[1600px] mx-auto flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 pb-20 md:pb-24 lg:pb-32 px-4 md:px-8 lg:px-20 relative self-stretch w-full overflow-hidden">
       <img
         className="absolute w-full h-[400px] md:h-[500px] lg:h-[684px] top-[200px] md:top-[250px] lg:top-[312px] left-0 object-cover"
         alt="Waves"
@@ -100,7 +83,7 @@ export const CallToActionSection = (): JSX.Element => {
         <div className="flex flex-col items-start gap-8 relative self-stretch w-full">
           <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
             <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
-              Pour tous{" "}
+              Pour {" "}
               <span className="font-serif italic text-amber-900">
                 les artisans
               </span>
@@ -123,7 +106,7 @@ export const CallToActionSection = (): JSX.Element => {
       </AnimatedSection>
 
       <AnimatedSection animation="slideUp" delay={200}>
-        <div className='group flex max-md:flex-col justify-center gap-2 w-full mx-auto'>
+        <div className='mb-20 group flex max-md:flex-col justify-center gap-2 w-full mx-auto'>
           {tabs.map((tab) => {
             return (
               <article key={tab.id} className='group/article relative w-full rounded-xl overflow-hidden md:group-hover:[&:not(:hover)]:w-[20%] md:group-focus-within:[&:not(:focus-within):not(:hover)]:w-[20%] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.15)] before:absolute before:inset-x-0 before:bottom-0 before:h-1/3 before:bg-gradient-to-t before:from-black/50 before:transition-opacity md:before:opacity-0 md:hover:before:opacity-100 focus-within:before:opacity-100 after:opacity-0 md:group-hover:[&:not(:hover)]:after:opacity-100 md:group-focus-within:[&:not(:focus-within):not(:hover)]:after:opacity-100 after:absolute after:inset-0 after:bg-white/30 after:backdrop-blur after:rounded-lg after:transition-all focus-within:ring focus-within:ring-amber-300'>
@@ -136,7 +119,7 @@ export const CallToActionSection = (): JSX.Element => {
                   </p>
                 </div>
                 <img
-                  className='object-cover object-top h-72 md:h-[320px] w-full'
+                  className='object-cover object-top h-96 w-164'
                   src={tab.imageUrl}
                   alt={tab.title}
                 />
