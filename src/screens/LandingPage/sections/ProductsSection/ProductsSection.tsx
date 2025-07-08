@@ -28,10 +28,8 @@ export const ProductsSection = (): JSX.Element => {
       maintenance: "puis 29€ par mois sans engagement",
       features: [
         "Site web One Page professionnel responsive",
-        "Sections : Présentation, Services, Informations pratiques, Contact",
-        "Formulaire de contact",
-        "Intégration Google Maps",
         "Google Business",
+        "5 Sections : Présentation, Services, Informations pratiques, Map, Contact",
         "Mise à jour des contenus",
         "Nom de domaine + hébergement 1 an",
         "Livraison en 5 jours",
@@ -51,10 +49,9 @@ export const ProductsSection = (): JSX.Element => {
       price: "490€",
       maintenance: "puis 29€ par mois sans engagement",
       features: [
-        "Tout du pack de base",
-        "3 pages additionnelles : Services, Réalisations, A propos, Infos pratiques",
-        "Formulaire de contact",
+        "Tout le pack de base",
         "Facebook + Instagram Business",
+        "3 pages additionnelles : Services, Réalisations, A propos, Infos pratiques",
         "Livraison en 7 jours",
         "Sans engagement",
       ],
@@ -72,10 +69,9 @@ export const ProductsSection = (): JSX.Element => {
       price: "690€",
       maintenance: "puis 39€ par mois sans engagement",
       features: [
-        "Pack Web Marketing inclus",
-        "2 modules parmi : Réservation en ligne, Devis/Simulation en ligne, Messagerie Whatsapp",
-        "Avis google sur le site web",
+        "Tout le pack pro",
         "Facebook + Instagram Business",
+        "2 modules parmi : Réservation en ligne, Devis/Simulation en ligne, Messagerie Whatsapp, Avis clients",
         "Réseaux sociaux professionnels",
         "Livraison en 9 jours",
         "Sans engagement",
@@ -185,7 +181,7 @@ export const ProductsSection = (): JSX.Element => {
   };
 
   return (
-    <section id="products" className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-36 lg:px-20 3xl:px-24 3xl:py-40 4xl:px-32 4xl:py-48 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
+    <section className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-16 lg:px-20 3xl:px-24 3xl:py-40 4xl:px-32 4xl:py-48 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1400px] mx-auto">
         {/* Background vector conservé */}
@@ -212,7 +208,7 @@ export const ProductsSection = (): JSX.Element => {
             <h2 className="text-blue-gray200 font-heading-2 text-2xl md:text-4xl lg:text-6xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
               Nos Packs<br /><span className="text-5xl font-serif italic text-blue-gray100">Site web et Réseaux sociaux</span>
             </h2>
-            <p className="mt-4 w-4/6 text-blue-gray200 font-body-l text-sm md:text-base lg:text-[length:var(--body-l-font-size)] leading-[var(--body-l-line-height)]">
+            <p id="products" className="mt-4 w-4/6 text-blue-gray200 font-body-l text-sm md:text-base lg:text-[length:var(--body-l-font-size)] leading-[var(--body-l-line-height)]">
               Des solutions complètes de présence numérique pensées pour les artisans, pour vous développer en ligne tout en restant concentré sur votre métier.
             </p>
           </div>
@@ -291,7 +287,10 @@ export const ProductsSection = (): JSX.Element => {
                       >
                         <CheckIcon className="w-4 h-4 md:w-5 md:h-5 text-green-400 mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
                         <span
-                          className={`${pack.textColor} font-body-m text-sm md:text-base lg:text-[length:var(--body-m-font-size)] leading-[var(--body-m-line-height)]`}
+                          className={cn(
+                            `${pack.textColor} font-body-m text-sm md:text-base lg:text-[length:var(--body-m-font-size)] leading-[var(--body-m-line-height)]`,
+                            (featureIndex === 0 || featureIndex === 1 || featureIndex === pack.features.length - 1) && "font-semibold"
+                          )}
                         >
                           {feature}
                         </span>

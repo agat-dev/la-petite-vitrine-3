@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LandingPage } from './screens/LandingPage';
-import { Success } from './pages/Success';
-import { Cancel } from './pages/Cancel';
+import { CGVPage } from './pages/CGV';
+import { MentionsLegalesPage } from './pages/MentionsLegales';
+import { PolitiqueConfidentialitePage } from './pages/PolitiqueConfidentialite';
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/cancel" element={<Cancel />} />
+          <Route path="/cgv" element={<CGVPage />} />
+          <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
+          <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
         </Routes>
       </Router>
     </div>

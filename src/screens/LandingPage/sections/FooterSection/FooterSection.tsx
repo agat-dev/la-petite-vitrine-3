@@ -29,7 +29,12 @@ export const FooterSection = (): JSX.Element => {
   ];
 
   // Footer bottom links
-  const footerBottomLinks = ["Terms", "Privacy", "Contact"];
+  const footerBottomLinks = [
+    "Mentions légales",
+    "CGV",
+    "Politique de confidentialité",
+    "Cookies"
+  ];
 
   // Social media icons
   const socialIcons = [
@@ -59,11 +64,10 @@ export const FooterSection = (): JSX.Element => {
     <footer className="flex flex-col w-full items-start justify-center px-4 md:px-8 lg:px-20 3xl:px-24 4xl:px-32 py-0 relative bg-blue-gray900">
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[2400px] mx-auto">
-
         {/* Footer bottom */}
         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-12 3xl:gap-16 4xl:gap-20 px-0 py-4 md:py-6 relative self-stretch w-full">
           <div className="relative flex-1 font-body-m font-[number:var(--body-m-font-weight)] text-blue-gray200 text-xs md:text-sm lg:text-[length:var(--body-m-font-size)] 3xl:text-base 4xl:text-lg tracking-[var(--body-m-letter-spacing)] leading-[var(--body-m-line-height)] [font-style:var(--body-m-font-style)] text-center md:text-left">
-            Collers @ 2023. All rights reserved.
+            @2025 Next Impact - La Petite Vitrine. Tous droits réservés.
           </div>
 
           <div className="inline-flex flex-wrap items-center justify-center md:justify-end gap-4 md:gap-6 lg:gap-8 3xl:gap-10 4xl:gap-12 relative">
@@ -73,20 +77,18 @@ export const FooterSection = (): JSX.Element => {
                 className="inline-flex px-0 py-3 items-center gap-2 relative"
               >
                 <a
-                  href="#"
-                  className="mt-[-1.00px] font-[number:var(--body-m-font-weight)] leading-[var(--body-m-line-height)] relative w-fit font-body-m text-blue-gray200 text-xs md:text-sm lg:text-[length:var(--body-m-font-size)] 3xl:text-base 4xl:text-lg tracking-[var(--body-m-letter-spacing)] whitespace-nowrap [font-style:var(--body-m-font-style)]"
+                  href={
+                    link === "CGV" ? "/cgv" : 
+                    link === "Mentions légales" ? "/mentions-legales" : 
+                    link === "Politique de confidentialité" ? "/politique-confidentialite" :
+                    "#"
+                  }
+                  className="mt-[-1.00px] font-[number:var(--body-m-font-weight)] leading-[var(--body-m-line-height)] relative w-fit font-body-m text-blue-gray200 text-xs md:text-sm lg:text-[length:var(--body-m-font-size)] 3xl:text-base 4xl:text-lg tracking-[var(--body-m-letter-spacing)] whitespace-nowrap [font-style:var(--body-m-font-style)] hover:text-amber-300 transition-colors"
                 >
                   {link}
                 </a>
               </div>
             ))}
-
-            <div className="inline-flex px-0 py-3 items-center gap-2 relative">
-              <GlobeIcon className="relative w-5 h-5 md:w-6 md:h-6 3xl:w-7 3xl:h-7 4xl:w-8 4xl:h-8 text-blue-gray200" />
-              <span className="font-[number:var(--body-m-font-weight)] leading-[var(--body-m-line-height)] relative w-fit font-body-m text-blue-gray200 text-xs md:text-sm lg:text-[length:var(--body-m-font-size)] 3xl:text-base 4xl:text-lg tracking-[var(--body-m-letter-spacing)] whitespace-nowrap [font-style:var(--body-m-font-style)]">
-                EN
-              </span>
-            </div>
           </div>
         </div>
       </div>
