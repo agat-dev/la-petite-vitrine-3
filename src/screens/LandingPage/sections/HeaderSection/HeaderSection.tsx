@@ -54,9 +54,12 @@ export const HeaderSection = (): JSX.Element => {
 
         {/* Sign Up Button */}
         <StyledButton variant="secondary">
-          Sign up now
+          <a href="#demos" className="flex items-center">
+            <span>Démos</span>
+          </a>
         </StyledButton>
       </div>
     </header>
   );
 };
+ 

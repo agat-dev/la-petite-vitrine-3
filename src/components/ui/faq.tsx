@@ -25,64 +25,53 @@ export const FAQ = ({
 }: FAQProps): JSX.Element => {
   return (
     <section className={`bg-amber-50 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-6 md:p-12 lg:p-20 3xl:p-24 4xl:p-32 relative overflow-hidden ${className}`}>
-      {/* Advanced decorative background elements */}
+      {/* Éléments décoratifs cohérents avec le reste du site */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Decorative shapes */}
-        <div className="absolute w-64 h-[285px] top-[782px] left-[1255px] hidden xl:block">
-          <div className="relative h-[285px]">
-            <div className="w-[111px] h-[111px] top-[174px] left-[137px] bg-blue-light700 rounded-[50px] absolute opacity-75" />
-            <div className="w-[164px] h-[164px] top-0 left-0 bg-fuchsia-700 absolute rounded-[30px] opacity-75" />
-            <div className="w-[185px] h-[185px] top-[45px] left-[71px] bg-pink-700 absolute rounded-[50px] opacity-75" />
-          </div>
-        </div>
-
-        {/* Gradient orbs with refined positioning */}
-        <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-amber-400/10 to-amber-600/5 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-16 w-48 h-48 bg-gradient-to-tl from-blue-light700/8 to-amber-500/8 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-amber-300/15 to-transparent rounded-full blur-lg animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/3 right-1/3 w-20 h-20 bg-gradient-to-bl from-amber-200/12 to-blue-gray100/8 rounded-full blur-xl animate-pulse" style={{animationDelay: '3s'}}></div>
         
-        {/* Geometric decorative elements */}
-        <div className="absolute top-20 right-20 w-2 h-2 bg-amber-400/30 rounded-full animate-ping"></div>
-        <div className="absolute bottom-40 left-40 w-1 h-1 bg-amber-500/40 rounded-full animate-ping" style={{animationDelay: '1.5s'}}></div>
-        <div className="absolute top-60 left-60 w-1.5 h-1.5 bg-amber-300/35 rounded-full animate-ping" style={{animationDelay: '2.5s'}}></div>
+        {/* Formes géométriques principales - style AboutSection */}
+        <div className="absolute w-[85px] h-[86px] top-[100px] left-[200px] bg-green-700 rounded-[50px] opacity-75" />
+        <div className="absolute w-[150px] h-[150px] top-[300px] right-[150px] bg-fuchsia-700 rounded-[30px] opacity-75" />
+        <div className="absolute w-[100px] h-[100px] top-[500px] left-[100px] bg-amber-700 rounded-[30px] opacity-75" />
+        <div className="absolute w-[120px] h-[120px] top-[50px] right-[300px] bg-blue-light700 rounded-[50px] opacity-75" />
+        <div className="absolute w-[200px] h-[200px] bottom-[100px] left-[50px] bg-pink-700 rounded-[50px] opacity-75" />
         
-        {/* Formes décoratives dans le style des autres sections */}
+        {/* Cercles décoratifs - style ProductsSection */}
+        <div className="absolute w-[60px] h-[60px] top-[150px] right-[100px] bg-blue-gray400 rounded-full opacity-60" />
+        <div className="absolute w-[80px] h-[80px] top-[400px] left-[300px] bg-amber-600 rounded-full opacity-50" />
+        <div className="absolute w-[40px] h-[40px] bottom-[200px] right-[200px] bg-green-600 rounded-full opacity-70" />
         
-        {/* Rectangle décoratif principal (similaire à rectangle-31.svg) */}
-        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-[800px] md:w-[1000px] lg:w-[1200px] xl:w-[1400px] h-[300px] md:h-[400px] lg:h-[500px]">
-          <div className="w-full h-full bg-gradient-to-br from-amber-100/15 via-amber-200/10 to-amber-300/5 rounded-[60px] md:rounded-[80px] lg:rounded-[100px] blur-sm transform rotate-2"></div>
-        </div>
+        {/* Rectangles arrondis - style CallToActionSection */}
+        <div className="absolute w-[180px] h-[60px] top-[200px] left-[50%] transform -translate-x-1/2 bg-amber-400 rounded-[30px] opacity-30" />
+        <div className="absolute w-[120px] h-[40px] bottom-[300px] right-[100px] bg-blue-gray300 rounded-[20px] opacity-40" />
         
-        {/* Rectangles secondaires (style rectangle-25.svg et rectangle-26.svg) */}
-        <div className="absolute top-32 right-8 w-[85px] h-[85px] bg-gradient-to-br from-amber-400/20 to-amber-600/15 rounded-[20px] transform rotate-12 animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-32 left-8 w-[53px] h-[53px] bg-gradient-to-br from-blue-gray400/15 to-amber-500/10 rounded-[15px] transform -rotate-6 animate-pulse" style={{animationDelay: '3s'}}></div>
+        {/* Losanges - style HeroSection */}
+        <div className="absolute w-[70px] h-[70px] top-[350px] right-[50px] bg-amber-500 rounded-[15px] transform rotate-45 opacity-60" />
+        <div className="absolute w-[90px] h-[90px] bottom-[150px] left-[200px] bg-blue-light600 rounded-[20px] transform rotate-12 opacity-50" />
         
-        {/* Formes géométriques supplémentaires */}
-        <div className="absolute top-1/4 right-1/4 w-16 h-16 bg-gradient-to-br from-amber-300/20 to-amber-500/15 rounded-[12px] transform rotate-45 animate-pulse" style={{animationDelay: '4s'}}></div>
-        <div className="absolute bottom-1/4 left-1/4 w-20 h-20 bg-gradient-to-br from-blue-gray300/15 to-amber-400/10 rounded-[16px] transform -rotate-12 animate-pulse" style={{animationDelay: '5s'}}></div>
+        {/* Formes organiques - style MainContentSection */}
+        <div className="absolute w-[300px] h-[200px] top-[250px] left-[60%] bg-gradient-to-br from-amber-200/20 to-amber-400/10 rounded-[50px] transform rotate-6 opacity-70" />
+        <div className="absolute w-[250px] h-[150px] bottom-[200px] right-[20%] bg-gradient-to-tl from-blue-gray200/20 to-blue-light400/10 rounded-[40px] transform -rotate-3 opacity-60" />
         
-        {/* Losanges décoratifs */}
-        <div className="absolute top-40 left-20 w-8 h-8 bg-gradient-to-br from-amber-400/25 to-amber-600/20 transform rotate-45 animate-pulse" style={{animationDelay: '6s'}}></div>
-        <div className="absolute bottom-40 right-20 w-6 h-6 bg-gradient-to-br from-blue-gray400/20 to-amber-500/15 transform rotate-45 animate-pulse" style={{animationDelay: '7s'}}></div>
+        {/* Éléments plus petits pour remplir l'espace */}
+        <div className="absolute w-[30px] h-[30px] top-[120px] left-[80%] bg-fuchsia-600 rounded-[10px] opacity-50" />
+        <div className="absolute w-[25px] h-[25px] top-[450px] left-[20%] bg-green-500 rounded-full opacity-60" />
+        <div className="absolute w-[35px] h-[35px] bottom-[350px] left-[70%] bg-amber-600 rounded-[15px] transform rotate-30 opacity-55" />
         
-        {/* Triangles subtils */}
-        <div className="absolute top-3/4 left-16 w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-amber-400/20 animate-pulse" style={{animationDelay: '8s'}}></div>
-        <div className="absolute top-16 right-1/3 w-0 h-0 border-l-[8px] border-r-[8px] border-b-[14px] border-l-transparent border-r-transparent border-b-blue-gray400/15 animate-pulse" style={{animationDelay: '9s'}}></div>
+        {/* Lignes décoratives subtiles */}
+        <div className="absolute w-[2px] h-[100px] top-[180px] left-[40%] bg-gradient-to-b from-amber-400/30 to-transparent rounded-full" />
+        <div className="absolute w-[2px] h-[80px] bottom-[250px] right-[40%] bg-gradient-to-b from-blue-gray400/30 to-transparent rounded-full" />
         
-        {/* Cercles décoratifs de différentes tailles */}
-        <div className="absolute top-2/3 right-12 w-12 h-12 bg-gradient-to-br from-amber-300/15 to-amber-500/10 rounded-full animate-pulse" style={{animationDelay: '10s'}}></div>
-        <div className="absolute top-1/5 left-1/3 w-4 h-4 bg-gradient-to-br from-blue-gray300/20 to-amber-400/15 rounded-full animate-pulse" style={{animationDelay: '11s'}}></div>
+        {/* Points lumineux - style moderne */}
+        <div className="absolute w-[4px] h-[4px] top-[100px] left-[30%] bg-amber-500 rounded-full opacity-80 animate-pulse" />
+        <div className="absolute w-[3px] h-[3px] top-[300px] right-[30%] bg-blue-light600 rounded-full opacity-70 animate-pulse" style={{animationDelay: '1s'}} />
+        <div className="absolute w-[5px] h-[5px] bottom-[180px] left-[25%] bg-green-500 rounded-full opacity-75 animate-pulse" style={{animationDelay: '2s'}} />
         
-        {/* Lignes décoratives */}
-        <div className="absolute top-1/2 left-4 w-1 h-24 bg-gradient-to-b from-amber-400/20 via-amber-500/15 to-transparent rounded-full animate-pulse" style={{animationDelay: '12s'}}></div>
-        <div className="absolute bottom-1/3 right-4 w-1 h-16 bg-gradient-to-b from-blue-gray400/15 via-amber-400/10 to-transparent rounded-full animate-pulse" style={{animationDelay: '13s'}}></div>
+        {/* Overlay de cohérence - unifie tous les éléments */}
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-50/30 via-transparent to-blue-gray50/20 mix-blend-overlay" />
         
-        {/* Subtle mesh pattern overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-50/5 via-transparent to-blue-gray50/5 mix-blend-overlay"></div>
-        
-        {/* Overlay principal pour unifier */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-transparent"></div>
+        {/* Vagues décoratives subtiles - style waves.png */}
+        <div className="absolute bottom-0 left-0 w-full h-[200px] bg-gradient-to-t from-amber-100/20 via-amber-50/10 to-transparent" />
+        <div className="absolute top-0 right-0 w-full h-[150px] bg-gradient-to-b from-blue-gray100/15 via-amber-50/5 to-transparent" />
       </div>
 
       {/* Container pour centrer le contenu sur très grands écrans */}
@@ -103,7 +92,7 @@ export const FAQ = ({
             {/* Sous-titre */}
             <div className="relative">
               <span className="absolute inset-0 bg-gradient-to-r from-amber-50/30 via-transparent to-amber-50/30 rounded-2xl blur-sm -z-10"></span>
-              <p className="text-amber-50 font-body-l text-sm md:text-base lg:text-[length:var(--body-l-font-size)] tracking-[var(--body-l-letter-spacing)] leading-[var(--body-l-line-height)] [font-style:var(--body-l-font-style)] mb-2">
+              <p className="text-blue-gray700 font-body-l text-sm md:text-base lg:text-[length:var(--body-l-font-size)] tracking-[var(--body-l-letter-spacing)] leading-[var(--body-l-line-height)] [font-style:var(--body-l-font-style)] mb-2">
                 {subtitle}
               </p>
             </div>
@@ -263,16 +252,6 @@ export default function FAQDemo() {
       question: "Quelles technologies utilisez-vous ?",
       answer: "Nous maîtrisons les dernières technologies : React, Vue.js, Node.js, Python, AWS, Docker, Kubernetes. Notre stack technologique évolue constamment pour rester à la pointe de l'innovation."
     },
-    {
-      id: 7,
-      question: "Avez-vous des références clients ?",
-      answer: "Oui, nous avons accompagné plus de 200 entreprises dans leur transformation digitale. Nos clients incluent des startups innovantes, des PME en croissance et des grandes entreprises internationales."
-    },
-    {
-      id: 8,
-      question: "Proposez-vous des formations ?",
-      answer: "Nous proposons des formations sur mesure pour vos équipes techniques et fonctionnelles. Ces formations permettent une appropriation optimale des solutions déployées."
-    }
   ];
 
   return (

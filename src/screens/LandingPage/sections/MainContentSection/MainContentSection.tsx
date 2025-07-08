@@ -10,9 +10,10 @@ export const MainContentSection = (): JSX.Element => {
 
   // Benefits list data
   const benefits = [
-    "Est et in pharetra magna adipiscing ornare aliquam.",
-    "Tellus arcu sed consequat ac velit ut eu blandit.",
-    "Ullamcorper ornare in et egestas dolor orci.",
+    "Site web professionnel responsive",
+    "Pages de réseau sociaux professionnels",
+    "Livraison en 5 jours ouvrés",
+    "Résiliable à tout moment",
   ];
 
   const demoCards = [
@@ -34,7 +35,7 @@ export const MainContentSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="flex flex-col items-start py-20 md:py-32 lg:py-40 3xl:py-48 4xl:py-56 relative self-stretch w-full">
+    <section id="demos" className="flex flex-col items-start py-20 md:pt-16 md:pb-36 pb-36 relative self-stretch w-full">
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1600px] mx-auto">
         <AnimatedSection animation="scaleIn" className="w-full">
@@ -90,7 +91,7 @@ export const MainContentSection = (): JSX.Element => {
           </div>
 
           <AnimatedSection animation="slideLeft" delay={600}>
-            <Card className="w-full flex items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[3px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500">
+            <Card className="w-full flex items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[3px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500 z-20">
                   <AnimatePresence>
                         <Card className="bg-amber-600 backdrop-blur-md">
                               <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50/80 to-blue-gray100/30 backdrop-blur-md rounded-t-[20px]">
@@ -162,7 +163,7 @@ export const MainContentSection = (): JSX.Element => {
           </AnimatedSection>
 
           {/* Additional decorative shape - hidden on mobile */}
-          <div className="hidden lg:block absolute w-[85px] h-[86px] top-[373px] left-[750px] bg-green-700 rounded-[50px] opacity-75" />
+          <div className="hidden lg:block absolute w-[85px] h-[86px] top-[399px] left-[750px] bg-green-700 rounded-[50px] opacity-75 z-0" />
         </Card>
       </AnimatedSection>
 

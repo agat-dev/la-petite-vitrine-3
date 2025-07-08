@@ -82,7 +82,7 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
             className="w-full max-w-4xl max-h-[85vh] bg-blue-gray900/80"
           >
-            <Card className="bg-blue-gray900 backdrop-blur-md border border-white/30 rounded-[20px]">
+            <Card className="bg-blue-gray900 backdrop-blur-md rounded-[20px]">
               <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50/80 to-blue-gray100/30 backdrop-blur-md rounded-t-[20px]">
                 <button
                   onClick={onClose}
@@ -162,7 +162,13 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2 justify-center">
                       <StyledWrapper>
+                        <a
+                          href="#products"
+                          rel="noopener noreferrer"
+                          onClick={onClose}
+                        >
                         Commencer maintenant
+                        </a>
                       </StyledWrapper>
                     </div>
                   </div>

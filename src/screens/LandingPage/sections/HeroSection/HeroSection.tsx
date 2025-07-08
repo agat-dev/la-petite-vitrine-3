@@ -21,19 +21,19 @@ export const HeroSection = (): JSX.Element => {
       image: "..//sans-engagement.png",
       title: "Sans engagement",
       description:
-        "Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.",
+        "Vous pouvez résilier à tout moment votre abonnement mensuel. Votre investissement initial de 290€ est sans engagement.",
     },
     {
       image: "..//keys.png",
       title: "Clé en main",
       description:
-        "Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.",
+        "Nous nous occupons de tout : création complète du site, réseaux sociaux, textes, visuels et optimisation SEO.",
     },
     {
       image: "..//time.png",
       title: "Sous 5 jours",
       description:
-        "Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.",
+        "Vous avez un site web et des réseaux sociaux opérationnels en 5 jours ouvrés. Pas de perte de temps, tout est prêt.",
     },
   ];
 
@@ -106,7 +106,7 @@ export const HeroSection = (): JSX.Element => {
                 style={{ backgroundImage: `url(${card.image})` }}
               />
 
-              <CardHeader className="pt-4 md:pt-6 lg:pt-8 pb-0 px-4 md:px-6 lg:px-8">
+              <CardHeader className="pt-4 md:pt-6 lg:pt-8 pb-3 px-4 md:px-6 lg:px-8">
                 <h3 className="mt-[-1.00px] font-heading-6 font-[number:var(--heading-6-font-weight)] text-white text-lg md:text-xl lg:text-[length:var(--heading-6-font-size)] tracking-[var(--heading-6-letter-spacing)] leading-[var(--heading-6-line-height)] [font-style:var(--heading-6-font-style)]">
                   {card.title}
                 </h3>
