@@ -8,6 +8,7 @@ import { HeroSection } from "./sections/HeroSection";
 import { MainContentSection } from "./sections/MainContentSection";
 import { SidebarSection } from "./sections/SidebarSection";
 import { ProductsSection } from "./sections/ProductsSection";
+import { ContactSection } from "./sections/ContactSection";
 
 export const LandingPage = (): JSX.Element => {
   return (
@@ -26,6 +27,7 @@ export const LandingPage = (): JSX.Element => {
       <CallToActionSection />
       <ProductsSection />
       <FAQPersonnalisee />
+      <ContactSection />
       <FooterSection />
     </main>
   );
