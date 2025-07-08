@@ -21,9 +21,9 @@ export const HeaderSection = (): JSX.Element => {
       {/* Logo/Brand Name */}
       <div className="relative w-fit font-heading-5 font-[number:var(--heading-5-font-weight)] text-amber-900 text-xl md:text-2xl lg:text-[length:var(--heading-5-font-size)] tracking-[var(--heading-5-letter-spacing)] leading-[var(--heading-5-line-height)] whitespace-nowrap [font-style:var(--heading-5-font-style)]">
         <img
-          className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12"
+          className="w-12 h-12 md:w-16 md:h-16"
           alt="Logo"
-          src="/logo.svg"
+          src="/logo-pv.png"
           />
       </div>
 
