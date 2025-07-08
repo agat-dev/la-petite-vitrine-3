@@ -1,7 +1,31 @@
 
 import { AnimatedSection } from "../../../../components/ui/animated-section";
 
-const tabs = [
+const tabs = [  
+  {
+    title: 'Lieux culturels et sportifs',
+    id: 'tourisme',
+    description:
+      'Sites web pour artisans du bâtiment. Présentation de vos services et réalisations avec galerie photos.',
+    imageUrl:
+      './tourisme-infos-pratiques.jpg',
+  },
+  {
+    title: 'Paysagistes et jardiniers',
+    id: 'paysagiste',
+    description:
+      'Présentez vos créations paysagères avec des galeries photos immersives. Devis personnalisés pour vos projets d\'aménagement.',
+    imageUrl:
+      './artisan-paysagiste.jpg',
+  },
+  {
+    title: 'Electriciens',
+    id: 'electricien',
+    description:
+      'Sites web pour électriciens. Présentation de vos services, interventions et devis en ligne.',
+    imageUrl:
+      './artisan-elec.png',
+  },  
   {
     title: 'Bâtiment & rénovation',
     id: 'renov',
@@ -19,22 +43,6 @@ const tabs = [
       './artisan-plombier.jpg',
   },
   {
-    title: 'Electriciens',
-    id: 'electricien',
-    description:
-      'Sites web pour électriciens. Présentation de vos services, interventions et devis en ligne.',
-    imageUrl:
-      './artisan-elec.png',
-  },  
-  {
-    title: 'Ébénistes et artisans manuels',
-    id: 'ebeniste',
-    description:
-      'Mettez en valeur votre savoir-faire artisanal avec des portfolios sur mesure. Présentation de vos créations uniques.',
-    imageUrl:
-      './artisan-ebeniste.jpg',
-  },
-  {
     title: 'Coiffeurs et esthéticiennes',
     id: 'coiffeur',
     description:
@@ -42,6 +50,14 @@ const tabs = [
     imageUrl:
       './artisan-coiffeur.jpg',
   },
+  {
+    title: 'Artisans Coiffeurs',
+    id: 'artisan-coiffeur2',
+    description:
+      'Solutions digitales pour salons de coiffure et instituts de beauté. Prise de rendez-vous en ligne et présentation de vos services.',  
+    imageUrl:
+      './artisan-coiffeur2.jpg',
+    },
   {
     title: 'Hôtellerie et restauration',
     id: 'hotels',
@@ -51,20 +67,12 @@ const tabs = [
       './tourisme-valeur.jpg',
   },
   {
-    title: 'Lieux culturels et sportifs',
-    id: 'tourisme',
+    title: 'Ébénistes et artisans manuels',
+    id: 'ebeniste',
     description:
-      'Sites web pour artisans du bâtiment. Présentation de vos services et réalisations avec galerie photos.',
+      'Mettez en valeur votre savoir-faire artisanal avec des portfolios sur mesure. Présentation de vos créations uniques.',
     imageUrl:
-      './tourisme-infos-pratiques.jpg',
-  },
-  {
-    title: 'Paysagistes et jardiniers',
-    id: 'paysagiste',
-    description:
-      'Présentez vos créations paysagères avec des galeries photos immersives. Devis personnalisés pour vos projets d\'aménagement.',
-    imageUrl:
-      './artisan-paysagiste.jpg',
+      './artisan-ebeniste.jpg',
   },
 ];
 
