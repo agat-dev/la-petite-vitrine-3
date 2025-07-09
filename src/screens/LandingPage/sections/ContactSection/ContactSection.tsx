@@ -1,6 +1,4 @@
-import React from 'react';
 import { Button } from '../../../../components/ui/button';
-import { ArrowRightIcon, CheckIcon } from 'lucide-react';
 import StyledButton from '../../../../components/ui/styled-button';
 
 export const ContactSection = (): JSX.Element => {
@@ -49,7 +47,7 @@ export const ContactSection = (): JSX.Element => {
               </p>
 
             {/* Statistiques */}
-            <div className="flex flex-wrap items-center gap-6 md:gap-8 mt-4">
+            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 mt-4">
               <div className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-amber-400">5 jours</div>
                 <div className="text-blue-gray100 text-sm">avant la<br />mise en ligne</div>
