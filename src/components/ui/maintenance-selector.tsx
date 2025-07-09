@@ -19,10 +19,10 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
     <div className="mt-12 space-y-4">
       <div className="text-left">
         <h3 className="text-2xl font-heading-4 text-blue-gray100 mb-4">
-          Ajouter une option réseaux sociaux ? (Optionnel)
+          Choisissez votre maintenance mensuelle (sans engagement)
         </h3>
         <p className="text-blue-gray200 font-body-m mb-6">
-          Sélectionnez un abonnement mensuel pour vos réseaux sociaux.
+          Sélectionnez un abonnement mensuel pour la maintenance et l'animation de votre site et de vos réseaux sociaux.
         </p>
       </div>
 
@@ -40,8 +40,8 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
           <div className="flex items-center gap-3">
             <div className="text-2xl"></div>
             <div>
-              <h4 className="font-heading-6 text-blue-gray900">Maintenance du site uniquement</h4>
-              <p className="text-sm text-blue-gray600">Gérer mes réseaux moi-même</p>
+              <h4 className="font-heading-6 text-amber-900 font-bold">Maintenance du site uniquement - 19€/mois</h4>
+              <p className="text-sm text-blue-gray600">Je souhaite une maintenance technique seulement</p>
             </div>
           </div>
           {selectedMaintenance === null && (
@@ -74,16 +74,16 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
 
               <div className="text-center mb-3">
                 <div className="text-2xl mb-2">{service.icon}</div>
-                <h4 className={cn("font-medium text-lg mb-1", service.titleColor)}>
+                <h4 className={cn("font-bold text-lg mb-1", service.titleColor)}>
                   {service.title}
                 </h4>
-                <div className={cn("text-xl font-bold", service.priceColor)}>
+                <div className={cn("text-xl font-medium", service.priceColor)}>
                   {service.price} par mois
                 </div>
               </div>
 
               <div className="space-y-1">
-                {service.features.slice(0, 3).map((feature, index) => (
+                {service.features.slice(0, 10).map((feature, index) => (
                   <div key={index} className="flex items-start gap-2">
                     <CheckIcon className={cn("w-3 h-3 mt-0.5 flex-shrink-0", service.checkColor)} />
                     <span className={cn("text-xs", service.textColor)}>
@@ -91,11 +91,6 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
                     </span>
                   </div>
                 ))}
-                {service.features.length > 3 && (
-                  <div className={cn("text-xs italic", service.textColor)}>
-                    +{service.features.length - 3} autres avantages
-                  </div>
-                )}
               </div>
             </CardContent>
           </Card>

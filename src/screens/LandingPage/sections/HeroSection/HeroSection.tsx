@@ -68,17 +68,17 @@ export const HeroSection = (): JSX.Element => {
         <div className="pt-[18%] flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 3xl:gap-24 4xl:gap-32 relative w-full">
           <AnimatedSection
             animation="slideRight"
-            className="flex-1 flex flex-col items-start gap-8 mb-8"
+            className="flex-1 flex flex-col items-start gap-8 md:mb-8 mb-0 md:mt-0 mt-8"
           >
             <div className="flex flex-col items-start gap-2 w-full">
-              <h2 className="w-full mt-[-1.00px] mb-8 font-heading-2 font-medium text-white text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+              <h2 className="w-full mt-[-1.00px] md:mb-8 mb-0 font-heading-2 font-medium text-white text-4xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
                 Simple et sans risque
               </h2>
             </div>
         </AnimatedSection>
 
         <AnimatedSection animation="slideLeft" delay={200}>
-          <div onClick={() => setIsPopupOpen(true)} className="cursor-pointer">
+          <div onClick={() => setIsPopupOpen(true)} className="cursor-pointer mb-12">
           <StyledWrapper>Voir une démo</StyledWrapper>
           </div>
         </AnimatedSection>
@@ -125,8 +125,8 @@ export const HeroSection = (): JSX.Element => {
           ))}
         </StaggeredContainer>
         </div>
-        <div className="w-64 mx-auto">
-                  <StyledButton
+        <div className="w-64 mx-auto md:mb-0 mb-8">
+            <StyledButton
                 className="w-full flex items-center justify-center"
               >
                 <a href="#products" className="flex items-center">

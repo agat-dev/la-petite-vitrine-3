@@ -26,7 +26,7 @@ export const FAQ = ({
   return (
     <section className={`bg-amber-50 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-6 md:p-12 lg:p-20 3xl:p-24 4xl:p-32 relative overflow-hidden ${className}`}>
       {/* Éléments décoratifs cohérents avec le reste du site */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute mt-28 inset-0 overflow-hidden pointer-events-none">
         
         {/* Formes géométriques principales - style AboutSection */}
         <div className="absolute w-[85px] h-[86px] top-[100px] left-[200px] bg-green-700 rounded-[50px] opacity-75" />
@@ -78,10 +78,10 @@ export const FAQ = ({
       <div className="w-full max-w-[1600px] mx-auto relative z-10">
         {/* Section header avec design sophistiqué */}
         <header className="flex flex-col items-center gap-6 md:gap-8 relative w-full text-center mb-12 md:mb-16">
-          <div className="flex flex-col items-center gap-6">
+          <div className="md:pt-0 pt-8 flex flex-col items-center gap-6">
             {/* Titre */}
             <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
-              <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-medium text-2xl md:text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)] text-center">
+              <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch md:font-medium font-bold text-4xl lg:text-[length:var(--heading-2-font-size)] tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)] text-center">
                 {title.split(' ').slice(0, -1).join(' ')}{" "}
                 <span className="font-serif italic text-amber-900">
                   {title.split(' ').slice(-1)[0]}
@@ -99,11 +99,86 @@ export const FAQ = ({
           </div>
         </header>
 
-        {/* FAQ items avec design Bento - layout asymétrique inspiré des boîtes bento japonaises */}
+        {/* FAQ items */}
         <div className={`w-full max-w-[1400px] mx-auto relative`}>
-          {/* Grille Bento avec CSS Grid - layout asymétrique comme de vraies boîtes bento */}
+          
+          {/* Layout mobile - Cards simples empilées */}
+          <div className="block md:hidden space-y-4">
+            {items.map((faq, index) => {
+              // Même logique de couleurs que desktop
+              const bentoPatterns = [
+                { type: 'hero' },
+                { type: 'tall' },
+                { type: 'wide' },
+                { type: 'square' },
+                { type: 'medium' },
+                { type: 'mini' },
+                { type: 'flat' },
+                { type: 'large' },
+              ];
+              
+              const pattern = bentoPatterns[index % bentoPatterns.length];
+              
+              // Styles spécifiques selon le type de compartiment Bento
+              const getBentoStyle = (type: string) => {
+                const baseStyles = 'transition-all duration-300 hover:shadow-lg';
+                switch(type) {
+                  case 'hero':
+                    return `bg-amber-100 shadow-md ${baseStyles}`;
+                  case 'tall':
+                    return `bg-indigo-100 shadow-md ${baseStyles}`;
+                  case 'wide':
+                    return `bg-pink-100 shadow-md ${baseStyles}`;
+                  case 'square':
+                    return `bg-blue-gray200 shadow-md ${baseStyles}`;
+                  case 'large':
+                    return `bg-green-100 shadow-md ${baseStyles}`;
+                  case 'medium':
+                    return `bg-green-100 shadow-md ${baseStyles}`;
+                  case 'mini':
+                    return `bg-blue-gray200 shadow-sm ${baseStyles}`;
+                  case 'flat':
+                    return `bg-blue-gray200 shadow-sm ${baseStyles}`;
+                  default:
+                    return `bg-white shadow-md ${baseStyles}`;
+                }
+              };
+              
+              return (
+                <motion.div
+                  key={faq.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: index * 0.1,
+                    ease: "easeOut"
+                  }}
+                  className="w-full"
+                >
+                  <Card className={`w-full ${getBentoStyle(pattern.type)} rounded-2xl`}>
+                    <CardContent className="p-4">
+                      <div className="flex flex-col gap-3">
+                        {/* Question */}
+                        <h3 className="font-subtitle-XL font-[number:var(--subtitle-XL-font-weight)] text-amber-900 tracking-[var(--subtitle-XL-letter-spacing)] leading-tight [font-style:var(--subtitle-XL-font-style)] text-base">
+                          {faq.question}
+                        </h3>
+                        
+                        {/* Réponse */}
+                        <p className="font-body-l font-[number:var(--body-l-font-weight)] text-blue-gray900 tracking-[var(--body-l-letter-spacing)] leading-relaxed [font-style:var(--body-l-font-style)] text-sm">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Layout desktop - Grille Bento */}
           <div 
-            className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4 md:gap-6"
+            className="hidden md:grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4 md:gap-6"
             style={{
               gridAutoRows: '80px',
               gridAutoFlow: 'dense',
@@ -154,7 +229,6 @@ export const FAQ = ({
                 }
               };
               
-              
               return (
                 <motion.div
                   key={faq.id}
@@ -172,8 +246,6 @@ export const FAQ = ({
                 >
                   <Card className={`w-full h-full ${getBentoStyle(pattern.type)} rounded-3xl transition-all duration-700 relative overflow-hidden`}>
                     <CardContent className={`relative h-full flex flex-col ${isHero ? 'p-4 sm:p-6 md:p-8 lg:p-12' : isTall ? 'p-2 sm:p-3 md:p-4 lg:p-6' : isLarge ? 'p-3 sm:p-4 md:p-6 lg:p-8' : 'p-2 sm:p-3 md:p-4 lg:p-6'}`}>
-                      
-                    
                       
                       {/* Contenu adapté à la taille du compartiment */}
                       <div className="flex flex-col gap-3 md:gap-4 relative z-10 h-full">
@@ -198,15 +270,10 @@ export const FAQ = ({
                             isLarge ? 'text-xs sm:text-sm md:text-base' : 
                             'text-xs sm:text-xs md:text-base'
                           }`}>
-                            {/* Troncature du texte selon la taille */}
                             {faq.answer}
                           </p>
                         </div>
-                        
-                        
-                    
                       </div>
-                      
                     </CardContent>
                   </Card>
                 </motion.div>

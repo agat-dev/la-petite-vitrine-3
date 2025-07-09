@@ -11,9 +11,9 @@ import StyledButton from "../../../../components/ui/styled-button";
 export const HeaderSection = (): JSX.Element => {
   // Navigation menu items data
   const navItems = [
-    { label: "Offre", href: "#" },
-    { label: "Démos", href: "#" },
-    { label: "Tarifs", href: "#" },
+    { label: "Offre", href: "#offre" },
+    { label: "Démos", href: "#demos" },
+    { label: "Tarifs", href: "#products" },
   ];
 
   return (
@@ -52,12 +52,6 @@ export const HeaderSection = (): JSX.Element => {
           <MenuIcon className="w-6 h-6 text-amber-900" />
         </div>
 
-        {/* Sign Up Button */}
-        <StyledButton variant="secondary">
-          <a href="#demos" className="flex items-center">
-            <span>Démos</span>
-          </a>
-        </StyledButton>
       </div>
     </header>
   );

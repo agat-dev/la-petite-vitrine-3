@@ -35,7 +35,7 @@ export const MainContentSection = (): JSX.Element => {
   ];
 
   return (
-    <section id="demos" className="flex flex-col items-start py-20 md:pt-16 md:pb-36 pb-36 relative self-stretch w-full">
+    <section id="demos" className="flex flex-col items-start pt-16 md:pb-36 pb-36 relative self-stretch w-full">
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1600px] mx-auto">
         <AnimatedSection animation="scaleIn" className="w-full">
@@ -44,7 +44,7 @@ export const MainContentSection = (): JSX.Element => {
               <AnimatedSection animation="slideRight" delay={200}>
                 <div className="w-full lg:w-[520px] 3xl:w-[640px] 4xl:w-[800px] gap-6 flex flex-col items-start relative">
                   <div className="flex-col items-start gap-2 flex relative self-stretch w-full">
-                    <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 font-medium text-5xl md:text-6xl 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+                    <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 md:font-medium font-bold text-4xl md:text-6xl 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
                       Voir <span className="pt-4 font-serif italic text-amber-800">les démos</span>
                     </h2>
                   </div>
@@ -114,7 +114,7 @@ export const MainContentSection = (): JSX.Element => {
                                 <div className="space-y-4">
 
                                   {/* Demo Cards - 2 colonnes */}
-                                  <div className="grid grid-cols-2 gap-4">
+                                  <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                                     {demoCards.map((card, index) => (
                                       <motion.div
                                         key={index}
