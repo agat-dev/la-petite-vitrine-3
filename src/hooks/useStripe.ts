@@ -10,12 +10,17 @@ export const useStripe = () => {
 
   const createCheckoutSession = async (
     selectedPack: Pack,
-    selectedMaintenance?: MaintenanceService
+    selectedMaintenance: MaintenanceService
   ): Promise<CheckoutSession | null> => {
     setLoading(true);
     setError(null);
 
     try {
+      // Validation: pack et maintenance requis
+      if (!selectedPack || !selectedMaintenance) {
+        throw new Error('Un pack et une maintenance doivent être sélectionnés');
+      }
+
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -37,7 +42,7 @@ export const useStripe = () => {
       // Log pour debug (à supprimer en production)
       console.log('Session créée:', {
         pack: selectedPack.title,
-        maintenance: selectedMaintenance?.title || 'Aucune',
+        maintenance: selectedMaintenance.title,
         mode: session.mode,
         amount: session.amount
       });

@@ -2,7 +2,7 @@
 
 ## Vue d'ensemble
 
-Le module de paiement Stripe a été adapté pour gérer la nouvelle structure tarifaire avec des packs et des abonnements de maintenance.
+Le module de paiement Stripe a été adapté pour gérer la nouvelle structure tarifaire avec des packs et des abonnements de maintenance **obligatoires**.
 
 ## Structure des Prix
 
@@ -11,133 +11,73 @@ Le module de paiement Stripe a été adapté pour gérer la nouvelle structure t
 - **Pack Pro** : 490€ (ID: `pack-presence`)
 - **Pack Pro Plus** : 690€ (ID: `pack-metier`)
 
-### Maintenance (Abonnement mensuel)
-- **Option Visibilité** : 29€/mois (ID: `visibilite`)
-- **Maintenance Pro Plus** : 39€/mois (ID: `maintenance-pro`)
+### Maintenance (Abonnement mensuel - **OBLIGATOIRE**)
+- **Option Maintenance simple** : 19€/mois (ID: `maintenance-simple`)
+- **Option Visibilité Plus** : 39€/mois (ID: `visibilite-plus`)
 
-## Configuration Stripe
+## Règles de Sélection **OBLIGATOIRE**
 
-### Variables d'environnement
-```env
-VITE_STRIPE_PUBLISHABLE_KEY=pk_test_votre_clé_publique_stripe
-STRIPE_SECRET_KEY=sk_test_votre_clé_secrète_stripe
-STRIPE_WEBHOOK_SECRET=whsec_votre_secret_webhook_stripe
-```
+### ✅ Sélection automatique
+- **Pack sélectionné** → Maintenance par défaut auto-sélectionnée
+- **Pack Essentiel & Pack Pro** → Option Maintenance simple (19€/mois)
+- **Pack Pro Plus** → Option Visibilité Plus (39€/mois) par défaut
 
-### Prix Stripe (à configurer dans le dashboard Stripe)
-```javascript
-const STRIPE_PRICES = {
-  packs: {
-    'pack-base': 'price_pack_essentiel_290',
-    'pack-presence': 'price_pack_pro_490', 
-    'pack-metier': 'price_pack_pro_plus_690'
-  },
-  maintenance: {
-    'visibilite': 'price_maintenance_visibility_29',
-    'maintenance-pro': 'price_maintenance_pro_39'
-  }
-};
-```
+### ✅ Validation stricte
+- **Impossible de commander** sans maintenance
+- **Bouton paiement désactivé** si pas de maintenance
+- **Validation côté serveur** : pack + maintenance requis
 
-## Logique de Paiement
+### 🚫 Suppression des options
+- **Suppression de "Aucune maintenance"** dans MaintenanceSelector
+- **Suppression du bouton "Supprimer maintenance"** dans CartSummary
+- **Mode subscription obligatoire** pour toutes les sessions
 
-### Types de Sessions
-1. **Paiement unique** : Quand seul un pack est sélectionné
-2. **Paiement avec abonnement** : Quand un pack + maintenance sont sélectionnés
+## Flux de Paiement Mis à Jour
 
-### Flux de Paiement
-1. Utilisateur sélectionne un pack
-2. Maintenance recommandée pré-sélectionnée selon le pack
-3. Création de la session Stripe avec les bons price_id
-4. Redirection vers Stripe Checkout
-5. Gestion des webhooks pour confirmer le paiement
+1. **Utilisateur sélectionne un pack** → Maintenance auto-sélectionnée
+2. **Utilisateur peut changer la maintenance** (si options disponibles)
+3. **Validation** : Pack + Maintenance requis
+4. **Session Stripe** : Mode 'subscription' pour tous les paiements
+5. **Facturation** : Pack (one-time) + Maintenance (récurrente)
 
-## Règles de Sélection
+## Changements Techniques
 
-### Pack Essentiel & Pack Pro
-- Maintenance recommandée : Option Visibilité (29€/mois)
-- Seule option disponible : Option Visibilité
+### MaintenanceSelector
+- Suppression de l'option "Aucune maintenance"
+- Signature modifiée : `onSelect: (maintenance: MaintenanceService) => void`
+- Validation obligatoire d'une sélection
 
-### Pack Pro Plus
-- Maintenance recommandée : Maintenance Pro Plus (39€/mois)
-- Options disponibles : Option Visibilité ou Maintenance Pro Plus
+### CartSummary
+- Suppression du bouton "Supprimer maintenance"
+- Bouton paiement désactivé si pas de maintenance
+- Interface simplifiée : pas de prop `onRemoveMaintenance`
 
-## Événements Webhook
+### useStripe Hook
+- Paramètre `selectedMaintenance` obligatoire (plus d'optionnel)
+- Validation stricte côté client
+- Gestion d'erreurs renforcée
 
-### Événements gérés
-- `checkout.session.completed` : Paiement initial réussi
-- `invoice.payment_succeeded` : Paiement récurrent réussi
-- `invoice.payment_failed` : Paiement récurrent échoué
-- `customer.subscription.deleted` : Abonnement annulé
+### Serveur Express
+- Validation pack + maintenance obligatoire
+- Mode 'subscription' pour toutes les sessions
+- Métadonnées enrichies pour le suivi
 
-## Pages de Redirection
+## Tests Requis
 
-### Succès (`/success`)
-- Affichage des détails de commande
-- Prochaines étapes
-- Informations de contact
+### ✅ Tests de validation
+- Tentative de paiement sans maintenance (doit échouer)
+- Sélection automatique de maintenance par défaut
+- Changement de maintenance (Pack Pro Plus uniquement)
 
-### Annulation (`/cancel`)
-- Explication de l'annulation
-- Options pour réessayer
-- Support client
+### ✅ Tests de paiement
+- Pack Essentiel + Maintenance simple (309€ initial)
+- Pack Pro + Maintenance simple (509€ initial)
+- Pack Pro Plus + Visibilité Plus (729€ initial)
+- Pack Pro Plus + Maintenance simple (709€ initial)
 
-## Composants Principaux
+### ✅ Tests de webhook
+- Abonnement créé avec pack + maintenance
+- Paiements récurrents de maintenance
+- Gestion des échecs de paiement
 
-### `useStripe` Hook
-- Gestion des sessions de paiement
-- Gestion des erreurs
-- États de chargement
-
-### `ProductsSection`
-- Affichage des packs
-- Logique de sélection
-- Filtrage des maintenances
-
-### `MaintenanceSelector`
-- Sélection des options de maintenance
-- Gestion de "Aucune maintenance"
-
-### `CartSummary`
-- Résumé de la commande
-- Calcul des coûts
-- Bouton de paiement
-
-## Configuration Serveur
-
-### Endpoints
-- `POST /api/create-checkout-session` : Création de session
-- `GET /api/checkout-session/:sessionId` : Récupération session
-- `POST /api/webhook` : Webhooks Stripe
-
-### Métadonnées
-Les sessions incluent des métadonnées pour le suivi :
-- `pack_id`, `pack_title`, `pack_price`
-- `maintenance_id`, `maintenance_title`, `maintenance_price`
-
-## Déploiement
-
-### Étapes de Configuration
-1. Créer les produits et prix dans Stripe Dashboard
-2. Configurer les variables d'environnement
-3. Configurer les webhooks Stripe
-4. Tester avec les clés de test
-5. Passer en production avec les clés live
-
-### URLs de Webhook
-- URL : `https://votre-domaine.com/api/webhook`
-- Événements : `checkout.session.completed`, `invoice.payment_succeeded`, etc.
-
-## Tests
-
-### Tests Recommandés
-- Paiement pack seul
-- Paiement pack + maintenance
-- Annulation de paiement
-- Webhooks de paiement
-- Échec de paiement récurrent
-
-### Cartes de Test Stripe
-- Succès : `4242424242424242`
-- Échec : `4000000000000002`
-- Authentification 3D : `4000002500003155`
+Tous les paiements incluent maintenant obligatoirement 1 pack + 1 maintenance ! 🎯

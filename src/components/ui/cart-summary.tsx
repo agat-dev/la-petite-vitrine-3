@@ -6,9 +6,8 @@ import type { Pack, MaintenanceService } from '../../types/stripe';
 
 interface CartSummaryProps {
   selectedPack: Pack;
-  selectedMaintenance?: MaintenanceService | null;
+  selectedMaintenance: MaintenanceService | null;
   onRemovePack: () => void;
-  onRemoveMaintenance: () => void;
   onCheckout: () => void;
   loading: boolean;
 }
@@ -17,35 +16,12 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
   selectedPack,
   selectedMaintenance,
   onRemovePack,
-  onRemoveMaintenance,
   onCheckout,
   loading
 }) => {
-  // Maintenance par défaut de 19€/mois
-  const defaultMaintenance = {
-    id: "maintenance-base",
-    title: "Maintenance de base",
-    price: "19€",
-    features: [
-      "Hébergement et nom de domaine",
-      "Sauvegardes quotidiennes",
-      "Mises à jour de sécurité",
-      "Support technique par email"
-    ],
-    buttonText: "Inclus par défaut",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-200",
-    titleColor: "text-blue-900",
-    priceColor: "text-blue-700",
-    textColor: "text-blue-gray900",
-    checkColor: "text-blue-600",
-    buttonClass: "border-blue-600 text-blue-900 hover:bg-blue-50",
-  };
-
-  // Calculer les prix - utiliser la maintenance par défaut si aucune n'est sélectionnée
+  // Calculer les prix
   const packPrice = parseInt(selectedPack.price.replace('€', ''));
-  const activeMaintenance = selectedMaintenance || defaultMaintenance;
-  const maintenancePrice = parseInt(activeMaintenance.price.replace('€', ''));
+  const maintenancePrice = selectedMaintenance ? parseInt(selectedMaintenance.price.replace('€', '')) : 0;
   
   return (
     <div className="sticky top-12 bg-amber-50 rounded-[30px] shadow-shadow-dark-l p-6">
@@ -72,60 +48,64 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
           </button>
         </div>
 
-        {/* Maintenance sélectionnée ou par défaut */}
-        <div className="flex items-start justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
-          <div className="flex-1">
-            <h4 className="font-medium text-blue-gray900 text-sm">{activeMaintenance.title}</h4>
-            <p className="text-blue-600 font-bold">{activeMaintenance.price}/mois</p>
-            <p className="text-xs text-blue-gray600">
-              {selectedMaintenance ? "Abonnement mensuel sans engagement" : "Maintenance incluse - Sans engagement"}
+        {/* Maintenance sélectionnée */}
+        {selectedMaintenance && (
+          <div className="flex items-start justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="flex-1">
+              <h4 className="font-medium text-blue-gray900 text-sm">{selectedMaintenance.title}</h4>
+              <p className="text-blue-600 font-bold">{selectedMaintenance.price}/mois</p>
+              <p className="text-xs text-blue-gray600">Abonnement mensuel sans engagement</p>
+            </div>
+            {/* Pas de bouton de suppression pour la maintenance car elle est obligatoire */}
+          </div>
+        )}
+
+        {/* Message si pas de maintenance sélectionnée */}
+        {!selectedMaintenance && (
+          <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
+            <p className="text-orange-800 text-sm font-medium">
+              Veuillez sélectionner une maintenance pour continuer
             </p>
           </div>
-          {selectedMaintenance && (
-            <button
-              onClick={onRemoveMaintenance}
-              className="text-red-500 hover:text-red-700 transition-colors"
-            >
-              <XIcon className="w-4 h-4" />
-            </button>
-          )}
-        </div>
+        )}
 
         {/* Résumé des coûts */}
-        <div className="border-t border-amber-200 pt-4">
-          <div className="bg-blue-50 p-2 rounded text-xs text-blue-gray700 mb-4">
-            <strong>Note:</strong> La maintenance sera facturée mensuellement après le premier paiement du pack.
-          </div>
-          
-          {/* Détail des coûts */}
-          <div className="space-y-2 mb-3">
-            <div className="flex justify-between items-center text-sm text-blue-gray700">
-              <span>Pack {selectedPack.title}:</span>
-              <span>{packPrice}€</span>
+        {selectedMaintenance && (
+          <div className="border-t border-amber-200 pt-4">
+            <div className="bg-blue-50 p-2 rounded text-xs text-blue-gray700 mb-4">
+              <strong>Note:</strong> La maintenance sera facturée mensuellement après le premier paiement du pack.
             </div>
-            <div className="flex justify-between items-center text-sm text-blue-gray700">
-              <span>Maintenance (1er mois):</span>
+            
+            {/* Détail des coûts */}
+            <div className="space-y-2 mb-3">
+              <div className="flex justify-between items-center text-sm text-blue-gray700">
+                <span>Pack {selectedPack.title}:</span>
+                <span>{packPrice}€</span>
+              </div>
+              <div className="flex justify-between items-center text-sm text-blue-gray700">
+                <span>Maintenance (1er mois):</span>
+                <span>{maintenancePrice}€</span>
+              </div>
+            </div>
+            
+            {/* Total */}
+            <div className="flex justify-between items-center text-lg font-bold text-amber-900 border-t border-amber-200 pt-2">
+              <span>Total aujourd'hui:</span>
+              <span>{packPrice + maintenancePrice}€</span>
+            </div>
+            
+            <div className="flex justify-between items-center text-sm text-blue-gray600 mt-1">
+              <span>Puis chaque mois:</span>
               <span>{maintenancePrice}€</span>
             </div>
           </div>
-          
-          {/* Total */}
-          <div className="flex justify-between items-center text-lg font-bold text-amber-900 border-t border-amber-200 pt-2">
-            <span>Total aujourd'hui:</span>
-            <span>{packPrice + maintenancePrice}€</span>
-          </div>
-          
-          <div className="flex justify-between items-center text-sm text-blue-gray600 mt-1">
-            <span>Puis chaque mois:</span>
-            <span>{maintenancePrice}€</span>
-          </div>
-        </div>
+        )}
 
         {/* Bouton de paiement */}
         <StyledButton
           variant="primary"
           onClick={onCheckout}
-          disabled={loading}
+          disabled={loading || !selectedMaintenance}
           className="w-full"
         >
           {loading ? 'Redirection...' : 'Procéder au paiement'}

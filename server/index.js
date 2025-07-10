@@ -9,18 +9,16 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Configuration des produits Stripe (remplacez par vos vrais price_id)
+// Configuration des produits Stripe
 const STRIPE_PRICES = {
-  // Packs principaux (paiement unique)
   packs: {
-    'pack-base': 'price_pack_essentiel_290', // 290€ - Pack Essentiel
-    'pack-presence': 'price_pack_pro_490', // 490€ - Pack Pro
-    'pack-metier': 'price_pack_pro_plus_690' // 690€ - Pack Pro Plus
+    'pack-base': 'price_pack_essentiel_290',
+    'pack-presence': 'price_pack_pro_490', 
+    'pack-metier': 'price_pack_pro_plus_690'
   },
-  // Abonnements maintenance (récurrents)
   maintenance: {
-    'visibilite': 'price_maintenance_visibility_29', // 29€/mois - Option Visibilité
-    'maintenance-pro': 'price_maintenance_pro_39' // 39€/mois - Pack Pro Plus maintenance
+    'maintenance-simple': 'price_maintenance_simple_19',
+    'visibilite-plus': 'price_visibilite_plus_39'
   }
 };
 
@@ -29,8 +27,11 @@ app.post('/api/create-checkout-session', async (req, res) => {
   try {
     const { selectedPack, selectedMaintenance } = req.body;
 
-    if (!selectedPack) {
-      return res.status(400).json({ error: 'Un pack doit être sélectionné' });
+    // Validation: pack et maintenance requis
+    if (!selectedPack || !selectedMaintenance) {
+      return res.status(400).json({ 
+        error: 'Un pack et une maintenance doivent être sélectionnés' 
+      });
     }
 
     const lineItems = [];
@@ -46,55 +47,46 @@ app.post('/api/create-checkout-session', async (req, res) => {
       quantity: 1,
     });
 
-    // Ajouter l'abonnement maintenance si sélectionné
-    if (selectedMaintenance) {
-      const maintenancePriceId = STRIPE_PRICES.maintenance[selectedMaintenance.id];
-      if (!maintenancePriceId) {
-        return res.status(400).json({ error: 'Abonnement maintenance invalide' });
-      }
-
-      lineItems.push({
-        price: maintenancePriceId,
-        quantity: 1,
-      });
+    // Ajouter l'abonnement maintenance (obligatoire)
+    const maintenancePriceId = STRIPE_PRICES.maintenance[selectedMaintenance.id];
+    if (!maintenancePriceId) {
+      return res.status(400).json({ error: 'Maintenance invalide' });
     }
 
-    // Déterminer le mode de paiement
-    // Si maintenance sélectionnée, utiliser 'subscription' pour gérer l'abonnement
-    // Sinon, utiliser 'payment' pour le paiement unique du pack
-    const paymentMode = selectedMaintenance ? 'subscription' : 'payment';
+    lineItems.push({
+      price: maintenancePriceId,
+      quantity: 1,
+    });
 
-    // Créer la session Stripe Checkout
+    // Utiliser le mode 'subscription' pour gérer le pack + abonnement
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
-      mode: paymentMode,
+      mode: 'subscription',
       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/cancel`,
       metadata: {
         pack_id: selectedPack.id,
         pack_title: selectedPack.title,
         pack_price: selectedPack.price,
-        maintenance_id: selectedMaintenance?.id || '',
-        maintenance_title: selectedMaintenance?.title || '',
-        maintenance_price: selectedMaintenance?.price || '',
+        maintenance_id: selectedMaintenance.id,
+        maintenance_title: selectedMaintenance.title,
+        maintenance_price: selectedMaintenance.price,
+        order_type: 'pack_with_maintenance'
       },
-      // Configuration pour les abonnements
-      ...(selectedMaintenance && {
-        subscription_data: {
-          metadata: {
-            pack_id: selectedPack.id,
-            pack_title: selectedPack.title,
-          },
+      subscription_data: {
+        metadata: {
+          pack_id: selectedPack.id,
+          pack_title: selectedPack.title,
         },
-      }),
+      },
     });
 
     res.json({ 
       sessionId: session.id, 
       url: session.url,
-      mode: paymentMode,
-      amount: selectedPack.price + (selectedMaintenance ? ` + ${selectedMaintenance.price}/mois` : '')
+      mode: 'subscription',
+      amount: `${selectedPack.price} + ${selectedMaintenance.price}/mois`
     });
   } catch (error) {
     console.error('Erreur lors de la création de la session:', error);
@@ -114,40 +106,37 @@ app.get('/api/checkout-session/:sessionId', async (req, res) => {
 });
 
 // Webhook pour gérer les événements Stripe
-app.post('/api/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+app.post('/api/webhook', express.raw({type: 'application/json'}), (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;
 
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
-    console.log(`Webhook signature verification failed.`, err.message);
+    console.log('Erreur webhook:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // Gérer les différents événements
   switch (event.type) {
     case 'checkout.session.completed':
       const session = event.data.object;
-      console.log('Paiement réussi:', session.id);
-      // Ici, vous pouvez ajouter la logique pour traiter le paiement
-      // Par exemple, créer le site web, envoyer un email de confirmation, etc.
+      console.log('Paiement terminé:', session.id);
+      console.log('Métadonnées:', session.metadata);
+      // Logique pour traiter la commande (pack + maintenance)
       break;
+      
     case 'invoice.payment_succeeded':
       const invoice = event.data.object;
-      console.log('Paiement d\'abonnement réussi:', invoice.id);
-      // Gérer le paiement récurrent de maintenance
+      console.log('Paiement récurrent réussi:', invoice.id);
+      // Logique pour les paiements de maintenance
       break;
-    case 'invoice.payment_failed':
-      const failedInvoice = event.data.object;
-      console.log('Paiement d\'abonnement échoué:', failedInvoice.id);
-      // Gérer l'échec de paiement
-      break;
-    case 'customer.subscription.deleted':
+      
+    case 'customer.subscription.created':
       const subscription = event.data.object;
-      console.log('Abonnement annulé:', subscription.id);
-      // Gérer l'annulation d'abonnement
+      console.log('Abonnement créé:', subscription.id);
+      // Logique pour activer les services
       break;
+      
     default:
       console.log(`Événement non géré: ${event.type}`);
   }

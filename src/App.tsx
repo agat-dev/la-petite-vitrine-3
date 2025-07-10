@@ -1,8 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { LandingPage } from './screens/LandingPage';
-import { CGVPage } from './pages/CGV';
-import { MentionsLegalesPage } from './pages/MentionsLegales';
-import { PolitiqueConfidentialitePage } from './pages/PolitiqueConfidentialite';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { LandingPage } from "./screens/LandingPage";
+import { FormPage } from "./screens/FormPage/FormPage";
+import { OrderPage } from "./pages/OrderPage";
+import { Success } from "./pages/Success";
+import { Cancel } from "./pages/Cancel";
 
 function App() {
   return (
@@ -10,9 +12,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/cgv" element={<CGVPage />} />
-          <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
-          <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
+          <Route path="/devis" element={<FormPage />} />
+          <Route path="/commande" element={<OrderPage />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/cancel" element={<Cancel />} />
         </Routes>
       </Router>
     </div>
