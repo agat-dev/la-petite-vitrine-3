@@ -2,7 +2,9 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useState } from 'react';
 import type { Pack, MaintenanceService, CheckoutSession } from '../types/stripe';
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+// Utiliser import.meta.env
+const isStripeEnabled = import.meta.env.VITE_STRIPE_ENABLED === 'true';
+const stripePromise = isStripeEnabled ? loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY) : null;
 
 export const useStripe = () => {
   const [loading, setLoading] = useState(false);
@@ -12,6 +14,17 @@ export const useStripe = () => {
     selectedPack: Pack,
     selectedMaintenance: MaintenanceService
   ): Promise<CheckoutSession | null> => {
+    // Si Stripe est désactivé, rediriger vers le formulaire de contact
+    if (!isStripeEnabled) {
+      console.log('Stripe désactivé - Redirection vers formulaire de contact');
+      return {
+        id: 'contact-form',
+        url: '/commande',
+        mode: 'contact' as any,
+        amount: 0
+      };
+    }
+
     setLoading(true);
     setError(null);
 
@@ -21,7 +34,8 @@ export const useStripe = () => {
         throw new Error('Un pack et une maintenance doivent être sélectionnés');
       }
 
-      const response = await fetch('/api/create-checkout-session', {
+      // Utiliser import.meta.env.VITE_API_URL
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/create-checkout-session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,8 +53,7 @@ export const useStripe = () => {
 
       const session: CheckoutSession = await response.json();
       
-      // Log pour debug (à supprimer en production)
-      console.log('Session créée:', {
+      console.log('Session Stripe créée:', {
         pack: selectedPack.title,
         maintenance: selectedMaintenance.title,
         mode: session.mode,

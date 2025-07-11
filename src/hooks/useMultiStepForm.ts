@@ -8,21 +8,21 @@ interface FormData {
   phone: string;
   company: string;
   sector: string;
+  interventionArea: string;
   address: string;
   city: string;
   postalCode: string;
   country: string;
-  interventionArea: string;
   mainCompetitors: string;
   proposedServices: string;
   specificityPositioning: string;
   typesOfClients: string;
   communicationTone: string;
+  existingContentLinks: string;
+  miscellaneousInfo: string;
   visualFiles: File[];
   textFiles: File[];
   otherFiles: File[];
-  existingContentLinks: string;
-  miscellaneousInfo: string;
 }
 
 interface FormErrors {
@@ -44,21 +44,21 @@ export const useMultiStepForm = () => {
     phone: '',
     company: '',
     sector: '',
+    interventionArea: '',
     address: '',
     city: '',
     postalCode: '',
     country: 'France',
-    interventionArea: '',
     mainCompetitors: '',
     proposedServices: '',
     specificityPositioning: '',
-    typesOfClients: 'particuliers',
+    typesOfClients: '',
     communicationTone: '',
+    existingContentLinks: '',
+    miscellaneousInfo: '',
     visualFiles: [],
     textFiles: [],
-    otherFiles: [],
-    existingContentLinks: '',
-    miscellaneousInfo: ''
+    otherFiles: []
   });
   const [errors, setErrors] = useState<FormErrors>({});
   
@@ -68,7 +68,7 @@ export const useMultiStepForm = () => {
     const newErrors: FormErrors = {};
 
     switch (step) {
-      case 0: // Informations personnelles
+      case 0: // Personal Info
         if (!formData.firstName.trim()) newErrors.firstName = 'Prénom requis';
         if (!formData.lastName.trim()) newErrors.lastName = 'Nom requis';
         if (!formData.email.trim()) newErrors.email = 'Email requis';
@@ -78,18 +78,17 @@ export const useMultiStepForm = () => {
         if (!formData.phone.trim()) newErrors.phone = 'Téléphone requis';
         break;
 
-      case 1: // Informations entreprise
+      case 1: // Company Info
         if (!formData.company.trim()) newErrors.company = 'Nom d\'entreprise requis';
         if (!formData.sector.trim()) newErrors.sector = 'Secteur requis';
         break;
 
-      case 2: // Adresse
+      case 2: // Address
         if (!formData.address.trim()) newErrors.address = 'Adresse requise';
         if (!formData.city.trim()) newErrors.city = 'Ville requise';
         if (!formData.postalCode.trim()) newErrors.postalCode = 'Code postal requis';
         break;
 
-      // Les autres étapes sont optionnelles
       case 3: // Business Details
       case 4: // Communication
       case 5: // Files
@@ -135,11 +134,18 @@ export const useMultiStepForm = () => {
         };
       }
 
-      // Envoi des emails
+      // Sauvegarde locale des données
+      localStorage.setItem('formSubmission', JSON.stringify({
+        ...formData,
+        submissionDate: new Date().toISOString(),
+        id: Date.now().toString()
+      }));
+
+      // Simulation d'envoi
       const emailResult = await emailService.sendFormSubmissionEmails(formData);
       
       if (emailResult.success) {
-        // Réinitialiser le formulaire en cas de succès
+        // Réinitialiser le formulaire
         setFormData({
           firstName: '',
           lastName: '',
@@ -169,7 +175,7 @@ export const useMultiStepForm = () => {
         
         return {
           success: true,
-          message: 'Votre demande a été envoyée avec succès ! Nous vous contacterons dans les plus brefs délais.'
+          message: emailResult.message
         };
       } else {
         return {
@@ -183,7 +189,7 @@ export const useMultiStepForm = () => {
       console.error('Erreur lors de la soumission:', error);
       return {
         success: false,
-        message: 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.',
+        message: 'Une erreur est survenue. Vos données ont été sauvegardées localement.',
         error: error instanceof Error ? error.message : 'Erreur inconnue'
       };
     }
