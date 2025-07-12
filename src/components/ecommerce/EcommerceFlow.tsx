@@ -55,20 +55,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         selectPack(pack);
       }
     }
-  }, [preSelectedPackId, stepFormData.selectedPack, selectPack]);
-
-  // Pré-sélection de la maintenance si spécifiée
-  useEffect(() => {
-    if (initialFlow === 'form' && stepFormData.selectedPack && !stepFormData.selectedMaintenance) {
-      if (preSelectedMaintenanceId) {
-        const maintenance = MAINTENANCE_OPTIONS.find(m => m.id === preSelectedMaintenanceId);
-        selectMaintenance(maintenance);
-      } else {
-        // Aucune maintenance par défaut
-        selectMaintenance(undefined);
-      }
-    }
-  }, [preSelectedMaintenanceId, stepFormData.selectedPack, stepFormData.selectedMaintenance, selectMaintenance, initialFlow]);
+  });
 
   // Gestion de la connexion
   const handleLogin = () => {
