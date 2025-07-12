@@ -2,7 +2,7 @@ import React from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { MaintenanceOption } from '../../types/ecommerce';
-import { MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
+import { SOCIAL_OPTIONS } from '../../data/ecommerce-data';
 import { cn } from '../../lib/utils';
 
 interface MaintenanceSelectorProps {
@@ -47,7 +47,7 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Options de maintenance */}
-        {MAINTENANCE_OPTIONS.map((maintenance) => {
+        {SOCIAL_OPTIONS.map((maintenance) => {
           const isSelected = selectedSocialOptions.some(selected => selected.id === maintenance.id);
           const isDisabled = !isSelected && selectedSocialOptions.length >= 3;
           

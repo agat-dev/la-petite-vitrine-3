@@ -5,6 +5,7 @@ export const PACKS: Pack[] = [
     id: "pack-base",
     title: "Pack Essentiel",
     price: 590,
+    maintenanceId: "maintenance-basic",
     description: "Site web One Page professionnel responsive",
     features: [
       "Site web One Page professionnel responsive",
@@ -22,6 +23,7 @@ export const PACKS: Pack[] = [
     id: "pack-presence", 
     title: "Pack Pro",
     price: 890,
+    maintenanceId: "maintenance-premium",
     description: "Tout le pack de base + réseaux sociaux",
     features: [
       "Tout le pack de base",
@@ -37,6 +39,7 @@ export const PACKS: Pack[] = [
     id: "pack-metier",
     title: "Pack Pro Plus",
     price: 1390,
+    maintenanceId: "maintenance-premium",
     description: "Solution complète avec modules métier",
     features: [
       "Tout le pack pro",
@@ -52,17 +55,27 @@ export const PACKS: Pack[] = [
 
 export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
   {
+    id: "maintenance-basic",
+    title: "Maintenance Basique",
+    price: 9,
+    description: "Hébergement + nom de domaine",
+    billingCycle: "monthly"
+  },
+  {
+    id: "maintenance-premium",
+    title: "Maintenance Premium",
+    price: 29,
+    description: "Hébergement + nom de domaine + modifications du contenu du site",
+    billingCycle: "monthly"
+  }
+];
+
+export const SOCIAL_OPTIONS: MaintenanceOption[] = [
+  {
     id: "google-business",
     title: "Google My Business",
     price: 25,
     description: "Création et optimisation de votre fiche Google My Business",
-    features: [
-      "Création de la fiche Google My Business",
-      "Optimisation SEO local",
-      "Ajout de photos et informations",
-      "Configuration des horaires",
-      "Gestion des avis clients"
-    ],
     billingCycle: "one-time"
   },
   {
@@ -70,14 +83,6 @@ export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
     title: "2 Réseaux Sociaux",
     price: 25,
     description: "Création de 2 pages professionnelles (Facebook, Instagram ou LinkedIn)",
-    features: [
-      "Création de 2 pages au choix",
-      "Facebook Business",
-      "Instagram Business", 
-      "LinkedIn Entreprise",
-      "Configuration complète",
-      "Optimisation des profils"
-    ],
     billingCycle: "one-time"
   },
   {
@@ -85,13 +90,6 @@ export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
     title: "Annuaires Professionnels",
     price: 25,
     description: "Inscription dans les principaux annuaires professionnels",
-    features: [
-      "Inscription dans 5+ annuaires",
-      "Pages Jaunes professionnelles",
-      "Annuaires sectoriels",
-      "Optimisation des fiches",
-      "Suivi des inscriptions"
-    ],
     billingCycle: "one-time"
   }
 ];

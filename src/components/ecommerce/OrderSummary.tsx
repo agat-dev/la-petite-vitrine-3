@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { Pack, MaintenanceOption } from '../../types/ecommerce';
+import { MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { CheckIcon } from 'lucide-react';
 
 interface OrderSummaryProps {
@@ -18,6 +19,8 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
   totalPrice,
   className
 }) => {
+  const packMaintenance = selectedPack ? MAINTENANCE_OPTIONS.find(m => m.id === selectedPack.maintenanceId) : null;
+  
   console.log('OrderSummary render - selectedPack:', selectedPack, 'selectedSocialOptions:', selectedSocialOptions);
   
   return (
@@ -55,6 +58,20 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                   </p>
                 )}
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Maintenance obligatoire */}
+        {packMaintenance && (
+          <div className="border-b pb-4">
+            <h4 className="font-semibold text-blue-gray900 mb-2">Maintenance (obligatoire)</h4>
+            <div className="bg-green-50 p-4 rounded-lg">
+              <div className="flex justify-between items-start mb-2">
+                <h5 className="font-medium text-blue-gray900">{packMaintenance.title}</h5>
+                <span className="font-bold text-green-700">{packMaintenance.price}€/mois</span>
+              </div>
+              <p className="text-sm text-blue-gray600">{packMaintenance.description}</p>
             </div>
           </div>
         )}

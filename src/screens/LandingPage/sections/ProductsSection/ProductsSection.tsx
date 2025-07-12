@@ -6,20 +6,27 @@ import { StaggeredContainer } from "../../../../components/ui/staggered-containe
 import { cn } from "../../../../lib/utils";
 import StyledWrapper from "../../../../components/ui/button-ui";
 import { MaintenanceSelector } from "../../../../components/ecommerce/MaintenanceSelector";
+import { MAINTENANCE_OPTIONS } from "../../../../data/ecommerce-data";
 
 export const ProductsSection = (): JSX.Element => {
   const [selectedPack, setSelectedPack] = useState<any>(null);
   const [selectedSocialOptions, setSelectedSocialOptions] = useState<any[]>([]);
   const [showMaintenanceSelector, setShowMaintenanceSelector] = useState(false);
 
+  const getPackMaintenance = (packId: string) => {
+    const pack = mainPacks.find(p => p.id === packId);
+    return pack ? MAINTENANCE_OPTIONS.find(m => m.id === pack.maintenanceId) : null;
+  };
+
   // Packs principaux
   const mainPacks = [
     {
       id: "pack-base",
+      maintenanceId: "maintenance-basic",
       icon: "💡",
       title: "Pack Essentiel",
-      price: "590€",
-      maintenance: "",
+      price: "590€ + 9€/mois",
+      maintenance: "Maintenance Basique incluse",
       features: [
         "Site web One Page professionnel responsive",
         "Google Business",
@@ -39,10 +46,11 @@ export const ProductsSection = (): JSX.Element => {
     },
     {
       id: "pack-presence",
+      maintenanceId: "maintenance-premium",
       icon: "⭐",
       title: "Pack Pro",
-      price: "890€",
-      maintenance: "",
+      price: "890€ + 29€/mois",
+      maintenance: "Maintenance Premium incluse",
       features: [
         "Tout le pack de base",
         "Facebook + Instagram Business",
@@ -60,10 +68,11 @@ export const ProductsSection = (): JSX.Element => {
     },
     {
       id: "pack-metier",
+      maintenanceId: "maintenance-premium",
       icon: "🎨",
       title: "Pack Pro Plus",
-      price: "1390€",
-      maintenance: "",
+      price: "1390€ + 29€/mois",
+      maintenance: "Maintenance Premium incluse",
       features: [
         "Tout le pack pro",
         "2 modules métier additionnels : Réservation en ligne, Devis/Simulation en ligne, Messagerie Whatsapp, Avis clients",

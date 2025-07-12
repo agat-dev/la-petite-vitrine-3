@@ -2,6 +2,7 @@ export interface Pack {
   id: string;
   title: string;
   price: number;
+  maintenanceId: string;
   description: string;
   features: string[];
   deliveryTime: string;
