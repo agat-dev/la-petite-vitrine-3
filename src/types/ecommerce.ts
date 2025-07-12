@@ -2,7 +2,6 @@ export interface Pack {
   id: string;
   title: string;
   price: number;
-  maintenanceId: string;
   description: string;
   features: string[];
   deliveryTime: string;
@@ -71,5 +70,6 @@ export interface StepFormData {
   steps: FormStep[];
   formData: Record<string, any>;
   selectedPack?: Pack;
+  selectedMaintenance?: MaintenanceOption;
   selectedSocialOptions?: MaintenanceOption[];
 }

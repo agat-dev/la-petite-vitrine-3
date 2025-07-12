@@ -8,6 +8,7 @@ export const useEcommerce = () => {
     steps: DEFAULT_FORM_STEPS,
     formData: {},
     selectedPack: undefined,
+    selectedMaintenance: undefined,
     selectedSocialOptions: []
   });
 
@@ -43,6 +44,14 @@ export const useEcommerce = () => {
     }));
   };
 
+  // Sélectionner une maintenance
+  const selectMaintenance = (maintenance: MaintenanceOption) => {
+    console.log('Selecting maintenance:', maintenance);
+    setStepFormData(prev => ({
+      ...prev,
+      selectedMaintenance: maintenance
+    }));
+  };
   // Sélectionner une maintenance
   const selectSocialOptions = (options: MaintenanceOption[]) => {
     console.log('Selecting social options:', options);
@@ -93,9 +102,10 @@ export const useEcommerce = () => {
   // Calculer le prix total
   const calculateTotal = () => {
     const packPrice = stepFormData.selectedPack?.price || 0;
+    const maintenancePrice = stepFormData.selectedMaintenance?.price || 0;
     const socialOptionsPrice = (stepFormData.selectedSocialOptions || [])
       .reduce((total, option) => total + option.price, 0);
-    return packPrice + socialOptionsPrice;
+    return packPrice + maintenancePrice + socialOptionsPrice;
   };
 
   // Créer une commande
@@ -106,7 +116,7 @@ export const useEcommerce = () => {
 
     const order: OrderData = {
       pack: stepFormData.selectedPack,
-      maintenance: stepFormData.selectedSocialOptions?.[0], // Pour compatibilité
+      maintenance: stepFormData.selectedMaintenance,
       formData: stepFormData.formData,
       totalPrice: calculateTotal(),
       status: 'pending',
@@ -143,6 +153,7 @@ export const useEcommerce = () => {
       steps: DEFAULT_FORM_STEPS.map(step => ({ ...step, isCompleted: false })),
       formData: {},
       selectedPack: undefined,
+      selectedMaintenance: undefined,
       selectedSocialOptions: []
     });
   };
@@ -174,6 +185,7 @@ export const useEcommerce = () => {
     
     // Actions
     selectPack,
+    selectMaintenance,
     selectSocialOptions,
     updateFormData,
     goToStep,
@@ -186,7 +198,7 @@ export const useEcommerce = () => {
     logout,
     
     // Utilitaires
-    isFormValid: stepFormData.steps.every(step => step.isCompleted) && stepFormData.selectedPack,
+    isFormValid: stepFormData.steps.every(step => step.isCompleted) && stepFormData.selectedPack && stepFormData.selectedMaintenance,
     currentStep: stepFormData.steps[stepFormData.currentStep],
     isLastStep: stepFormData.currentStep === stepFormData.steps.length - 1,
     isFirstStep: stepFormData.currentStep === 0
