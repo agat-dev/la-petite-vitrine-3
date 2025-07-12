@@ -73,15 +73,24 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
         </div>
 
         {/* Informations client */}
-        {formData.firstName && (
+        {(formData.firstName || Object.keys(formData).length > 0) && (
           <div className="border-b pb-4">
             <h4 className="font-semibold text-blue-gray900 mb-2">Informations client</h4>
             <div className="space-y-1 text-sm">
-              <p><span className="font-medium">Nom :</span> {formData.firstName} {formData.lastName}</p>
-              <p><span className="font-medium">Email :</span> {formData.email}</p>
-              <p><span className="font-medium">Téléphone :</span> {formData.phone}</p>
+              {formData.firstName && (
+                <p><span className="font-medium">Nom :</span> {formData.firstName} {formData.lastName}</p>
+              )}
+              {formData.email && (
+                <p><span className="font-medium">Email :</span> {formData.email}</p>
+              )}
+              {formData.phone && (
+                <p><span className="font-medium">Téléphone :</span> {formData.phone}</p>
+              )}
               {formData.company && (
                 <p><span className="font-medium">Entreprise :</span> {formData.company}</p>
+              )}
+              {Object.keys(formData).length === 0 && (
+                <p className="text-blue-gray500 italic">Informations à remplir dans le formulaire</p>
               )}
             </div>
           </div>

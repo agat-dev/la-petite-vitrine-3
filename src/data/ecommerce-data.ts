@@ -49,7 +49,7 @@ export const PACKS: Pack[] = [
 
 export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
   {
-    id: "maintenance-visibilite",
+    id: "visibilite",
     title: "Option Animation et Visibilité",
     price: 39,
     description: "Animation de vos réseaux sociaux et mise à jour de contenu",
