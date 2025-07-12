@@ -151,8 +151,6 @@ export const useEcommerce = () => {
     // Simulation de connexion - en production, cela ferait appel à une API
     const savedCustomer = localStorage.getItem('customer');
     if (savedCustomer) {
-      // Sélectionner Google My Business par défaut si rien n'est spécifié
-      const defaultMaintenance = MAINTENANCE_OPTIONS.find(m => m.id === "google-business");
       const customerData = JSON.parse(savedCustomer);
       if (customerData.email === email) {
         setCustomer(customerData);
