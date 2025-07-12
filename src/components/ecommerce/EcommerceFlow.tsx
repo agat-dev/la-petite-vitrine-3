@@ -313,6 +313,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             <div className="sticky top-8">
               <OrderSummary
                 selectedPack={stepFormData.selectedPack}
+                selectedMaintenance={stepFormData.selectedMaintenance}
                 selectedSocialOptions={stepFormData.selectedSocialOptions}
                 formData={stepFormData.formData}
                 totalPrice={calculateTotal()}

@@ -6,6 +6,7 @@ import { CheckIcon } from 'lucide-react';
 
 interface OrderSummaryProps {
   selectedPack?: Pack;
+  selectedMaintenance?: MaintenanceOption;
   selectedSocialOptions?: MaintenanceOption[];
   formData: Record<string, any>;
   totalPrice: number;
@@ -14,14 +15,14 @@ interface OrderSummaryProps {
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
   selectedPack,
+  selectedMaintenance,
   selectedSocialOptions = [],
   formData,
   totalPrice,
   className
 }) => {
-  const packMaintenance = selectedPack ? MAINTENANCE_OPTIONS.find(m => m.id === selectedPack.maintenanceId) : null;
   
-  console.log('OrderSummary render - selectedPack:', selectedPack, 'selectedSocialOptions:', selectedSocialOptions);
+  console.log('OrderSummary render - selectedPack:', selectedPack, 'selectedMaintenance:', selectedMaintenance, 'selectedSocialOptions:', selectedSocialOptions);
   
   return (
     <Card className={className}>
@@ -63,15 +64,15 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
         )}
 
         {/* Maintenance obligatoire */}
-        {packMaintenance && (
+        {selectedMaintenance && (
           <div className="border-b pb-4">
             <h4 className="font-semibold text-blue-gray900 mb-2">Maintenance (obligatoire)</h4>
             <div className="bg-green-50 p-4 rounded-lg">
               <div className="flex justify-between items-start mb-2">
-                <h5 className="font-medium text-blue-gray900">{packMaintenance.title}</h5>
-                <span className="font-bold text-green-700">{packMaintenance.price}€/mois</span>
+                <h5 className="font-medium text-blue-gray900">{selectedMaintenance.title}</h5>
+                <span className="font-bold text-green-700">{selectedMaintenance.price}€/mois</span>
               </div>
-              <p className="text-sm text-blue-gray600">{packMaintenance.description}</p>
+              <p className="text-sm text-blue-gray600">{selectedMaintenance.description}</p>
             </div>
           </div>
         )}

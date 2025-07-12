@@ -22,11 +22,10 @@ export const ProductsSection = (): JSX.Element => {
   const mainPacks = [
     {
       id: "pack-base",
-      maintenanceId: "maintenance-basic",
       icon: "💡",
       title: "Pack Essentiel",
-      price: "590€ + 9€/mois",
-      maintenance: "Maintenance Basique incluse",
+      price: "590€",
+      maintenance: "Maintenance à choisir",
       features: [
         "Site web One Page professionnel responsive",
         "Google Business",
@@ -46,11 +45,10 @@ export const ProductsSection = (): JSX.Element => {
     },
     {
       id: "pack-presence",
-      maintenanceId: "maintenance-premium",
       icon: "⭐",
       title: "Pack Pro",
-      price: "890€ + 29€/mois",
-      maintenance: "Maintenance Premium incluse",
+      price: "890€",
+      maintenance: "Maintenance à choisir",
       features: [
         "Tout le pack de base",
         "Facebook + Instagram Business",
@@ -68,11 +66,10 @@ export const ProductsSection = (): JSX.Element => {
     },
     {
       id: "pack-metier",
-      maintenanceId: "maintenance-premium",
       icon: "🎨",
       title: "Pack Pro Plus",
-      price: "1390€ + 29€/mois",
-      maintenance: "Maintenance Premium incluse",
+      price: "1390€",
+      maintenance: "Maintenance à choisir",
       features: [
         "Tout le pack pro",
         "2 modules métier additionnels : Réservation en ligne, Devis/Simulation en ligne, Messagerie Whatsapp, Avis clients",
