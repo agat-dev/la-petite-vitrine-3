@@ -16,10 +16,12 @@ type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary' 
 interface EcommerceFlowProps {
   initialFlow?: FlowStep;
   preSelectedPackId?: string;
+  preSelectedMaintenanceId?: string | null;
 }
 export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({ 
   initialFlow = 'pack-selection',
-  preSelectedPackId 
+  preSelectedPackId,
+  preSelectedMaintenanceId
 }) => {
   const [currentFlow, setCurrentFlow] = useState<FlowStep>(initialFlow);
   const [showLogin, setShowLogin] = useState(false);
@@ -51,13 +53,8 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
       const pack = PACKS.find(p => p.id === preSelectedPackId);
       if (pack) {
         selectPack(pack);
-        // Si on démarre directement sur le formulaire, on pré-sélectionne aussi "aucune maintenance"
-        if (initialFlow === 'form') {
-          selectMaintenance(undefined);
-        }
       }
     }
-  }, [preSelectedPackId, stepFormData.selectedPack, selectPack, selectMaintenance, initialFlow]);
 
   // Gestion de la connexion
   const handleLogin = () => {

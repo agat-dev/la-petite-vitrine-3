@@ -181,7 +181,18 @@ export const ProductsSection = (): JSX.Element => {
   const handleCheckout = async () => {
     if (!selectedPack) return;
 
-    // Stripe supprimé, redirection simple vers contact
+    // Construire l'URL avec les sélections
+    const params = new URLSearchParams({
+      direct: 'form',
+      pack: selectedPack.id
+    });
+    
+    if (selectedMaintenance) {
+      params.append('maintenance', selectedMaintenance.id);
+    }
+    
+    // Rediriger vers le formulaire avec les sélections
+    window.location.href = `/commande?${params.toString()}`;
   };
 
   return (
@@ -362,12 +373,13 @@ export const ProductsSection = (): JSX.Element => {
 
                       {/* Panier à droite sur desktop */}
                       <div className="basis-0 lg:basis-1/2 flex items-center justify-center">
-                        <a 
-                          href={`/commande?direct=form&pack=${selectedPack?.id || 'pack-pro'}`}
-                          className="px-6 py-3 bg-amber-400 text-blue-gray900 rounded-lg font-bold shadow hover:bg-amber-500 transition inline-block text-center"
+                        <button
+                          onClick={handleCheckout}
+                          disabled={!selectedPack}
+                          className="px-6 py-3 bg-amber-400 text-blue-gray900 rounded-lg font-bold shadow hover:bg-amber-500 transition disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           Commencer maintenant
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
