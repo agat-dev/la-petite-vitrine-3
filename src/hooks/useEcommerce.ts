@@ -36,6 +36,7 @@ export const useEcommerce = () => {
 
   // Sélectionner un pack
   const selectPack = (pack: Pack) => {
+    console.log('Selecting pack:', pack);
     setStepFormData(prev => ({
       ...prev,
       selectedPack: pack
@@ -44,6 +45,7 @@ export const useEcommerce = () => {
 
   // Sélectionner une maintenance
   const selectMaintenance = (maintenance: MaintenanceOption | undefined) => {
+    console.log('Selecting maintenance:', maintenance);
     setStepFormData(prev => ({
       ...prev,
       selectedMaintenance: maintenance

@@ -60,11 +60,9 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Pré-sélection de la maintenance si spécifiée
   useEffect(() => {
-    if (preSelectedMaintenanceId && !stepFormData.selectedMaintenance) {
+    if (preSelectedMaintenanceId !== undefined && !stepFormData.selectedMaintenance) {
       const maintenance = MAINTENANCE_OPTIONS.find(m => m.id === preSelectedMaintenanceId);
-      if (maintenance) {
-        selectMaintenance(maintenance);
-      }
+      selectMaintenance(maintenance || undefined);
     }
   }, [preSelectedMaintenanceId, stepFormData.selectedMaintenance, selectMaintenance]);
 
