@@ -1,4 +1,5 @@
 import { PlayIcon } from "lucide-react";
+import { CheckIcon } from "lucide-react";
 import React from "react";
 import { Card } from "../../../../components/ui/card";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
@@ -39,12 +40,18 @@ export const AboutSection = (): JSX.Element => {
       </AnimatedSection>
 
       <AnimatedSection animation="slideLeft" delay={200} className="relative w-full max-w-[486px] h-[300px] md:h-[350px] lg:h-[423px] mt-20 md:mt-8 lg:mt-0">
-        {/* Badge en haut à gauche à cheval sur le carré jaune */}
-        <div className="absolute top-[24%] -left-[4%] z-10 bg-black text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
+        {/* Badge Satisfait ou remboursé en haut à gauche */}
+        <div className="absolute top-[20%] -left-[8%] z-10 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg hover:scale-110 transition-transform duration-300 flex items-center gap-1">
+          <CheckIcon className="w-4 h-4" />
+          Satisfait ou remboursé
+        </div>
+        
+        {/* Badge Livré en 5 jours en haut à droite */}
+        <div className="absolute top-[5%] right-[5%] z-10 bg-black text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
           Livré en 5 jours
         </div>
         
-        {/* Badge en bas à droite à cheval sur le carré jaune */}
+        {/* Badge Résiliable en bas à droite */}
         <div className="absolute bottom-[15%] md:-right-[12%] -right-[5%] z-10 bg-amber-900 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
           Résiliable à tout moment
         </div>

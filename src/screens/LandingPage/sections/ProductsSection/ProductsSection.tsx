@@ -288,6 +288,12 @@ export const ProductsSection = (): JSX.Element => {
                   )}
                   onClick={() => handlePackSelect(pack)}
                 >
+                  {/* Badge Satisfait ou remboursé */}
+                  <div className="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg z-20 flex items-center gap-1">
+                    <CheckIcon className="w-3 h-3" />
+                    Satisfait ou remboursé
+                  </div>
+
                   {selectedPack?.id === pack.id && (
                     <div className="absolute top-3 right-3 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
                       <CheckIcon className="w-4 h-4 text-blue-gray900" />
