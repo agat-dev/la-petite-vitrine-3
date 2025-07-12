@@ -1,4 +1,3 @@
-import { loadStripe } from '@stripe/stripe-js';
 import { useState } from 'react';
 import type { Pack, MaintenanceService, CheckoutSession } from '../types/stripe';
 
