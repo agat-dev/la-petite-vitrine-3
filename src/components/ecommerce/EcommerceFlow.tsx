@@ -50,9 +50,12 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Pré-sélection du pack si spécifié
   useEffect(() => {
+    console.log('Pack useEffect - preSelectedPackId:', preSelectedPackId, 'current pack:', stepFormData.selectedPack);
     if (preSelectedPackId && !stepFormData.selectedPack) {
       const pack = PACKS.find(p => p.id === preSelectedPackId);
+      console.log('Found pack:', pack);
       if (pack) {
+        console.log('Selecting pack via useEffect:', pack);
         selectPack(pack);
       }
     }
@@ -60,8 +63,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Pré-sélection de la maintenance si spécifiée
   useEffect(() => {
+    console.log('Maintenance useEffect - preSelectedMaintenanceId:', preSelectedMaintenanceId, 'current maintenance:', stepFormData.selectedMaintenance);
     if (preSelectedMaintenanceId !== undefined && !stepFormData.selectedMaintenance) {
       const maintenance = MAINTENANCE_OPTIONS.find(m => m.id === preSelectedMaintenanceId);
+      console.log('Found maintenance:', maintenance);
       selectMaintenance(maintenance || undefined);
     }
   }, [preSelectedMaintenanceId, stepFormData.selectedMaintenance, selectMaintenance]);

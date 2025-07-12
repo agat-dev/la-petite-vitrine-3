@@ -18,12 +18,17 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
   totalPrice,
   className
 }) => {
+  console.log('OrderSummary render - selectedPack:', selectedPack, 'selectedMaintenance:', selectedMaintenance);
+  
   return (
     <Card className={className}>
       <CardHeader>
         <h3 className="text-xl font-bold text-blue-gray900">
           Récapitulatif de votre commande
         </h3>
+        <p className="text-sm text-blue-gray600">
+          Debug: Pack={selectedPack?.title || 'Aucun'}, Maintenance={selectedMaintenance?.title || 'Aucune'}
+        </p>
       </CardHeader>
 
       <CardContent className="space-y-6">

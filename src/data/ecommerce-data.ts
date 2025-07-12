@@ -2,7 +2,7 @@ import { Pack, MaintenanceOption, FormStep } from '../types/ecommerce';
 
 export const PACKS: Pack[] = [
   {
-    id: "pack-essentiel",
+    id: "pack-base",
     title: "Pack Essentiel",
     price: 290,
     description: "Site web One Page professionnel responsive",
@@ -18,7 +18,7 @@ export const PACKS: Pack[] = [
     deliveryTime: "5 jours"
   },
   {
-    id: "pack-pro",
+    id: "pack-presence", 
     title: "Pack Pro",
     price: 490,
     description: "Tout le pack de base + réseaux sociaux",
@@ -32,7 +32,7 @@ export const PACKS: Pack[] = [
     deliveryTime: "7 jours"
   },
   {
-    id: "pack-pro-plus",
+    id: "pack-metier",
     title: "Pack Pro Plus",
     price: 690,
     description: "Solution complète avec modules métier",
