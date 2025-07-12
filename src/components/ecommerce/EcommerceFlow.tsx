@@ -11,7 +11,7 @@ import { ArrowLeftIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
 
-type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary' | 'dashboard';
+type FlowStep = 'pack-selection' | 'social-options' | 'maintenance-selection' | 'form' | 'summary' | 'dashboard';
 
 interface EcommerceFlowProps {
   initialFlow?: FlowStep;
@@ -104,6 +104,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Navigation entre les étapes
   const handlePackSelected = () => {
+    setCurrentFlow('social-options');
+  };
+
+  const handleSocialOptionsSelected = () => {
     setCurrentFlow('maintenance-selection');
   };
 
@@ -117,8 +121,11 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   const goBack = () => {
     switch (currentFlow) {
-      case 'maintenance-selection':
+      case 'social-options':
         setCurrentFlow('pack-selection');
+        break;
+      case 'maintenance-selection':
+        setCurrentFlow('social-options');
         break;
       case 'form':
         setCurrentFlow('maintenance-selection');
@@ -228,7 +235,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
               />
             )}
 
-            {currentFlow === 'maintenance-selection' && (
+            {currentFlow === 'social-options' && (
               <div className="space-y-6">
                 <MaintenanceSelector
                   selectedSocialOptions={stepFormData.selectedSocialOptions}
@@ -236,8 +243,71 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 />
                 <div className="flex justify-end">
                   <Button
-                    onClick={handleMaintenanceSelected}
+                    onClick={handleSocialOptionsSelected}
                     className="bg-amber-600 hover:bg-amber-700"
+                  >
+                    Continuer
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {currentFlow === 'maintenance-selection' && (
+              <div className="space-y-6">
+                <div className="text-center mb-6">
+                  <h2 className="text-2xl font-bold text-blue-gray900 mb-4">
+                    Choisissez votre maintenance (obligatoire)
+                  </h2>
+                  <p className="text-blue-gray600">
+                    Sélectionnez le niveau de maintenance qui vous convient
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                  {MAINTENANCE_OPTIONS.map((maintenance) => {
+                    const isSelected = stepFormData.selectedMaintenance?.id === maintenance.id;
+                    
+                    return (
+                      <Card
+                        key={maintenance.id}
+                        className={cn(
+                          "cursor-pointer transition-all duration-300 hover:scale-105",
+                          isSelected
+                            ? "ring-2 ring-amber-400 bg-amber-50"
+                            : "hover:shadow-lg"
+                        )}
+                        onClick={() => selectMaintenance(maintenance)}
+                      >
+                        {isSelected && (
+                          <div className="absolute top-4 right-4 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
+                            <CheckIcon className="w-4 h-4 text-white" />
+                          </div>
+                        )}
+
+                        <CardHeader className="text-center pb-4">
+                          <h3 className="text-xl font-bold text-blue-gray900 mb-2">
+                            {maintenance.title}
+                          </h3>
+                          <div className="text-2xl font-bold text-amber-900 mb-2">
+                            {maintenance.price}€/mois
+                          </div>
+                        </CardHeader>
+
+                        <CardContent>
+                          <p className="text-blue-gray700 text-sm text-center">
+                            {maintenance.description}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+
+                <div className="flex justify-end">
+                  <Button
+                    onClick={handleMaintenanceSelected}
+                    disabled={!stepFormData.selectedMaintenance}
+                    className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50"
                   >
                     Continuer
                   </Button>

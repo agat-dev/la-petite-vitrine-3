@@ -182,14 +182,14 @@ export const ProductsSection = (): JSX.Element => {
 
   const handlePackSelect = (pack) => {
     setSelectedPack(pack);
-    setShowMaintenanceSelector(true);
+    setShowMaintenanceSelector(true); // Maintenant pour les options sociales
     setSelectedSocialOptions([]); // Reset des options
 
-    // Scroll vers la section maintenance après un court délai pour l'animation
+    // Scroll vers la section options sociales après un court délai pour l'animation
     setTimeout(() => {
-      const maintenanceSection = document.getElementById("maintenance-section");
-      if (maintenanceSection) {
-        maintenanceSection.scrollIntoView({
+      const socialSection = document.getElementById("social-options-section");
+      if (socialSection) {
+        socialSection.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
@@ -391,11 +391,11 @@ export const ProductsSection = (): JSX.Element => {
 
             {/* Sélecteur de maintenance */}
             {showMaintenanceSelector && selectedPack && (
-              <div id="maintenance-section" className="scroll-mt-8">
+              <div id="social-options-section" className="scroll-mt-8">
                 <AnimatedSection animation="slideUp" delay={300}>
                   <div>
                     <div className="flex flex-col lg:flex-row gap-8">
-                      {/* Section maintenance à gauche */}
+                      {/* Section options sociales à gauche */}
                       <div className="flex-1 basis-0 lg:basis-1/2">
                         <MaintenanceSelector
                           selectedSocialOptions={selectedSocialOptions}
