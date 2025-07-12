@@ -193,14 +193,6 @@ export const ProductsSection = (): JSX.Element => {
   };
 
   const handlePackSelect = (pack) => {
-  // Ajout d'un type explicite pour pack
-  /**
-   * @param {object} pack
-   */
-  // Ajout d'un type explicite pour pack
-  /**
-   * @param {object} pack
-   */
     setSelectedPack(pack);
     setShowMaintenanceSelector(true);
     setSelectedSocialOptions([]); // Reset des options
@@ -218,13 +210,9 @@ export const ProductsSection = (): JSX.Element => {
   };
 
   const handleMaintenanceSelect = (maintenance) => {
-  // Ajout d'un type explicite pour maintenance
-  /**
-   * @param {object|null} maintenance
-   */
-  // Ajout d'un type explicite pour maintenance
-  /**
-   * @param {object|null} maintenance
+    setSelectedSocialOptions([maintenance]);
+  };
+
   const handleSocialOptionsSelect = (options) => {
     setSelectedSocialOptions(options);
   };
