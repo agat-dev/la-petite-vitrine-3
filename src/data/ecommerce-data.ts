@@ -13,7 +13,8 @@ export const PACKS: Pack[] = [
       "Mise à jour des contenus",
       "Nom de domaine + hébergement 1 an",
       "Livraison en 5 jours",
-      "Sans engagement"
+      "Sans engagement",
+      "Remboursé sous 48h si non satisfait"
     ],
     deliveryTime: "5 jours"
   },
@@ -27,7 +28,8 @@ export const PACKS: Pack[] = [
       "Facebook + Instagram Business",
       "3 pages additionnelles : Services, Réalisations, A propos, Infos pratiques",
       "Livraison en 7 jours",
-      "Sans engagement"
+      "Sans engagement",
+      "Remboursé sous 48h si non satisfait"
     ],
     deliveryTime: "7 jours"
   },
@@ -41,13 +43,28 @@ export const PACKS: Pack[] = [
       "2 modules métier additionnels : Réservation en ligne, Devis/Simulation en ligne, Messagerie Whatsapp, Avis clients",
       "Réseaux sociaux professionnels",
       "Livraison en 9 jours",
-      "Sans engagement"
+      "Sans engagement",
+      "Remboursé sous 48h si non satisfait"
     ],
     deliveryTime: "9 jours"
   }
 ];
 
 export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
+  {
+    id: "maintenance-base",
+    title: "Maintenance de base",
+    price: 19,
+    description: "Maintenance essentielle pour votre site web",
+    features: [
+      "Mises à jour de sécurité",
+      "Sauvegarde mensuelle",
+      "Support technique de base",
+      "Monitoring du site",
+      "Rapport mensuel"
+    ],
+    billingCycle: "monthly"
+  },
   {
     id: "visibilite",
     title: "Option Animation et Visibilité",
