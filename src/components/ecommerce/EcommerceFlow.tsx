@@ -8,7 +8,7 @@ import { CustomerDashboard } from './CustomerDashboard';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { ArrowLeftIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
-import { PACKS } from '../../data/ecommerce-data';
+import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
 
 type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary' | 'dashboard';
@@ -18,6 +18,7 @@ interface EcommerceFlowProps {
   preSelectedPackId?: string;
   preSelectedMaintenanceId?: string | null;
 }
+
 export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({ 
   initialFlow = 'pack-selection',
   preSelectedPackId,
@@ -56,6 +57,16 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
       }
     }
   }, [preSelectedPackId, stepFormData.selectedPack, selectPack]);
+
+  // Pré-sélection de la maintenance si spécifiée
+  useEffect(() => {
+    if (preSelectedMaintenanceId && !stepFormData.selectedMaintenance) {
+      const maintenance = MAINTENANCE_OPTIONS.find(m => m.id === preSelectedMaintenanceId);
+      if (maintenance) {
+        selectMaintenance(maintenance);
+      }
+    }
+  }, [preSelectedMaintenanceId, stepFormData.selectedMaintenance, selectMaintenance]);
 
   // Gestion de la connexion
   const handleLogin = () => {
