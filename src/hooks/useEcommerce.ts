@@ -8,7 +8,7 @@ export const useEcommerce = () => {
     steps: DEFAULT_FORM_STEPS,
     formData: {},
     selectedPack: undefined,
-    selectedMaintenance: undefined
+    selectedSocialOptions: []
   });
 
   const [customer, setCustomer] = useState<Customer | null>(null);
@@ -44,11 +44,11 @@ export const useEcommerce = () => {
   };
 
   // Sélectionner une maintenance
-  const selectMaintenance = (maintenance: MaintenanceOption | undefined) => {
-    console.log('Selecting maintenance:', maintenance);
+  const selectSocialOptions = (options: MaintenanceOption[]) => {
+    console.log('Selecting social options:', options);
     setStepFormData(prev => ({
       ...prev,
-      selectedMaintenance: maintenance
+      selectedSocialOptions: options
     }));
   };
 
@@ -93,8 +93,9 @@ export const useEcommerce = () => {
   // Calculer le prix total
   const calculateTotal = () => {
     const packPrice = stepFormData.selectedPack?.price || 0;
-    const maintenancePrice = stepFormData.selectedMaintenance?.price || 0;
-    return packPrice + maintenancePrice;
+    const socialOptionsPrice = (stepFormData.selectedSocialOptions || [])
+      .reduce((total, option) => total + option.price, 0);
+    return packPrice + socialOptionsPrice;
   };
 
   // Créer une commande
@@ -105,7 +106,7 @@ export const useEcommerce = () => {
 
     const order: OrderData = {
       pack: stepFormData.selectedPack,
-      maintenance: stepFormData.selectedMaintenance,
+      maintenance: stepFormData.selectedSocialOptions?.[0], // Pour compatibilité
       formData: stepFormData.formData,
       totalPrice: calculateTotal(),
       status: 'pending',
@@ -142,7 +143,7 @@ export const useEcommerce = () => {
       steps: DEFAULT_FORM_STEPS.map(step => ({ ...step, isCompleted: false })),
       formData: {},
       selectedPack: undefined,
-      selectedMaintenance: undefined
+      selectedSocialOptions: []
     });
   };
 
@@ -173,7 +174,7 @@ export const useEcommerce = () => {
     
     // Actions
     selectPack,
-    selectMaintenance,
+    selectSocialOptions,
     updateFormData,
     goToStep,
     nextStep,

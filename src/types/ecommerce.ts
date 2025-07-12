@@ -70,5 +70,5 @@ export interface StepFormData {
   steps: FormStep[];
   formData: Record<string, any>;
   selectedPack?: Pack;
-  selectedMaintenance?: MaintenanceOption;
+  selectedSocialOptions?: MaintenanceOption[];
 }
