@@ -89,15 +89,6 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
                 <p className="text-blue-gray700 mb-4 text-sm">
                   {maintenance.description}
                 </p>
-                
-                <div className="space-y-2">
-                  {maintenance.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <CheckIcon className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-blue-gray700">{feature}</span>
-                    </div>
-                  ))}
-                </div>
               </CardContent>
             </Card>
           );

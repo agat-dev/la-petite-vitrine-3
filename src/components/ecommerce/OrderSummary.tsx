@@ -73,7 +73,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                   <p className="text-xs text-blue-gray600">{option.description}</p>
                 </div>
               ))}
-              <div className="bg-amber-50 p-2 rounded border-t border-amber-200">
+              <div className="bg-amber-50 p-2 rounded-lg border border-amber-200 mt-2">
                 <div className="flex justify-between items-center text-sm font-medium">
                   <span className="text-amber-800">Total options :</span>
                   <span className="text-amber-900">
