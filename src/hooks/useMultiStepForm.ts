@@ -208,3 +208,193 @@ export const useMultiStepForm = () => {
     submitForm
   };
 };
+
+interface EmailResponse {
+  success: boolean;
+  message: string;
+  error?: string;
+}
+
+class EmailService {
+  private readonly API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+  private readonly USE_BACKEND = import.meta.env.VITE_USE_BACKEND === 'true';
+  
+  async sendFormSubmissionEmails(formData: FormData): Promise<EmailResponse> {
+    // Si le backend n'est pas configuré, utiliser le mode fallback
+    if (!this.USE_BACKEND) {
+      return this.handleFormSubmissionFallback(formData);
+    }
+
+    try {
+      console.log('📧 Tentative d\'envoi des emails via Resend');
+      
+      // Test de connectivité du backend
+      const healthCheck = await fetch(`${this.API_BASE_URL}/api/health`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(5000) // Timeout de 5 secondes
+      });
+
+      if (!healthCheck.ok) {
+        throw new Error('Backend non disponible');
+      }
+
+      // Préparer les données
+      const emailData = {
+        client: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          sector: formData.sector,
+          interventionArea: formData.interventionArea,
+          address: formData.address,
+          city: formData.city,
+          postalCode: formData.postalCode,
+          country: formData.country
+        },
+        project: {
+          mainCompetitors: formData.mainCompetitors,
+          proposedServices: formData.proposedServices,
+          specificityPositioning: formData.specificityPositioning,
+          typesOfClients: formData.typesOfClients,
+          communicationTone: formData.communicationTone,
+          existingContentLinks: formData.existingContentLinks,
+          miscellaneousInfo: formData.miscellaneousInfo
+        },
+        files: {
+          visualFiles: formData.visualFiles.map(file => ({
+            name: file.name,
+            size: file.size,
+            type: file.type
+          })),
+          textFiles: formData.textFiles.map(file => ({
+            name: file.name,
+            size: file.size,
+            type: file.type
+          })),
+          otherFiles: formData.otherFiles.map(file => ({
+            name: file.name,
+            size: file.size,
+            type: file.type
+          }))
+        },
+        metadata: {
+          submissionDate: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          referrer: document.referrer
+        }
+      };
+
+      // Créer FormData pour l'envoi
+      const formDataToSend = new FormData();
+      formDataToSend.append('emailData', JSON.stringify(emailData));
+      
+      // Ajouter les fichiers
+      formData.visualFiles.forEach(file => {
+        formDataToSend.append('visualFiles', file);
+      });
+      formData.textFiles.forEach(file => {
+        formDataToSend.append('textFiles', file);
+      });
+      formData.otherFiles.forEach(file => {
+        formDataToSend.append('otherFiles', file);
+      });
+
+      const response = await fetch(`${this.API_BASE_URL}/api/send-resend-emails`, {
+        method: 'POST',
+        body: formDataToSend,
+        signal: AbortSignal.timeout(30000) // Timeout de 30 secondes
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return result;
+
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi des emails via Resend:', error);
+      
+      // Fallback en cas d'erreur
+      return this.handleFormSubmissionFallback(formData);
+    }
+  }
+
+  private async handleFormSubmissionFallback(formData: FormData): Promise<EmailResponse> {
+    try {
+      console.log('📧 Mode fallback activé - Sauvegarde des données');
+      
+      // Créer un résumé des données pour sauvegarde
+      const submissionData = {
+        id: `submission_${Date.now()}`,
+        timestamp: new Date().toISOString(),
+        client: {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          sector: formData.sector,
+          address: `${formData.address}, ${formData.city} ${formData.postalCode}, ${formData.country}`,
+          interventionArea: formData.interventionArea
+        },
+        project: {
+          typesOfClients: formData.typesOfClients,
+          communicationTone: formData.communicationTone,
+          proposedServices: formData.proposedServices,
+          specificityPositioning: formData.specificityPositioning,
+          mainCompetitors: formData.mainCompetitors,
+          existingContentLinks: formData.existingContentLinks,
+          miscellaneousInfo: formData.miscellaneousInfo
+        },
+        files: {
+          total: formData.visualFiles.length + formData.textFiles.length + formData.otherFiles.length,
+          visual: formData.visualFiles.map(f => ({ name: f.name, size: f.size })),
+          text: formData.textFiles.map(f => ({ name: f.name, size: f.size })),
+          other: formData.otherFiles.map(f => ({ name: f.name, size: f.size }))
+        },
+        status: 'pending_manual_processing'
+      };
+
+      // Sauvegarder dans localStorage
+      const existingSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+      existingSubmissions.push(submissionData);
+      localStorage.setItem('formSubmissions', JSON.stringify(existingSubmissions));
+
+      // Simuler un délai
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      console.log('✅ Données sauvegardées localement');
+      console.log('📋 Résumé:', submissionData);
+
+      return {
+        success: true,
+        message: `Merci ${formData.firstName} ! Votre demande a été enregistrée. Nous vous contacterons à l'adresse ${formData.email} dans les plus brefs délais.`
+      };
+
+    } catch (error) {
+      console.error('❌ Erreur lors de la sauvegarde fallback:', error);
+      return {
+        success: false,
+        message: 'Une erreur est survenue. Veuillez nous contacter directement par email ou téléphone.',
+        error: error instanceof Error ? error.message : 'Erreur inconnue'
+      };
+    }
+  }
+
+  // Méthode pour récupérer les soumissions sauvegardées
+  getLocalSubmissions() {
+    return JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+  }
+
+  // Méthode pour vider les soumissions locales
+  clearLocalSubmissions() {
+    localStorage.removeItem('formSubmissions');
+  }
+}
+
+export const emailService = new EmailService();

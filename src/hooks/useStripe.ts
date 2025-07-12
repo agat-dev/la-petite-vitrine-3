@@ -14,15 +14,11 @@ export const useStripe = () => {
     selectedPack: Pack,
     selectedMaintenance: MaintenanceService
   ): Promise<CheckoutSession | null> => {
-    // Si Stripe est désactivé, rediriger vers le formulaire de contact
+    // Si Stripe est désactivé, rediriger vers le formulaire
     if (!isStripeEnabled) {
-      console.log('Stripe désactivé - Redirection vers formulaire de contact');
-      return {
-        id: 'contact-form',
-        url: '/commande',
-        mode: 'contact' as any,
-        amount: 0
-      };
+      console.log('Stripe désactivé - Redirection vers formulaire de devis');
+      window.location.href = '/devis';
+      return null;
     }
 
     setLoading(true);
@@ -71,6 +67,10 @@ export const useStripe = () => {
   };
 
   const redirectToCheckout = async (sessionId: string) => {
+    if (!isStripeEnabled) {
+      window.location.href = '/devis';
+      return;
+    }
     const stripe = await stripePromise;
     if (!stripe) {
       setError('Stripe n\'a pas pu être chargé');
@@ -88,5 +88,6 @@ export const useStripe = () => {
     redirectToCheckout,
     loading,
     error,
+    isStripeEnabled
   };
 };

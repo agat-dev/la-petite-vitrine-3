@@ -21,8 +21,7 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
     {
       image: "/artisan-coiffeur.jpg",
       title: "Site d'artisan coiffeur",
-      description:
-        "OnePage vitrine pour coiffeurs avec formulaire de contact",
+      description: "OnePage vitrine pour coiffeurs avec formulaire de contact",
       category: "Vitrine",
       url: "https://artisan-coiffeur.lapetitevitrine.com",
     },
@@ -30,6 +29,12 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
 
   const handleCardClick = (card: (typeof demoCards)[0]) => {
     window.open(card.url, '_blank');
+  };
+
+  const handleGetStarted = () => {
+    onClose();
+    // Rediriger vers le formulaire de devis au lieu de la page de commande
+    window.location.href = '/devis';
   };
 
   const backdropVariants = {
@@ -108,7 +113,6 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
 
               <CardContent className="pt-8">
                 <div className="space-y-4">
-
                   {/* Demo Cards - 2 colonnes */}
                   <div className="grid grid-cols-2 gap-4">
                     {demoCards.map((card, index) => (
@@ -152,23 +156,22 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                     ))}
                   </div>
 
-                  {/* CTA Section - Plus compact */}
+                  {/* CTA Section - Modifié pour rediriger vers le formulaire */}
                   <div className="p-4 rounded-[12px] text-center">
                     <h3 className="text-lg font-bold text-blue-gray200 mb-1 font-heading-6">
                       Prêt pour votre projet ?
                     </h3>
                     <p className="text-blue-gray400 mb-3 font-body-m text-sm">
-                      190€ + 29€/mois sans engagement
+                      Demandez votre devis personnalisé gratuit
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2 justify-center">
                       <StyledWrapper>
-                        <a
-                          href="#products"
-                          rel="noopener noreferrer"
-                          onClick={onClose}
+                        <button
+                          onClick={handleGetStarted}
+                          className="w-full"
                         >
-                        Commencer maintenant
-                        </a>
+                          Demander un devis
+                        </button>
                       </StyledWrapper>
                     </div>
                   </div>

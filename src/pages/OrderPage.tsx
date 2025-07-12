@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, CheckIcon, ShoppingCartIcon, CreditCardIcon } from 'lucide-react';
 import { useMultiStepForm } from './../hooks/useMultiStepForm';
 import { StepIndicator } from './../components/forms/StepIndicator';
@@ -27,6 +27,28 @@ interface MaintenanceService {
 }
 
 export const OrderPage: React.FC = () => {
+  const navigate = useNavigate();
+  const isStripeEnabled = import.meta.env.VITE_STRIPE_ENABLED === 'true';
+
+  useEffect(() => {
+    // Si Stripe est désactivé, rediriger vers le formulaire de devis
+    if (!isStripeEnabled) {
+      navigate('/devis', { replace: true });
+    }
+  }, [isStripeEnabled, navigate]);
+
+  // Si Stripe est désactivé, ne rien afficher (redirection en cours)
+  if (!isStripeEnabled) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-2">Redirection en cours...</h2>
+          <p className="text-gray-600">Vous allez être redirigé vers le formulaire de devis.</p>
+        </div>
+      </div>
+    );
+  }
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedPack, setSelectedPack] = useState<Pack | null>(null);
