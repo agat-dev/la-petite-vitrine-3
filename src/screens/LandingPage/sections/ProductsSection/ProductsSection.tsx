@@ -182,19 +182,8 @@ export const ProductsSection = (): JSX.Element => {
 
   const handlePackSelect = (pack) => {
     setSelectedPack(pack);
-    setShowMaintenanceSelector(true); // Maintenant pour les options sociales
+    setShowMaintenanceSelector(false); // Reset l'affichage
     setSelectedSocialOptions([]); // Reset des options
-
-    // Scroll vers la section options sociales après un court délai pour l'animation
-    setTimeout(() => {
-      const socialSection = document.getElementById("social-options-section");
-      if (socialSection) {
-        socialSection.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 300);
   };
 
   const handleMaintenanceSelect = (maintenance) => {
