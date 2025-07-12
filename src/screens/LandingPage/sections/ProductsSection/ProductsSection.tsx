@@ -5,7 +5,7 @@ import { AnimatedSection } from "../../../../components/ui/animated-section";
 import { StaggeredContainer } from "../../../../components/ui/staggered-container";
 import { cn } from "../../../../lib/utils";
 import StyledWrapper from "../../../../components/ui/button-ui";
-import { MaintenanceSelector } from "../../../../components/ui/maintenance-selector";
+import { MaintenanceSelector } from "../../../../components/ecommerce/MaintenanceSelector";
 
 export const ProductsSection = (): JSX.Element => {
   const [selectedPack, setSelectedPack] = useState<any>(null);
@@ -81,6 +81,27 @@ export const ProductsSection = (): JSX.Element => {
   // Services de maintenance
   const maintenanceServices = [
     {
+      id: "maintenance-base",
+      icon: "🔧",
+      title: "Maintenance de base",
+      price: "19€",
+      features: [
+        "Mises à jour de sécurité",
+        "Sauvegarde mensuelle",
+        "Support technique de base",
+        "Monitoring du site",
+        "Rapport mensuel",
+      ],
+      buttonText: "Choisir Maintenance",
+      bgColor: "bg-blue-50",
+      borderColor: "border-blue-300",
+      titleColor: "text-blue-900",
+      priceColor: "text-blue-700",
+      textColor: "text-blue-gray900",
+      checkColor: "text-blue-600",
+      buttonClass: "border-blue-600 text-blue-900 hover:bg-blue-50",
+    },
+    {
       id: "visibilite",
       icon: "🔧",
       title: "Option Animation et Visibilité",
@@ -151,8 +172,9 @@ export const ProductsSection = (): JSX.Element => {
     setSelectedPack(pack);
     setShowMaintenanceSelector(true);
 
-    // Sélectionner "Aucune maintenance" par défaut
-    setSelectedMaintenance(null);
+    // Sélectionner la maintenance de base par défaut
+    const defaultMaintenance = maintenanceServices.find(m => m.id === "maintenance-base");
+    setSelectedMaintenance(defaultMaintenance || null);
 
     // Scroll vers la section maintenance après un court délai pour l'animation
     setTimeout(() => {
