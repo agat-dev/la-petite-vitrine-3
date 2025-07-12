@@ -3,6 +3,7 @@ import { LandingPage } from './screens/LandingPage';
 import { CGVPage } from './pages/CGV';
 import { MentionsLegalesPage } from './pages/MentionsLegales';
 import { PolitiqueConfidentialitePage } from './pages/PolitiqueConfidentialite';
+import { EcommercePage } from './pages/Ecommerce';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/commande" element={<EcommercePage />} />
           <Route path="/cgv" element={<CGVPage />} />
           <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
           <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
