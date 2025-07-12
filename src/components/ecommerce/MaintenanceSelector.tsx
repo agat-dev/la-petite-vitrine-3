@@ -28,38 +28,6 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Option "Aucune maintenance" */}
-        <Card
-          className={cn(
-            "cursor-pointer transition-all duration-300 hover:scale-105",
-            !selectedMaintenance
-              ? "ring-2 ring-amber-400 bg-amber-50"
-              : "hover:shadow-lg"
-          )}
-          onClick={() => onSelectMaintenance(undefined)}
-        >
-          {!selectedMaintenance && (
-            <div className="absolute top-4 right-4 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
-              <CheckIcon className="w-4 h-4 text-white" />
-            </div>
-          )}
-
-          <CardHeader className="text-center pb-4">
-            <h3 className="text-xl font-bold text-blue-gray900 mb-2">
-              Aucune maintenance
-            </h3>
-            <div className="text-2xl font-bold text-blue-gray900 mb-2">
-              0€/mois
-            </div>
-          </CardHeader>
-
-          <CardContent>
-            <p className="text-blue-gray700 text-sm text-center">
-              Vous gérez votre site en autonomie
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Options de maintenance */}
         {MAINTENANCE_OPTIONS.map((maintenance) => (
           <Card
