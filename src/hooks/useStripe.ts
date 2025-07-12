@@ -1,8 +1,34 @@
-import { loadStripe } from '@stripe/stripe-js';
 import { useState } from 'react';
-import type { Pack, MaintenanceService, CheckoutSession } from '../types/stripe';
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+// Types simplifiés sans Stripe
+export interface Pack {
+  id: string;
+  title: string;
+  subtitle?: string;
+  price: number;
+  originalPrice?: number;
+  description: string;
+  features: string[];
+  highlighted?: boolean;
+  popular?: boolean;
+  category: 'essentiel' | 'pro' | 'premium';
+}
+
+export interface MaintenanceService {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  features: string[];
+  period: 'monthly' | 'yearly';
+}
+
+export interface PackageSelection {
+  pack: Pack;
+  maintenance: MaintenanceService;
+  totalPrice: number;
+  timestamp: string;
+}
 
 export const useStripe = () => {
   const [loading, setLoading] = useState(false);
@@ -10,59 +36,26 @@ export const useStripe = () => {
 
   const createCheckoutSession = async (
     selectedPack: Pack,
-    selectedMaintenance?: MaintenanceService
-  ): Promise<CheckoutSession | null> => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          selectedPack,
-          selectedMaintenance,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Erreur lors de la création de la session');
-      }
-
-      const session: CheckoutSession = await response.json();
-      
-      // Log pour debug (à supprimer en production)
-      console.log('Session créée:', {
-        pack: selectedPack.title,
-        maintenance: selectedMaintenance?.title || 'Aucune',
-        mode: session.mode,
-        amount: session.amount
-      });
-      
-      return session;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Une erreur est survenue');
-      console.error('Erreur lors de la création de la session:', err);
-      return null;
-    } finally {
-      setLoading(false);
-    }
+    selectedMaintenance: MaintenanceService
+  ) => {
+    console.log('Redirection vers formulaire de devis');
+    console.log('Pack sélectionné:', selectedPack?.title);
+    console.log('Maintenance sélectionnée:', selectedMaintenance?.title);
+    
+    // Sauvegarder la sélection pour pré-remplir le formulaire
+    localStorage.setItem('selectedPackage', JSON.stringify({
+      pack: selectedPack,
+      maintenance: selectedMaintenance,
+      timestamp: new Date().toISOString()
+    }));
+    
+    // Rediriger vers le formulaire de devis
+    window.location.href = '/devis';
+    return null;
   };
 
-  const redirectToCheckout = async (sessionId: string) => {
-    const stripe = await stripePromise;
-    if (!stripe) {
-      setError('Stripe n\'a pas pu être chargé');
-      return;
-    }
-
-    const { error } = await stripe.redirectToCheckout({ sessionId });
-    if (error) {
-      setError(error.message || 'Erreur lors de la redirection');
-    }
+  const redirectToCheckout = async () => {
+    window.location.href = '/devis';
   };
 
   return {
@@ -70,5 +63,6 @@ export const useStripe = () => {
     redirectToCheckout,
     loading,
     error,
+    isStripeEnabled: false // Toujours false
   };
 };
