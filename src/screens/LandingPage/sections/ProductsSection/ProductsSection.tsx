@@ -389,7 +389,7 @@ export const ProductsSection = (): JSX.Element => {
                             selectedPack.id
                           )}
                           selectedMaintenance={selectedMaintenance}
-                          onSelect={handleMaintenanceSelect}
+                          onSelectMaintenance={handleMaintenanceSelect}
                         />
                       </div>
 
