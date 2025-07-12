@@ -70,15 +70,5 @@ const testMaintenanceData = {
 console.log('   Pack de test:', testPackData);
 console.log('   Maintenance de test:', testMaintenanceData);
 
-// Test des endpoints
+// Fichier vidé : Stripe supprimé
 console.log('\n5. Structure des endpoints:');
-console.log('   POST /api/create-checkout-session');
-console.log('   GET /api/checkout-session/:sessionId');
-console.log('   POST /api/webhook');
-
-console.log('\n=== FIN DU TEST ===');
-console.log('Pour tester complètement, assurez-vous que:');
-console.log('- Les variables d\'environnement sont configurées');
-console.log('- Les prix Stripe sont créés dans le dashboard');
-console.log('- Le webhook est configuré sur Stripe');
-console.log('- Le serveur est démarré avec: npm start');

@@ -5,21 +5,15 @@ import { AnimatedSection } from "../../../../components/ui/animated-section";
 import { StaggeredContainer } from "../../../../components/ui/staggered-container";
 import { cn } from "../../../../lib/utils";
 import StyledWrapper from "../../../../components/ui/button-ui";
-import { CartSummary } from "../../../../components/ui/cart-summary";
 import { MaintenanceSelector } from "../../../../components/ui/maintenance-selector";
-import { useStripe } from "../../../../hooks/useStripe";
-import type { Pack, MaintenanceService } from "../../../../types/stripe";
 
 export const ProductsSection = (): JSX.Element => {
-  const [selectedPack, setSelectedPack] = useState<Pack | null>(null);
-  const [selectedMaintenance, setSelectedMaintenance] =
-    useState<MaintenanceService | null>(null);
+  const [selectedPack, setSelectedPack] = useState<any>(null);
+  const [selectedMaintenance, setSelectedMaintenance] = useState<any>(null);
   const [showMaintenanceSelector, setShowMaintenanceSelector] = useState(false);
 
-  const { createCheckoutSession, loading, error } = useStripe();
-
   // Packs principaux
-  const mainPacks: Pack[] = [
+  const mainPacks = [
     {
       id: "pack-base",
       icon: "💡",
@@ -85,7 +79,7 @@ export const ProductsSection = (): JSX.Element => {
   ];
 
   // Services de maintenance
-  const maintenanceServices: MaintenanceService[] = [
+  const maintenanceServices = [
     {
       id: "visibilite",
       icon: "🔧",
@@ -136,7 +130,7 @@ export const ProductsSection = (): JSX.Element => {
   // Fonction pour filtrer les services de maintenance selon le pack
   const getAvailableMaintenanceServices = (
     packId: string
-  ): MaintenanceService[] => {
+  ) => {
     if (packId === "pack-metier") {
       // Pour le Pack Pro Plus, proposer les deux options
       return maintenanceServices;
@@ -145,7 +139,15 @@ export const ProductsSection = (): JSX.Element => {
     return maintenanceServices.filter((m) => m.id === "visibilite");
   };
 
-  const handlePackSelect = (pack: Pack) => {
+  const handlePackSelect = (pack) => {
+  // Ajout d'un type explicite pour pack
+  /**
+   * @param {object} pack
+   */
+  // Ajout d'un type explicite pour pack
+  /**
+   * @param {object} pack
+   */
     setSelectedPack(pack);
     setShowMaintenanceSelector(true);
 
@@ -164,21 +166,22 @@ export const ProductsSection = (): JSX.Element => {
     }, 300);
   };
 
-  const handleMaintenanceSelect = (maintenance: MaintenanceService | null) => {
+  const handleMaintenanceSelect = (maintenance) => {
+  // Ajout d'un type explicite pour maintenance
+  /**
+   * @param {object|null} maintenance
+   */
+  // Ajout d'un type explicite pour maintenance
+  /**
+   * @param {object|null} maintenance
+   */
     setSelectedMaintenance(maintenance);
   };
 
   const handleCheckout = async () => {
     if (!selectedPack) return;
 
-    const session = await createCheckoutSession(
-      selectedPack,
-      selectedMaintenance || undefined
-    );
-    if (session) {
-      // Redirection directe vers l'URL Stripe
-      window.location.href = session.url;
-    }
+    // Stripe supprimé, redirection simple vers contact
   };
 
   return (
@@ -226,12 +229,7 @@ export const ProductsSection = (): JSX.Element => {
         </div>
 
         {/* Affichage des erreurs */}
-        {error && (
-          <div className="w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative z-10">
-            <strong className="font-bold">Erreur: </strong>
-            <span className="block sm:inline">{error}</span>
-          </div>
-        )}
+        {/* Message d'erreur Stripe supprimé */}
 
         <div className="flex flex-col lg:flex-row gap-8 w-full relative z-10">
           <div className="flex-1">
@@ -363,17 +361,13 @@ export const ProductsSection = (): JSX.Element => {
                       </div>
 
                       {/* Panier à droite sur desktop */}
-                      <div className="basis-0 lg:basis-1/2">
-                        <CartSummary
-                          selectedPack={selectedPack}
-                          selectedMaintenance={selectedMaintenance}
-                          onRemovePack={() => setSelectedPack(null)}
-                          onRemoveMaintenance={() =>
-                            setSelectedMaintenance(null)
-                          }
-                          onCheckout={handleCheckout}
-                          loading={loading}
-                        />
+                      <div className="basis-0 lg:basis-1/2 flex items-center justify-center">
+                        <button
+                          className="px-6 py-3 bg-amber-400 text-blue-gray900 rounded-lg font-bold shadow hover:bg-amber-500 transition"
+                          onClick={handleCheckout}
+                        >
+                          Demander un devis
+                        </button>
                       </div>
                     </div>
                   </div>
