@@ -113,16 +113,17 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Navigation entre les étapes
   const handlePackSelected = () => {
+    console.log('handlePackSelected - going to maintenance-selection');
     setCurrentFlow('maintenance-selection');
   };
 
   const handleMaintenanceSelected = () => {
-    console.log('handleMaintenanceSelected called, setting currentFlow to social-options');
+    console.log('handleMaintenanceSelected - going to social-options');
     setCurrentFlow('social-options');
   };
 
   const handleSocialOptionsSelected = () => {
-    console.log('handleSocialOptionsSelected called, setting currentFlow to form');
+    console.log('handleSocialOptionsSelected - going to form');
     setCurrentFlow('form');
   };
 
@@ -240,6 +241,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
               <PackSelector
                 selectedPack={stepFormData.selectedPack}
                 onSelectPack={(pack) => {
+                  console.log('Pack selected:', pack.title);
                   selectPack(pack);
                   handlePackSelected();
                 }}
@@ -303,7 +305,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 <div className="flex justify-end">
                   <Button
                     onClick={() => {
-                      console.log('Button clicked - going to social options');
+                      console.log('Maintenance continue button clicked');
                       handleMaintenanceSelected();
                     }}
                     disabled={!stepFormData.selectedMaintenance}
@@ -326,7 +328,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                   <div className="flex justify-end">
                     <Button
                       onClick={() => {
-                        console.log('Button clicked - going to form');
+                        console.log('Social options continue button clicked');
                         handleSocialOptionsSelected();
                       }}
                       className="bg-amber-600 hover:bg-amber-700"
