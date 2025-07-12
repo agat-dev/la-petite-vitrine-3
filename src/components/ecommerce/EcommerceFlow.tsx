@@ -8,11 +8,20 @@ import { CustomerDashboard } from './CustomerDashboard';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { ArrowLeftIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
+import { PACKS } from '../../data/ecommerce-data';
+import { useEffect } from 'react';
 
 type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary' | 'dashboard';
 
-export const EcommerceFlow: React.FC = () => {
-  const [currentFlow, setCurrentFlow] = useState<FlowStep>('pack-selection');
+interface EcommerceFlowProps {
+  initialFlow?: FlowStep;
+  preSelectedPackId?: string;
+}
+export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({ 
+  initialFlow = 'pack-selection',
+  preSelectedPackId 
+}) => {
+  const [currentFlow, setCurrentFlow] = useState<FlowStep>(initialFlow);
   const [showLogin, setShowLogin] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
 
@@ -35,6 +44,20 @@ export const EcommerceFlow: React.FC = () => {
     isLastStep,
     isFirstStep
   } = useEcommerce();
+
+  // Pré-sélection du pack si spécifié
+  useEffect(() => {
+    if (preSelectedPackId && !stepFormData.selectedPack) {
+      const pack = PACKS.find(p => p.id === preSelectedPackId);
+      if (pack) {
+        selectPack(pack);
+        // Si on démarre directement sur le formulaire, on pré-sélectionne aussi "aucune maintenance"
+        if (initialFlow === 'form') {
+          selectMaintenance(undefined);
+        }
+      }
+    }
+  }, [preSelectedPackId, stepFormData.selectedPack, selectPack, selectMaintenance, initialFlow]);
 
   // Gestion de la connexion
   const handleLogin = () => {

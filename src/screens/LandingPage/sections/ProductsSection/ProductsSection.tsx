@@ -331,11 +331,11 @@ export const ProductsSection = (): JSX.Element => {
                     </div>
                     <div className="h-16 flex-1 flex items-center justify-center">
                       <StyledWrapper>
-                        <span className="text-sm text-blue-gray800">
+                        <a href={`/commande?direct=form&pack=${pack.id}`} className="text-sm text-blue-gray800">
                           {selectedPack?.id === pack.id
                             ? "Sélectionné"
                             : "Commander ce pack"}
-                        </span>
+                        </a>
                       </StyledWrapper>
                     </div>
                   </CardContent>
@@ -362,12 +362,12 @@ export const ProductsSection = (): JSX.Element => {
 
                       {/* Panier à droite sur desktop */}
                       <div className="basis-0 lg:basis-1/2 flex items-center justify-center">
-                        <button
-                          className="px-6 py-3 bg-amber-400 text-blue-gray900 rounded-lg font-bold shadow hover:bg-amber-500 transition"
-                          onClick={handleCheckout}
+                        <a 
+                          href={`/commande?direct=form&pack=${selectedPack?.id || 'pack-pro'}`}
+                          className="px-6 py-3 bg-amber-400 text-blue-gray900 rounded-lg font-bold shadow hover:bg-amber-500 transition inline-block text-center"
                         >
-                          Demander un devis
-                        </button>
+                          Commencer maintenant
+                        </a>
                       </div>
                     </div>
                   </div>
