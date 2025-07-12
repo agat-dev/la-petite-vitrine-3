@@ -403,7 +403,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             )}
           </div>
 
-          {/* Sidebar - Récapitulatif */}
           <div className="lg:col-span-1">
             <div className="sticky top-8">
               <OrderSummary
