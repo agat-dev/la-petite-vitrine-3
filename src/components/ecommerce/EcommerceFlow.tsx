@@ -32,7 +32,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     stepFormData,
     customer,
     selectPack,
-    selectMaintenance,
+    selectSocialOptions,
     updateFormData,
     goToStep,
     nextStep,
@@ -63,13 +63,15 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Pré-sélection de la maintenance si spécifiée
   useEffect(() => {
-    console.log('Maintenance useEffect - preSelectedMaintenanceId:', preSelectedMaintenanceId, 'current maintenance:', stepFormData.selectedMaintenance);
-    if (preSelectedMaintenanceId !== undefined && !stepFormData.selectedMaintenance) {
-      const maintenance = MAINTENANCE_OPTIONS.find(m => m.id === preSelectedMaintenanceId);
-      console.log('Found maintenance:', maintenance);
-      selectMaintenance(maintenance || undefined);
+    console.log('Social options useEffect - preSelectedMaintenanceId:', preSelectedMaintenanceId, 'current options:', stepFormData.selectedSocialOptions);
+    if (preSelectedMaintenanceId !== undefined) {
+      const option = preSelectedMaintenanceId ? MAINTENANCE_OPTIONS.find(m => m.id === preSelectedMaintenanceId) : null;
+      console.log('Found option:', option);
+      if (option && (!stepFormData.selectedSocialOptions || stepFormData.selectedSocialOptions.length === 0)) {
+        selectSocialOptions([option]);
+      }
     }
-  }, [preSelectedMaintenanceId, stepFormData.selectedMaintenance, selectMaintenance]);
+  }, [preSelectedMaintenanceId, stepFormData.selectedSocialOptions, selectSocialOptions]);
 
   // Gestion de la connexion
   const handleLogin = () => {
@@ -229,8 +231,8 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             {currentFlow === 'maintenance-selection' && (
               <div className="space-y-6">
                 <MaintenanceSelector
-                  selectedMaintenance={stepFormData.selectedMaintenance}
-                  onSelectMaintenance={selectMaintenance}
+                  selectedSocialOptions={stepFormData.selectedSocialOptions}
+                  onSelectSocialOptions={selectSocialOptions}
                 />
                 <div className="flex justify-end">
                   <Button
@@ -311,7 +313,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             <div className="sticky top-8">
               <OrderSummary
                 selectedPack={stepFormData.selectedPack}
-                selectedMaintenance={stepFormData.selectedMaintenance}
+                selectedSocialOptions={stepFormData.selectedSocialOptions}
                 formData={stepFormData.formData}
                 totalPrice={calculateTotal()}
               />

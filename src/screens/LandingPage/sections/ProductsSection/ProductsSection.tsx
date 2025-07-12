@@ -9,7 +9,7 @@ import { MaintenanceSelector } from "../../../../components/ecommerce/Maintenanc
 
 export const ProductsSection = (): JSX.Element => {
   const [selectedPack, setSelectedPack] = useState<any>(null);
-  const [selectedMaintenance, setSelectedMaintenance] = useState<any>(null);
+  const [selectedSocialOptions, setSelectedSocialOptions] = useState<any[]>([]);
   const [showMaintenanceSelector, setShowMaintenanceSelector] = useState(false);
 
   // Packs principaux
@@ -203,10 +203,7 @@ export const ProductsSection = (): JSX.Element => {
    */
     setSelectedPack(pack);
     setShowMaintenanceSelector(true);
-
-    // Sélectionner Google My Business par défaut
-    const defaultMaintenance = maintenanceServices.find(m => m.id === "google-business");
-    setSelectedMaintenance(defaultMaintenance || null);
+    setSelectedSocialOptions([]); // Reset des options
 
     // Scroll vers la section maintenance après un court délai pour l'animation
     setTimeout(() => {
@@ -228,8 +225,8 @@ export const ProductsSection = (): JSX.Element => {
   // Ajout d'un type explicite pour maintenance
   /**
    * @param {object|null} maintenance
-   */
-    setSelectedMaintenance(maintenance);
+  const handleSocialOptionsSelect = (options) => {
+    setSelectedSocialOptions(options);
   };
 
   const handleCheckout = async () => {
@@ -241,8 +238,9 @@ export const ProductsSection = (): JSX.Element => {
       pack: selectedPack.id
     });
     
-    if (selectedMaintenance) {
-      params.append('maintenance', selectedMaintenance.id);
+    if (selectedSocialOptions.length > 0) {
+      // Pour l'instant, on ne passe que la première option pour compatibilité
+      params.append('maintenance', selectedSocialOptions[0].id);
     }
     
     // Rediriger vers le formulaire avec les sélections
@@ -423,11 +421,8 @@ export const ProductsSection = (): JSX.Element => {
                       {/* Section maintenance à gauche */}
                       <div className="flex-1 basis-0 lg:basis-1/2">
                         <MaintenanceSelector
-                          maintenanceServices={getAvailableMaintenanceServices(
-                            selectedPack.id
-                          )}
-                          selectedMaintenance={selectedMaintenance}
-                          onSelectMaintenance={handleMaintenanceSelect}
+                          selectedSocialOptions={selectedSocialOptions}
+                          onSelectSocialOptions={handleSocialOptionsSelect}
                         />
                       </div>
 
