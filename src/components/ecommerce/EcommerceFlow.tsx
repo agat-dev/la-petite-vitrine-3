@@ -7,9 +7,12 @@ import { OrderSummary } from './OrderSummary';
 import { CustomerDashboard } from './CustomerDashboard';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
+import { Card, CardContent, CardHeader } from '../ui/card';
 import { ArrowLeftIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
+import { cn } from '../../lib/utils';
 
 type FlowStep = 'pack-selection' | 'social-options' | 'maintenance-selection' | 'form' | 'summary' | 'dashboard';
 
@@ -276,7 +279,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                             ? "ring-2 ring-amber-400 bg-amber-50"
                             : "hover:shadow-lg"
                         )}
-                        onClick={() => selectMaintenance(maintenance)}
+                        onClick={() => {
+                          console.log('Selecting maintenance:', maintenance);
+                          selectMaintenance(maintenance);
+                        }}
                       >
                         {isSelected && (
                           <div className="absolute top-4 right-4 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
