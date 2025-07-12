@@ -236,6 +236,7 @@ export const ProductsSection = (): JSX.Element => {
   };
 
   return (
+    <>
     <section className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-16 lg:px-20 3xl:px-24 3xl:py-40 4xl:px-32 4xl:py-48 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1400px] mx-auto">
@@ -433,5 +434,6 @@ export const ProductsSection = (): JSX.Element => {
         </div>
       </div>
     </section>
+    </>
   );
 };
