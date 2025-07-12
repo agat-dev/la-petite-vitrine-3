@@ -35,6 +35,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     customer,
     selectPack,
     selectSocialOptions,
+    selectMaintenance,
     updateFormData,
     goToStep,
     nextStep,
@@ -273,67 +274,68 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 <div className="bg-green-100 p-4 rounded-lg mb-4">
                   <p className="text-sm">Debug: Affichage du choix de maintenance - currentFlow = {currentFlow}</p>
                 </div>
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-blue-gray900 mb-4">
-                    Choisissez votre maintenance (obligatoire)
-                  </h2>
-                  <p className="text-blue-gray600">
-                    Sélectionnez le niveau de maintenance qui vous convient
-                  </p>
-                </div>
+                <div className="space-y-6">
+                  <div className="text-center mb-6">
+                    <h2 className="text-2xl font-bold text-blue-gray900 mb-4">
+                      Choisissez votre maintenance (obligatoire)
+                    </h2>
+                    <p className="text-blue-gray600">
+                      Sélectionnez le niveau de maintenance qui vous convient
+                    </p>
+                  </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                  {MAINTENANCE_OPTIONS.map((maintenance) => {
-                    const isSelected = stepFormData.selectedMaintenance?.id === maintenance.id;
-                    
-                    return (
-                      <Card
-                        key={maintenance.id}
-                        className={cn(
-                          "cursor-pointer transition-all duration-300 hover:scale-105",
-                          isSelected
-                            ? "ring-2 ring-amber-400 bg-amber-50"
-                            : "hover:shadow-lg"
-                        )}
-                        onClick={() => {
-                          console.log('Selecting maintenance:', maintenance);
-                          selectMaintenance(maintenance);
-                        }}
-                      >
-                        {isSelected && (
-                          <div className="absolute top-4 right-4 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
-                            <CheckIcon className="w-4 h-4 text-white" />
-                          </div>
-                        )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    {MAINTENANCE_OPTIONS.map((maintenance) => {
+                      const isSelected = stepFormData.selectedMaintenance?.id === maintenance.id;
+                      
+                      return (
+                        <Card
+                          key={maintenance.id}
+                          className={cn(
+                            "cursor-pointer transition-all duration-300 hover:scale-105",
+                            isSelected
+                              ? "ring-2 ring-amber-400 bg-amber-50"
+                              : "hover:shadow-lg"
+                          )}
+                          onClick={() => {
+                            console.log('Selecting maintenance:', maintenance);
+                            selectMaintenance(maintenance);
+                          }}
+                        >
+                          {isSelected && (
+                            <div className="absolute top-4 right-4 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
+                              <CheckIcon className="w-4 h-4 text-white" />
+                            </div>
+                          )}
 
-                        <CardHeader className="text-center pb-4">
-                          <h3 className="text-xl font-bold text-blue-gray900 mb-2">
-                            {maintenance.title}
-                          </h3>
-                          <div className="text-2xl font-bold text-amber-900 mb-2">
-                            {maintenance.price}€/mois
-                          </div>
-                        </CardHeader>
+                          <CardHeader className="text-center pb-4">
+                            <h3 className="text-xl font-bold text-blue-gray900 mb-2">
+                              {maintenance.title}
+                            </h3>
+                            <div className="text-2xl font-bold text-amber-900 mb-2">
+                              {maintenance.price}€/mois
+                            </div>
+                          </CardHeader>
 
-                        <CardContent>
-                          <p className="text-blue-gray700 text-sm text-center">
-                            {maintenance.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
+                          <CardContent>
+                            <p className="text-blue-gray700 text-sm text-center">
+                              {maintenance.description}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
 
-                <div className="flex justify-end">
-                  <Button
-                    onClick={handleMaintenanceSelected}
-                    disabled={!stepFormData.selectedMaintenance}
-                    className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50"
-                  >
-                    Continuer
-                  </Button>
+                  <div className="flex justify-end">
+                    <Button
+                      onClick={handleMaintenanceSelected}
+                      disabled={!stepFormData.selectedMaintenance}
+                      className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50"
+                    >
+                      Continuer
+                    </Button>
+                  </div>
                 </div>
               </div>
             )}
