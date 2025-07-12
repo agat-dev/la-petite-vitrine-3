@@ -88,7 +88,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
             <div>
               <h4 className="font-medium text-blue-gray900 mb-2">Maintenance</h4>
               <p className="text-sm text-blue-gray600">
-                {order.maintenance.title} - {order.maintenance.price}€/mois
+                {order.maintenance.title} - {order.maintenance.price}€
               </p>
             </div>
           )}
@@ -377,7 +377,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                           <div>
                             <span className="text-sm font-medium text-blue-gray700">Maintenance :</span>
                             <p className="text-sm text-blue-gray600">
-                              {order.maintenance ? `${order.maintenance.title} (${order.maintenance.price}€/mois)` : 'Aucune maintenance'}
+                              {order.maintenance ? `${order.maintenance.title} (${order.maintenance.price}€)` : 'Aucune maintenance'}
                             </p>
                           </div>
                         </div>

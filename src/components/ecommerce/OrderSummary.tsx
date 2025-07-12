@@ -68,16 +68,16 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                 <div key={option.id} className="bg-blue-50 p-3 rounded-lg">
                   <div className="flex justify-between items-start mb-1">
                     <h5 className="font-medium text-blue-gray900">{option.title}</h5>
-                    <span className="font-bold text-blue-600">{option.price}€/mois</span>
+                    <span className="font-bold text-blue-600">{option.price}€</span>
                   </div>
                   <p className="text-xs text-blue-gray600">{option.description}</p>
                 </div>
               ))}
               <div className="bg-amber-50 p-2 rounded border-t border-amber-200">
                 <div className="flex justify-between items-center text-sm font-medium">
-                  <span className="text-amber-800">Total mensuel :</span>
+                  <span className="text-amber-800">Total options :</span>
                   <span className="text-amber-900">
-                    {selectedSocialOptions.reduce((total, option) => total + option.price, 0)}€/mois
+                    {selectedSocialOptions.reduce((total, option) => total + option.price, 0)}€
                   </span>
                 </div>
               </div>
@@ -119,11 +119,6 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
             <span className="text-lg font-semibold text-blue-gray900">Total</span>
             <div className="text-right">
               <div className="text-2xl font-bold text-amber-900">{totalPrice}€</div>
-              {selectedSocialOptions.length > 0 && (
-                <div className="text-sm text-blue-gray600">
-                  + {selectedSocialOptions.reduce((total, option) => total + option.price, 0)}€/mois
-                </div>
-              )}
             </div>
           </div>
           

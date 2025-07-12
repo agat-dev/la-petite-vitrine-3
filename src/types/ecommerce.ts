@@ -13,7 +13,7 @@ export interface MaintenanceOption {
   price: number;
   description: string;
   features: string[];
-  billingCycle: 'monthly' | 'yearly';
+  billingCycle: 'monthly' | 'yearly' | 'one-time';
 }
 
 export interface FormStep {

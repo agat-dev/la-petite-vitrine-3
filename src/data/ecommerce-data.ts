@@ -63,7 +63,7 @@ export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
       "Configuration des horaires",
       "Gestion des avis clients"
     ],
-    billingCycle: "monthly"
+    billingCycle: "one-time"
   },
   {
     id: "reseaux-sociaux",
@@ -78,7 +78,7 @@ export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
       "Configuration complète",
       "Optimisation des profils"
     ],
-    billingCycle: "monthly"
+    billingCycle: "one-time"
   },
   {
     id: "annuaires-pro",
@@ -92,7 +92,7 @@ export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
       "Optimisation des fiches",
       "Suivi des inscriptions"
     ],
-    billingCycle: "monthly"
+    billingCycle: "one-time"
   }
 ];
 

@@ -111,15 +111,15 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
             {selectedSocialOptions.map((option, index) => (
               <div key={option.id} className="flex justify-between items-center">
                 <span className="text-sm text-amber-800">{option.title}</span>
-                <span className="text-sm font-medium text-amber-900">{option.price}€/mois</span>
+                <span className="text-sm font-medium text-amber-900">{option.price}€</span>
               </div>
             ))}
           </div>
           <div className="border-t border-amber-300 mt-2 pt-2">
             <div className="flex justify-between items-center font-bold">
-              <span className="text-amber-900">Total mensuel :</span>
+              <span className="text-amber-900">Total options :</span>
               <span className="text-amber-900">
-                {selectedSocialOptions.reduce((total, option) => total + option.price, 0)}€/mois
+                {selectedSocialOptions.reduce((total, option) => total + option.price, 0)}€
               </span>
             </div>
           </div>
