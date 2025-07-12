@@ -12,10 +12,57 @@
   html, body {
     overflow-x: hidden;
     max-width: 100vw;
+    scroll-behavior: smooth;
   }
   
   * {
     box-sizing: border-box;
+  }
+}
+
+/* Styles pour très grands écrans */
+@layer utilities {
+  @media (min-width: 1920px) {
+    .ultra-wide-container {
+      max-width: 2400px;
+      margin: 0 auto;
+    }
+    
+    .ultra-wide-padding {
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
+    
+    .ultra-wide-text {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+    
+    .ultra-wide-title {
+      font-size: 4rem;
+      line-height: 1.1;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    .ultra-wide-container {
+      max-width: 2800px;
+    }
+    
+    .ultra-wide-padding {
+      padding-left: 8rem;
+      padding-right: 8rem;
+    }
+    
+    .ultra-wide-text {
+      font-size: 1.25rem;
+      line-height: 1.875rem;
+    }
+    
+    .ultra-wide-title {
+      font-size: 5rem;
+      line-height: 1.1;
+    }
   }
 }
 
@@ -291,4 +338,5 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     font-family: "Montserrat", sans-serif;
   }
+
 }

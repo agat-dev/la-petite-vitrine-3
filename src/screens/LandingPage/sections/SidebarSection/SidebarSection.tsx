@@ -34,7 +34,7 @@ export const SidebarSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="mt-8 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
+    <section id="offre" className="max-w-[1400px] mx-auto md:mt-8 mt-36 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
       <StaggeredContainer 
         className="flex flex-col md:flex-row w-full max-w-[1280px] items-start gap-8 md:gap-12 lg:gap-20 relative z-40"
         staggerDelay={150}
@@ -55,7 +55,7 @@ export const SidebarSection = (): JSX.Element => {
               />
             )}
 
-            <Card className="w-[80%] pb-8 px-8 bg-white border-none transition-transform duration-300 group-hover:scale-105">
+            <Card className="md:w-[80%] w-full pb-8 px-8 bg-white border-none transition-transform duration-300 group-hover:scale-105">
               <CardContent className="p-0">
                 <div className="flex flex-col items-start gap-4 relative w-full">
                   {/*<div className="inline-flex justify-center items-center transition-transform duration-300 group-hover:scale-110">
@@ -68,7 +68,7 @@ export const SidebarSection = (): JSX.Element => {
 
                   <div className="mt-16 flex flex-col items-start gap-1 relative w-full">
                     <div className="flex items-center gap-2 relative w-full">
-                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-[number:var(--subtitle-XL-font-weight)] text-amber-900 text-lg md:text-3xl lg:text-3xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
+                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-bold text-amber-900 text-2xl md:text-3xl lg:text-4xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
                         {card.title}
                       </h3>
                     </div>

@@ -6,9 +6,8 @@ import type { Pack, MaintenanceService } from '../../types/stripe';
 
 interface CartSummaryProps {
   selectedPack: Pack;
-  selectedMaintenance?: MaintenanceService | null;
+  selectedMaintenance: MaintenanceService | null;
   onRemovePack: () => void;
-  onRemoveMaintenance: () => void;
   onCheckout: () => void;
   loading: boolean;
 }
@@ -17,7 +16,6 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
   selectedPack,
   selectedMaintenance,
   onRemovePack,
-  onRemoveMaintenance,
   onCheckout,
   loading
 }) => {
@@ -58,39 +56,56 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
               <p className="text-blue-600 font-bold">{selectedMaintenance.price}/mois</p>
               <p className="text-xs text-blue-gray600">Abonnement mensuel sans engagement</p>
             </div>
-            <button
-              onClick={onRemoveMaintenance}
-              className="text-red-500 hover:text-red-700 transition-colors"
-            >
-              <XIcon className="w-4 h-4" />
-            </button>
+            {/* Pas de bouton de suppression pour la maintenance car elle est obligatoire */}
+          </div>
+        )}
+
+        {/* Message si pas de maintenance sélectionnée */}
+        {!selectedMaintenance && (
+          <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
+            <p className="text-orange-800 text-sm font-medium">
+              Veuillez sélectionner une maintenance pour continuer
+            </p>
           </div>
         )}
 
         {/* Résumé des coûts */}
-        <div className="border-t border-amber-200 pt-4">
-          {selectedMaintenance && (
+        {selectedMaintenance && (
+          <div className="border-t border-amber-200 pt-4">
             <div className="bg-blue-50 p-2 rounded text-xs text-blue-gray700 mb-4">
               <strong>Note:</strong> La maintenance sera facturée mensuellement après le premier paiement du pack.
             </div>
-          )}
-          <div className="flex justify-between items-center text-lg font-bold text-amber-900">
-            <span>Aujourd'hui:</span>
-            <span>{packPrice}€</span>
-          </div>
-          {selectedMaintenance && (
+            
+            {/* Détail des coûts */}
+            <div className="space-y-2 mb-3">
+              <div className="flex justify-between items-center text-sm text-blue-gray700">
+                <span>Pack {selectedPack.title}:</span>
+                <span>{packPrice}€</span>
+              </div>
+              <div className="flex justify-between items-center text-sm text-blue-gray700">
+                <span>Maintenance (1er mois):</span>
+                <span>{maintenancePrice}€</span>
+              </div>
+            </div>
+            
+            {/* Total */}
+            <div className="flex justify-between items-center text-lg font-bold text-amber-900 border-t border-amber-200 pt-2">
+              <span>Total aujourd'hui:</span>
+              <span>{packPrice + maintenancePrice}€</span>
+            </div>
+            
             <div className="flex justify-between items-center text-sm text-blue-gray600 mt-1">
               <span>Puis chaque mois:</span>
               <span>{maintenancePrice}€</span>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Bouton de paiement */}
         <StyledButton
           variant="primary"
           onClick={onCheckout}
-          disabled={loading}
+          disabled={loading || !selectedMaintenance}
           className="w-full"
         >
           {loading ? 'Redirection...' : 'Procéder au paiement'}
