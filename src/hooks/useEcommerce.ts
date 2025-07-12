@@ -153,6 +153,8 @@ export const useEcommerce = () => {
     if (savedCustomer) {
       // Sélectionner Google My Business par défaut si rien n'est spécifié
       const defaultMaintenance = MAINTENANCE_OPTIONS.find(m => m.id === "google-business");
+      const customerData = JSON.parse(savedCustomer);
+      if (customerData.email === email) {
         setCustomer(customerData);
         return true;
       }
