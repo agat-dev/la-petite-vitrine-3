@@ -59,7 +59,7 @@ export const AboutSection = (): JSX.Element => {
         <Card className="relative w-full h-full border-none bg-transparent">
           <div className="relative h-full">            
             <div className="absolute right-[0%] -top-[14%] w-max p-8 rounded-[30px] bg-amber-600 text-center font-body-l font-[number:var(--body-l-font-weight)] text-white text-3xl md:text-4xl lg:text-5xl tracking-[var(--body-l-letter-spacing)] [font-style:var(--body-l-font-style)] z-50">
-              <p>590€</p><p className="mt-2 md:text-3xl text-2xl italic">+ 19€/mois</p>
+              <p>590€</p><p className="mt-2 md:text-3xl text-2xl italic">+ 25€/mois</p>
             </div>
             <div className="absolute w-[75%] h-[85%] top-[12%] left-[12%] bg-amber-400 rounded-[30px] md:rounded-[40px] lg:rounded-[50px] transition-transform duration-700 hover:scale-105" />
             <img

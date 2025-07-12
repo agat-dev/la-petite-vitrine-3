@@ -84,18 +84,18 @@ export const ProductsSection = (): JSX.Element => {
   // Services de maintenance
   const maintenanceServices = [
     {
-      id: "maintenance-base",
+      id: "google-business",
       icon: "🔧",
-      title: "Maintenance de base",
-      price: "19€",
+      title: "Google My Business",
+      price: "25€",
       features: [
-        "Mises à jour de sécurité",
-        "Sauvegarde mensuelle",
-        "Support technique de base",
-        "Monitoring du site",
-        "Rapport mensuel",
+        "Création de la fiche Google My Business",
+        "Optimisation SEO local",
+        "Ajout de photos et informations",
+        "Configuration des horaires",
+        "Gestion des avis clients",
       ],
-      buttonText: "Choisir Maintenance",
+      buttonText: "Choisir Google Business",
       bgColor: "bg-blue-50",
       borderColor: "border-blue-300",
       titleColor: "text-blue-900",
@@ -105,18 +105,18 @@ export const ProductsSection = (): JSX.Element => {
       buttonClass: "border-blue-600 text-blue-900 hover:bg-blue-50",
     },
     {
-      id: "visibilite",
-      icon: "🔧",
-      title: "Option Animation et Visibilité",
-      price: "39€",
+      id: "reseaux-sociaux",
+      icon: "📱",
+      title: "2 Réseaux Sociaux",
+      price: "25€",
       features: [
-        "2 posts/mois par réseau social",
-        "Mise à jour contenus site",
-        "Mise à jour réseaux sociaux",
-        "Visuels et contenus fournis",
-        "Statistiques mensuelles",
+        "Création de 2 pages au choix",
+        "Facebook Business",
+        "Instagram Business",
+        "LinkedIn Entreprise",
+        "Configuration complète",
       ],
-      buttonText: "Choisir Visiblité",
+      buttonText: "Choisir Réseaux Sociaux",
       bgColor: "bg-amber-50",
       borderColor: "border-amber-300",
       titleColor: "text-amber-900",
@@ -124,6 +124,27 @@ export const ProductsSection = (): JSX.Element => {
       textColor: "text-blue-gray900",
       checkColor: "text-amber-600",
       buttonClass: "border-amber-600 text-amber-900 hover:bg-amber-50",
+    },
+    {
+      id: "annuaires-pro",
+      icon: "📋",
+      title: "Annuaires Professionnels",
+      price: "25€",
+      features: [
+        "Inscription dans 5+ annuaires",
+        "Pages Jaunes professionnelles",
+        "Annuaires sectoriels",
+        "Optimisation des fiches",
+        "Suivi des inscriptions",
+      ],
+      buttonText: "Choisir Annuaires",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-300",
+      titleColor: "text-green-900",
+      priceColor: "text-green-700",
+      textColor: "text-blue-gray900",
+      checkColor: "text-green-600",
+      buttonClass: "border-green-600 text-green-900 hover:bg-green-50",
     },
   ];
 
@@ -155,12 +176,20 @@ export const ProductsSection = (): JSX.Element => {
   const getAvailableMaintenanceServices = (
     packId: string
   ) => {
-    if (packId === "pack-metier") {
-      // Pour le Pack Pro Plus, proposer les deux options
+    if (packId === "pack-base") {
+      // Pour le Pack Essentiel, proposer seulement Google My Business
+      return maintenanceServices.filter((m) => m.id === "google-business");
+    } else if (packId === "pack-presence") {
+      // Pour le Pack Pro, proposer Google Business + Réseaux Sociaux
+      return maintenanceServices.filter((m) => 
+        m.id === "google-business" || m.id === "reseaux-sociaux"
+      );
+    } else if (packId === "pack-metier") {
+      // Pour le Pack Pro Plus, proposer toutes les options
       return maintenanceServices;
     }
-    // Pour les autres packs, proposer seulement l'option Visibilité
-    return maintenanceServices.filter((m) => m.id === "visibilite");
+    // Par défaut, proposer Google My Business
+    return maintenanceServices.filter((m) => m.id === "google-business");
   };
 
   const handlePackSelect = (pack) => {
@@ -175,8 +204,8 @@ export const ProductsSection = (): JSX.Element => {
     setSelectedPack(pack);
     setShowMaintenanceSelector(true);
 
-    // Sélectionner la maintenance de base par défaut
-    const defaultMaintenance = maintenanceServices.find(m => m.id === "maintenance-base");
+    // Sélectionner Google My Business par défaut
+    const defaultMaintenance = maintenanceServices.find(m => m.id === "google-business");
     setSelectedMaintenance(defaultMaintenance || null);
 
     // Scroll vers la section maintenance après un court délai pour l'animation

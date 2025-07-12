@@ -52,45 +52,45 @@ export const PACKS: Pack[] = [
 
 export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
   {
-    id: "maintenance-base",
-    title: "Maintenance de base",
-    price: 19,
-    description: "Maintenance essentielle pour votre site web",
+    id: "google-business",
+    title: "Google My Business",
+    price: 25,
+    description: "Création et optimisation de votre fiche Google My Business",
     features: [
-      "Mises à jour de sécurité",
-      "Sauvegarde mensuelle",
-      "Support technique de base",
-      "Monitoring du site",
-      "Rapport mensuel"
+      "Création de la fiche Google My Business",
+      "Optimisation SEO local",
+      "Ajout de photos et informations",
+      "Configuration des horaires",
+      "Gestion des avis clients"
     ],
     billingCycle: "monthly"
   },
   {
-    id: "visibilite",
-    title: "Option Animation et Visibilité",
-    price: 39,
-    description: "Animation de vos réseaux sociaux et mise à jour de contenu",
+    id: "reseaux-sociaux",
+    title: "2 Réseaux Sociaux",
+    price: 25,
+    description: "Création de 2 pages professionnelles (Facebook, Instagram ou LinkedIn)",
     features: [
-      "2 posts/mois par réseau social",
-      "Mise à jour contenus site",
-      "Mise à jour réseaux sociaux",
-      "Visuels et contenus fournis",
-      "Statistiques mensuelles"
+      "Création de 2 pages au choix",
+      "Facebook Business",
+      "Instagram Business", 
+      "LinkedIn Entreprise",
+      "Configuration complète",
+      "Optimisation des profils"
     ],
     billingCycle: "monthly"
   },
   {
-    id: "maintenance-pro",
-    title: "Maintenance Pro Plus",
-    price: 59,
-    description: "Maintenance complète avec support prioritaire",
+    id: "annuaires-pro",
+    title: "Annuaires Professionnels",
+    price: 25,
+    description: "Inscription dans les principaux annuaires professionnels",
     features: [
-      "Tout l'option Visibilité",
-      "Support prioritaire",
-      "Modifications illimitées",
-      "Sauvegarde quotidienne",
-      "Monitoring 24/7",
-      "Rapport mensuel détaillé"
+      "Inscription dans 5+ annuaires",
+      "Pages Jaunes professionnelles",
+      "Annuaires sectoriels",
+      "Optimisation des fiches",
+      "Suivi des inscriptions"
     ],
     billingCycle: "monthly"
   }

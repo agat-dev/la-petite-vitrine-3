@@ -20,10 +20,10 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
     <div className={cn("space-y-6", className)}>
       <div className="text-center">
         <h2 className="text-2xl font-bold text-blue-gray900 mb-4">
-          Options de maintenance (optionnel)
+          Options réseaux sociaux (optionnel)
         </h2>
         <p className="text-blue-gray600">
-          Choisissez une option de maintenance pour votre site web
+          Choisissez vos options de présence en ligne
         </p>
       </div>
 
