@@ -294,10 +294,3 @@ export const DEFAULT_FORM_STEPS: FormStep[] = [
     ]
   }
 ];
-
-        required: true,
-        validation: { minLength: 20 }
-      }
-    ]
-  }
-];
