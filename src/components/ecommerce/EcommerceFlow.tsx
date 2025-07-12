@@ -75,6 +75,12 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     }
   }, [preSelectedMaintenanceId, stepFormData.selectedSocialOptions, selectSocialOptions]);
 
+  // Debug: afficher l'état actuel
+  console.log('EcommerceFlow render - currentFlow:', currentFlow);
+  console.log('EcommerceFlow render - selectedPack:', stepFormData.selectedPack?.title);
+  console.log('EcommerceFlow render - selectedSocialOptions:', stepFormData.selectedSocialOptions?.length);
+  console.log('EcommerceFlow render - selectedMaintenance:', stepFormData.selectedMaintenance?.title);
+
   // Gestion de la connexion
   const handleLogin = () => {
     if (loginCustomer(loginEmail)) {
@@ -110,10 +116,12 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   };
 
   const handleSocialOptionsSelected = () => {
+    console.log('handleSocialOptionsSelected called, setting currentFlow to maintenance-selection');
     setCurrentFlow('maintenance-selection');
   };
 
   const handleMaintenanceSelected = () => {
+    console.log('handleMaintenanceSelected called, setting currentFlow to form');
     setCurrentFlow('form');
   };
 
@@ -239,13 +247,19 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
             {currentFlow === 'social-options' && (
               <div className="space-y-6">
+                <div className="bg-yellow-100 p-4 rounded-lg">
+                  <p className="text-sm">Debug: currentFlow = {currentFlow}</p>
+                </div>
                 <MaintenanceSelector
                   selectedSocialOptions={stepFormData.selectedSocialOptions}
                   onSelectSocialOptions={selectSocialOptions}
                 />
                 <div className="flex justify-end">
                   <Button
-                    onClick={handleSocialOptionsSelected}
+                    onClick={() => {
+                      console.log('Button clicked - going to maintenance selection');
+                      handleSocialOptionsSelected();
+                    }}
                     className="bg-amber-600 hover:bg-amber-700"
                   >
                     Continuer
@@ -255,6 +269,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             )}
 
             {currentFlow === 'maintenance-selection' && (
+              <div>
+                <div className="bg-green-100 p-4 rounded-lg mb-4">
+                  <p className="text-sm">Debug: Affichage du choix de maintenance - currentFlow = {currentFlow}</p>
+                </div>
               <div className="space-y-6">
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-bold text-blue-gray900 mb-4">
