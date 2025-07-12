@@ -55,7 +55,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         selectPack(pack);
       }
     }
-  });
+  }, [preSelectedPackId, stepFormData.selectedPack, selectPack]);
 
   // Gestion de la connexion
   const handleLogin = () => {
