@@ -6,7 +6,6 @@ import { StepForm } from './StepForm';
 import { OrderSummary } from './OrderSummary';
 import { CustomerDashboard } from './CustomerDashboard';
 import { Button } from '../ui/button';
-import { Card, CardContent } from '../ui/card';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { ArrowLeftIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
 import { CheckIcon } from 'lucide-react';
