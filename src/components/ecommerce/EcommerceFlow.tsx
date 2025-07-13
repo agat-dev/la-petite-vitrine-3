@@ -30,7 +30,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 }) => {
   const [currentFlow, setCurrentFlow] = useState<FlowStep>(initialFlow);
   const [showLogin, setShowLogin] = useState(false);
-  const [loginEmail, setLoginEmail] = useState('');
   const { authState, logout } = useAuthContext();
 
   const {
@@ -75,25 +74,23 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     }
   }, [preSelectedMaintenanceId, stepFormData.selectedMaintenance, selectMaintenance]);
 
+  // Rediriger vers le dashboard si l'utilisateur est connecté
+  useEffect(() => {
+    if (authState.isAuthenticated && showLogin) {
+      setCurrentFlow('dashboard');
+      setShowLogin(false);
+    }
+  }, [authState.isAuthenticated, showLogin]);
+
   // Debug: afficher l'état actuel
   console.log('EcommerceFlow render - currentFlow:', currentFlow);
   console.log('EcommerceFlow render - selectedPack:', stepFormData.selectedPack?.title);
   console.log('EcommerceFlow render - selectedMaintenance:', stepFormData.selectedMaintenance?.title);
 
-  // Gestion de la connexion
-  const handleLogin = () => {
-    if (loginCustomer(loginEmail)) {
-      setCurrentFlow('dashboard');
-      setShowLogin(false);
-      setLoginEmail('');
-    } else {
-      alert('Client non trouvé. Veuillez passer une commande d\'abord.');
-    }
-  };
-
   // Gestion de la déconnexion
   const handleLogout = () => {
     resetCustomerSession();
+    logout();
     setCurrentFlow('pack-selection');
     resetForm();
   };
@@ -156,18 +153,27 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   // Si l'utilisateur est connecté via le système d'auth et veut voir son espace
   if (authState.isAuthenticated && showLogin) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50 py-8">
-        <div className="max-w-4xl mx-auto px-4">
-          <ClientSpace 
-            onLogout={() => {
-              resetCustomerSession();
-              setShowLogin(false);
-            }}
-          />
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50">
+        <ClientSpace 
+          onLogout={handleLogout}
+          className="max-w-6xl mx-auto"
+        />
       </div>
     );
   }
+
+  // Si l'utilisateur est connecté et on est sur le dashboard
+  if (authState.isAuthenticated && currentFlow === 'dashboard') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50">
+        <ClientSpace 
+          onLogout={handleLogout}
+          className="max-w-6xl mx-auto"
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -226,9 +232,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         {showLogin && (
           <div className="mb-8">
             <LoginForm 
-              onSuccess={() => {
-                // L'utilisateur sera automatiquement redirigé vers son espace client
-              }}
+              onSuccess={() => setCurrentFlow('dashboard')}
               className="bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl"
             />
           </div>
