@@ -125,14 +125,14 @@ export const StepForm: React.FC<StepFormProps> = ({
 
     const baseInputClasses = cn(
       "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400",
-      error ? "border-red-400" : "border-gray-300"
+      error ? "border-red-400" : "border-amber-300 focus:border-amber-400"
     );
 
     switch (field.type) {
       case 'textarea':
         return (
           <div key={field.id} className="space-y-2">
-            <label className="block text-sm font-medium text-blue-gray900">
+            <label className="block text-sm font-medium text-blue-gray900 font-body-m">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <textarea
@@ -148,7 +148,7 @@ export const StepForm: React.FC<StepFormProps> = ({
       case 'select':
         return (
           <div key={field.id} className="space-y-2">
-            <label className="block text-sm font-medium text-blue-gray900">
+            <label className="block text-sm font-medium text-blue-gray900 font-body-m">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <select
@@ -170,21 +170,21 @@ export const StepForm: React.FC<StepFormProps> = ({
       case 'radio':
         return (
           <div key={field.id} className="space-y-2">
-            <label className="block text-sm font-medium text-blue-gray900">
+            <label className="block text-sm font-medium text-blue-gray900 font-body-m">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {field.options?.map(option => (
-                <label key={option.value} className="flex items-center space-x-2">
+                <label key={option.value} className="flex items-center space-x-3 p-3 rounded-lg border border-amber-200 hover:bg-amber-50 cursor-pointer transition-colors">
                   <input
                     type="radio"
                     name={field.id}
                     value={option.value}
                     checked={value === option.value}
                     onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                    className="text-amber-600"
+                    className="text-amber-600 focus:ring-amber-400"
                   />
-                  <span className="text-sm text-blue-gray700">{option.label}</span>
+                  <span className="text-sm text-blue-gray700 font-body-m">{option.label}</span>
                 </label>
               ))}
             </div>
@@ -195,7 +195,7 @@ export const StepForm: React.FC<StepFormProps> = ({
       case 'file':
         return (
           <div key={field.id} className="space-y-2">
-            <label className="block text-sm font-medium text-blue-gray900">
+            <label className="block text-sm font-medium text-blue-gray900 font-body-m">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <input
@@ -210,7 +210,7 @@ export const StepForm: React.FC<StepFormProps> = ({
       default:
         return (
           <div key={field.id} className="space-y-2">
-            <label className="block text-sm font-medium text-blue-gray900">
+            <label className="block text-sm font-medium text-blue-gray900 font-body-m">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <input
@@ -229,18 +229,18 @@ export const StepForm: React.FC<StepFormProps> = ({
   return (
     <div className={cn("space-y-6", className)}>
       {/* Indicateur d'étapes */}
-      <div className="flex items-center justify-center space-x-4 mb-8">
+      <div className="flex items-center justify-center space-x-4 mb-8 bg-gradient-to-r from-amber-100 to-blue-gray-100 p-6 rounded-xl">
         {steps.map((step, index) => (
           <div key={step.id} className="flex items-center">
             <button
               onClick={() => onGoToStep(index)}
               className={cn(
-                "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-colors",
+                "w-12 h-12 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 shadow-md",
                 index === currentStep
-                  ? "bg-amber-600 text-white"
+                  ? "bg-amber-600 text-white scale-110"
                   : step.isCompleted
                   ? "bg-green-500 text-white"
-                  : "bg-gray-200 text-gray-600"
+                  : "bg-white text-gray-600 border-2 border-amber-200"
               )}
             >
               {step.isCompleted ? (
@@ -250,33 +250,33 @@ export const StepForm: React.FC<StepFormProps> = ({
               )}
             </button>
             {index < steps.length - 1 && (
-              <div className="w-12 h-0.5 bg-gray-200 mx-2" />
+              <div className="w-12 h-1 bg-amber-200 mx-2 rounded-full" />
             )}
           </div>
         ))}
       </div>
 
       {/* Formulaire de l'étape courante */}
-      <Card>
-        <CardHeader>
-          <h2 className="text-2xl font-bold text-blue-gray900">
+      <Card className="overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-amber-50 to-blue-gray-50 p-8">
+          <h2 className="text-2xl font-bold text-blue-gray900 font-heading-2">
             {currentStepInfo.title}
           </h2>
           {currentStepInfo.description && (
-            <p className="text-blue-gray600">{currentStepInfo.description}</p>
+            <p className="text-blue-gray600 font-body-l mt-2">{currentStepInfo.description}</p>
           )}
         </CardHeader>
 
-        <CardContent className="space-y-6">
+        <CardContent className="p-8 space-y-6">
           {currentStepInfo.fields.map(renderField)}
 
           {/* Boutons de navigation */}
-          <div className="flex justify-between pt-6">
+          <div className="flex justify-between pt-8 border-t border-amber-200">
             <Button
               variant="outline"
               onClick={handlePrev}
               disabled={isFirstStep}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 border-amber-300 text-amber-900 hover:bg-amber-50"
             >
               <ChevronLeftIcon className="w-4 h-4" />
               Précédent
@@ -284,7 +284,7 @@ export const StepForm: React.FC<StepFormProps> = ({
 
             <Button
               onClick={handleNext}
-              className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700"
+              className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-xl shadow-md"
             >
               {isLastStep ? 'Terminer' : 'Suivant'}
               {!isLastStep && <ChevronRightIcon className="w-4 h-4" />}

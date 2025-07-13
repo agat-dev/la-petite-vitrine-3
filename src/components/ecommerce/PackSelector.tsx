@@ -18,47 +18,49 @@ export const PackSelector: React.FC<PackSelectorProps> = ({
 }) => {
   return (
     <div className={cn("space-y-6", className)}>
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-blue-gray900 mb-4">
+      <Card className="bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-amber-100 to-blue-gray-100 p-8">
+        <h2 className="text-3xl font-bold text-blue-gray900 mb-4 font-heading-2 text-center">
           Choisissez votre pack
         </h2>
-        <p className="text-blue-gray600 text-lg">
+        <p className="text-blue-gray600 text-lg font-body-l text-center">
           Sélectionnez le pack qui correspond le mieux à vos besoins
         </p>
-      </div>
+        </CardHeader>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <CardContent className="p-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {PACKS.map((pack) => (
           <Card
             key={pack.id}
             className={cn(
-              "cursor-pointer transition-all duration-300 hover:scale-105",
+              "cursor-pointer transition-all duration-300 hover:scale-105 border-2 rounded-xl overflow-hidden",
               selectedPack?.id === pack.id
-                ? "ring-2 ring-amber-400 bg-amber-50"
-                : "hover:shadow-lg"
+                ? "border-amber-400 bg-amber-50 shadow-lg"
+                : "border-amber-200 hover:border-amber-300 hover:shadow-lg bg-white"
             )}
             onClick={() => onSelectPack(pack)}
           >
             {selectedPack?.id === pack.id && (
-              <div className="absolute top-4 right-4 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
+              <div className="absolute top-4 right-4 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center shadow-md z-10">
                 <CheckIcon className="w-4 h-4 text-white" />
               </div>
             )}
 
-            <CardHeader className="text-center pb-4">
-              <h3 className="text-2xl font-bold text-blue-gray900 mb-2">
+            <CardHeader className="text-center pb-4 bg-gradient-to-b from-white to-amber-50/30 p-6">
+              <h3 className="text-2xl font-bold text-blue-gray900 mb-2 font-heading-6">
                 {pack.title}
               </h3>
-              <div className="text-3xl font-bold text-amber-900 mb-2">
+              <div className="text-4xl font-bold text-amber-900 mb-2">
                 {pack.price}€
               </div>
-              <p className="text-blue-gray600 text-sm">
+              <p className="text-blue-gray600 text-sm font-body-m">
                 Livraison en {pack.deliveryTime}
               </p>
             </CardHeader>
 
-            <CardContent>
-              <p className="text-blue-gray700 mb-4 text-sm">
+            <CardContent className="p-6">
+              <p className="text-blue-gray700 mb-4 text-sm font-body-m">
                 {pack.description}
               </p>
               
@@ -66,7 +68,7 @@ export const PackSelector: React.FC<PackSelectorProps> = ({
                 {pack.features.map((feature, index) => (
                   <div key={index} className="flex items-start gap-2">
                     <CheckIcon className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-blue-gray700">{feature}</span>
+                    <span className="text-sm text-blue-gray700 font-body-m">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -74,6 +76,8 @@ export const PackSelector: React.FC<PackSelectorProps> = ({
           </Card>
         ))}
       </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
