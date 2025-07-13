@@ -6,7 +6,7 @@ import { OrderSummary } from './OrderSummary';
 import { CustomerDashboard } from './CustomerDashboard';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
-import { ArrowLeftIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
+import { ArrowLeftIcon, ShoppingCartIcon, UserIcon, HomeIcon } from 'lucide-react';
 import { CheckIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
@@ -156,6 +156,16 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         {/* En-tête */}
         <div className="flex justify-between items-center mb-8 bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200/50">
           <div className="flex items-center space-x-4">
+            {/* Bouton retour à l'accueil */}
+            <Button
+              variant="outline"
+              onClick={() => window.location.href = '/'}
+              className="flex items-center gap-2 border-blue-gray-300 text-blue-gray-700 hover:bg-blue-gray-50"
+            >
+              <HomeIcon className="w-4 h-4" />
+              Accueil
+            </Button>
+            
             {currentFlow !== 'pack-selection' && (
               <Button
                 variant="outline"
@@ -366,6 +376,16 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                     >
                       Confirmer la commande
                     </Button>
+                    
+                    <div className="text-center mt-4">
+                      <Button
+                        variant="outline"
+                        onClick={() => window.location.href = '/'}
+                        className="text-blue-gray-600 hover:text-blue-gray-800 border-blue-gray-300 hover:bg-blue-gray-50"
+                      >
+                        Retourner à l'accueil
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
