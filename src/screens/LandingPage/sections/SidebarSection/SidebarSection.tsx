@@ -30,6 +30,18 @@ export const SidebarSection = (): JSX.Element => {
         alt: "Rectangle",
         className: "absolute w-[53px] h-[53px] top-[-15px] left-12 z-50",
       },
+       {
+      id: 3,
+      icon: "/icon---iconoir---tunnel.svg",
+      iconAlt: "Icon iconoir tunnel",
+      title: "Satisfait ou remboursé",
+      description:
+        "Si à la livraison, le site ne correspond pas à vos attentes, vous pouvez être remboursé sous 48h sur simple message.",
+      decoration: {
+        src: "/rectangle-26.svg",
+        alt: "Rectangle",
+        className: "absolute w-[53px] h-[53px] top-[-15px] left-12 z-50",
+      },
     },
   ];
 
