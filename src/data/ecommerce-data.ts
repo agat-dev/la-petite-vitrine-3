@@ -4,7 +4,7 @@ export const PACKS: Pack[] = [
   {
     id: "pack-base",
     title: "Pack Essentiel",
-    price: 590,
+    price: 390,
     description: "Site web One Page professionnel responsive",
     features: [
       "Site web One Page professionnel responsive",
@@ -21,7 +21,7 @@ export const PACKS: Pack[] = [
   {
     id: "pack-presence", 
     title: "Pack Pro",
-    price: 890,
+    price: 590,
     description: "Tout le pack de base + réseaux sociaux",
     features: [
       "Tout le pack de base",
@@ -36,7 +36,7 @@ export const PACKS: Pack[] = [
   {
     id: "pack-metier",
     title: "Pack Pro Plus",
-    price: 1390,
+    price: 890,
     description: "Solution complète avec modules métier",
     features: [
       "Tout le pack pro",

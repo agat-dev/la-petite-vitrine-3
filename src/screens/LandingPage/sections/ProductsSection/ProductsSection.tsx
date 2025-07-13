@@ -24,7 +24,7 @@ export const ProductsSection = (): JSX.Element => {
       id: "pack-base",
       icon: "💡",
       title: "Pack Essentiel",
-      price: "590€",
+      price: "390€",
       maintenance: "Maintenance à choisir",
       features: [
         "Site web One Page professionnel responsive",
@@ -47,7 +47,7 @@ export const ProductsSection = (): JSX.Element => {
       id: "pack-presence",
       icon: "⭐",
       title: "Pack Pro",
-      price: "890€",
+      price: "590€",
       maintenance: "Maintenance à choisir",
       features: [
         "Tout le pack de base",
@@ -68,7 +68,7 @@ export const ProductsSection = (): JSX.Element => {
       id: "pack-metier",
       icon: "🎨",
       title: "Pack Pro Plus",
-      price: "1390€",
+      price: "890€",
       maintenance: "Maintenance à choisir",
       features: [
         "Tout le pack pro",
