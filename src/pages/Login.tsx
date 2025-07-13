@@ -9,7 +9,7 @@ export const LoginPage: React.FC = () => {
   const { authState, logout } = useAuthContext();
 
   const handleLoginSuccess = () => {
-    // La redirection se fait automatiquement via l'état d'authentification
+    // Redirection automatique vers le tableau de bord
   };
 
   const handleLogout = () => {
