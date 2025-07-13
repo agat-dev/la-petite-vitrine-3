@@ -45,7 +45,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     calculateTotal,
     createOrder,
     resetForm,
-    loginCustomer,
     resetCustomerSession,
     isFormValid,
     currentStep,
