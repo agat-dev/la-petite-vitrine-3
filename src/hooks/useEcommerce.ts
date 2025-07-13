@@ -171,7 +171,7 @@ export const useEcommerce = () => {
   };
 
   // Déconnexion
-  const logout = () => {
+  const resetCustomerSession = () => {
     setCustomer(null);
   };
 
@@ -193,7 +193,7 @@ export const useEcommerce = () => {
     createOrder,
     resetForm,
     loginCustomer,
-    logout,
+    resetCustomerSession,
     
     // Utilitaires
     isFormValid: stepFormData.steps.every(step => step.isCompleted) && stepFormData.selectedPack && stepFormData.selectedMaintenance,

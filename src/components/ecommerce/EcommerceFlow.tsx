@@ -46,7 +46,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     createOrder,
     resetForm,
     loginCustomer,
-    logout,
+    resetCustomerSession,
     isFormValid,
     currentStep,
     isLastStep,
@@ -94,7 +94,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Gestion de la déconnexion
   const handleLogout = () => {
-    logout();
+    resetCustomerSession();
     setCurrentFlow('pack-selection');
     resetForm();
   };
@@ -161,7 +161,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         <div className="max-w-4xl mx-auto px-4">
           <ClientSpace 
             onLogout={() => {
-              logout();
+              resetCustomerSession();
               setShowLogin(false);
             }}
           />

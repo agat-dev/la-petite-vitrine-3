@@ -105,7 +105,7 @@ export const StepForm: React.FC<StepFormProps> = ({
   };
 
   // Passer à l'étape suivante
-  const handleNext = () => {
+  const handleNext = async () => {
     if (validateCurrentStep()) {
       // Si c'est la première étape, créer le compte utilisateur
       if (currentStepInfo.id === 'step-1') {
