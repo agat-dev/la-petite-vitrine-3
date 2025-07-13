@@ -15,6 +15,15 @@ const getStoredUsers = (): Record<string, any> => {
   }
 };
 
+const getAllOrders = () => {
+  try {
+    const stored = localStorage.getItem('all_orders');
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+};
+
 const setStoredUsers = (users: Record<string, any>) => {
   localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
 };

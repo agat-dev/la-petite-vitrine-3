@@ -107,10 +107,27 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   const handleCompleteOrder = async () => {
     try {
       await createOrder();
-      alert('Commande créée avec succès !');
-      setCurrentFlow('dashboard');
+      // Créer une notification de succès plus élégante
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+      notification.textContent = 'Commande créée avec succès !';
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 3000);
+      
+      // Rediriger vers l'espace client
+      window.location.href = '/login';
     } catch (error) {
-      alert('Erreur lors de la création de la commande');
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+      notification.textContent = 'Erreur lors de la création de la commande';
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 3000);
     }
   };
 

@@ -122,24 +122,13 @@ export const useEcommerce = () => {
       updatedAt: new Date()
     };
 
-    // Créer ou mettre à jour le client
-    const customerData: Customer = customer || {
-      id: Date.now().toString(),
-      email: stepFormData.formData.email,
-      firstName: stepFormData.formData.firstName,
-      lastName: stepFormData.formData.lastName,
-      company: stepFormData.formData.company,
-      phone: stepFormData.formData.phone,
-      createdAt: new Date(),
-      orders: []
-    };
-
-    customerData.orders.push(order);
-    const updatedOrders = [...orders, order];
-
-    setCustomer(customerData);
-    setOrders(updatedOrders);
-    saveToStorage(customerData, updatedOrders);
+    // Sauvegarder la commande dans le localStorage global
+    const existingOrders = JSON.parse(localStorage.getItem('all_orders') || '[]');
+    const newOrders = [...existingOrders, order];
+    localStorage.setItem('all_orders', JSON.stringify(newOrders));
+    
+    // Mettre à jour l'état local
+    setOrders(newOrders);
 
     return order;
   };
