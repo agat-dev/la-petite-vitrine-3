@@ -32,6 +32,14 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   const [showLogin, setShowLogin] = useState(false);
   const { authState, logout } = useAuthContext();
 
+  // Vérifier si on doit afficher la connexion via URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('auth') === 'true') {
+      setShowLogin(true);
+    }
+  }, []);
+
   const {
     stepFormData,
     customer,
