@@ -186,7 +186,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           <Button
             variant="outline"
             onClick={onLogout}
-            className="text-white border-white hover:bg-white hover:text-blue-gray900"
+            className="flex items-center gap-2 border-red-300 text-red-600 hover:bg-red-50"
           >
             <LogOutIcon className="w-4 h-4 mr-2" />
             Déconnexion
