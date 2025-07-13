@@ -100,7 +100,30 @@ export const DEFAULT_FORM_STEPS: FormStep[] = [
     isCompleted: false,
     fields: [
       {
-        id: "nom",
+        id: "email",
+        type: "email",
+        label: "Email",
+        placeholder: "votre@email.com",
+        required: true
+      },
+      {
+        id: "password",
+        type: "text",
+        label: "Mot de passe",
+        placeholder: "Choisissez un mot de passe sécurisé",
+        required: true,
+        validation: { minLength: 6 }
+      },
+      {
+        id: "confirmPassword",
+        type: "text",
+        label: "Confirmer le mot de passe",
+        placeholder: "Confirmez votre mot de passe",
+        required: true,
+        validation: { minLength: 6 }
+      },
+      {
+        id: "lastName",
         type: "text",
         label: "Nom",
         placeholder: "Votre nom",
@@ -108,7 +131,7 @@ export const DEFAULT_FORM_STEPS: FormStep[] = [
         validation: { minLength: 2 }
       },
       {
-        id: "prenom",
+        id: "firstName",
         type: "text",
         label: "Prénom",
         placeholder: "Votre prénom",
@@ -116,21 +139,14 @@ export const DEFAULT_FORM_STEPS: FormStep[] = [
         validation: { minLength: 2 }
       },
       {
-        id: "mail",
-        type: "email",
-        label: "Mail",
-        placeholder: "votre@email.com",
-        required: true
-      },
-      {
-        id: "telephone",
+        id: "phone",
         type: "tel",
         label: "Téléphone",
         placeholder: "06 12 34 56 78",
         required: true
       },
       {
-        id: "entreprise",
+        id: "company",
         type: "text",
         label: "Entreprise",
         placeholder: "Nom de votre entreprise",

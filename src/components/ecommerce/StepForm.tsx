@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from '../ui/card';
 import { Button } from '../ui/button';
 import { FormStep, FormField } from '../../types/ecommerce';
 import { cn } from '../../lib/utils';
+import { useAuthContext } from '../../hooks/useAuth';
 
 interface StepFormProps {
   steps: FormStep[];
@@ -32,6 +33,7 @@ export const StepForm: React.FC<StepFormProps> = ({
 }) => {
   const [currentStepData, setCurrentStepData] = useState<Record<string, any>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const { register, authState } = useAuthContext();
 
   const currentStepInfo = steps[currentStep];
 
@@ -105,6 +107,40 @@ export const StepForm: React.FC<StepFormProps> = ({
   // Passer à l'étape suivante
   const handleNext = () => {
     if (validateCurrentStep()) {
+      // Si c'est la première étape, créer le compte utilisateur
+      if (currentStepInfo.id === 'step-1') {
+        // Vérifier que les mots de passe correspondent
+        const password = currentStepData.password || formData.password;
+        const confirmPassword = currentStepData.confirmPassword || formData.confirmPassword;
+        
+        if (password !== confirmPassword) {
+          setErrors(prev => ({
+            ...prev,
+            confirmPassword: 'Les mots de passe ne correspondent pas'
+          }));
+          return;
+        }
+
+        // Créer le compte utilisateur
+        const registerData = {
+          email: currentStepData.email || formData.email,
+          password: password,
+          firstName: currentStepData.firstName || formData.firstName,
+          lastName: currentStepData.lastName || formData.lastName,
+          company: currentStepData.company || formData.company,
+          phone: currentStepData.phone || formData.phone,
+        };
+
+        const success = await register(registerData);
+        if (!success) {
+          setErrors(prev => ({
+            ...prev,
+            email: authState.error || 'Erreur lors de la création du compte'
+          }));
+          return;
+        }
+      }
+      
       onUpdateFormData(currentStepInfo.id, currentStepData);
       setCurrentStepData({});
       onNextStep();
@@ -214,13 +250,18 @@ export const StepForm: React.FC<StepFormProps> = ({
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <input
-              type={field.type}
+              type={field.id === 'password' || field.id === 'confirmPassword' ? 'password' : field.type}
               className={baseInputClasses}
               placeholder={field.placeholder}
               value={value}
               onChange={(e) => handleFieldChange(field.id, e.target.value)}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
+            {field.id === 'password' && (
+              <p className="text-xs text-blue-gray500">
+                Le mot de passe doit contenir au moins 6 caractères
+              </p>
+            )}
           </div>
         );
     }

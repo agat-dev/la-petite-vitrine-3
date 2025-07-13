@@ -11,6 +11,9 @@ import { CheckIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
 import { cn } from '../../lib/utils';
+import { useAuthContext } from '../../hooks/useAuth';
+import { LoginForm } from '../auth/LoginForm';
+import { ClientSpace } from '../auth/ClientSpace';
 
 type FlowStep = 'pack-selection' | 'maintenance-selection' | 'social-options' | 'form' | 'summary' | 'dashboard';
 
@@ -28,6 +31,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   const [currentFlow, setCurrentFlow] = useState<FlowStep>(initialFlow);
   const [showLogin, setShowLogin] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
+  const { authState, logout } = useAuthContext();
 
   const {
     stepFormData,
@@ -150,6 +154,21 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     );
   }
 
+  // Si l'utilisateur est connecté via le système d'auth et veut voir son espace
+  if (authState.isAuthenticated && showLogin) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50 py-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <ClientSpace 
+            onLogout={() => {
+              logout();
+              setShowLogin(false);
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -206,28 +225,14 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
         {/* Formulaire de connexion */}
         {showLogin && (
-          <Card className="mb-8 bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl">
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4 text-blue-gray900 font-heading-6">Connexion espace client</h3>
-              <div className="flex gap-4 items-end">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-blue-gray900 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    className="w-full px-3 py-2 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
-                    placeholder="votre@email.com"
-                  />
-                </div>
-                <Button onClick={handleLogin} className="bg-amber-600 hover:bg-amber-700 text-white font-medium">
-                  Se connecter
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="mb-8">
+            <LoginForm 
+              onSuccess={() => {
+                // L'utilisateur sera automatiquement redirigé vers son espace client
+              }}
+              className="bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl"
+            />
+          </div>
         )}
 
         {/* Contenu principal */}
