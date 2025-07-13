@@ -290,21 +290,21 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                           <div>
                             <span className="text-sm font-medium text-blue-gray700">Contact :</span>
                             <p className="text-sm text-blue-gray600">
-                              {order.formData.firstName} {order.formData.lastName}
+                              {order.formData.prenom} {order.formData.nom}
                             </p>
                           </div>
                           <div>
                             <span className="text-sm font-medium text-blue-gray700">Email :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.email}</p>
+                            <p className="text-sm text-blue-gray600">{order.formData.mail}</p>
                           </div>
                           <div>
                             <span className="text-sm font-medium text-blue-gray700">Téléphone :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.phone}</p>
+                            <p className="text-sm text-blue-gray600">{order.formData.telephone}</p>
                           </div>
-                          {order.formData.company && (
+                          {order.formData.entreprise && (
                             <div>
                               <span className="text-sm font-medium text-blue-gray700">Entreprise :</span>
-                              <p className="text-sm text-blue-gray600">{order.formData.company}</p>
+                              <p className="text-sm text-blue-gray600">{order.formData.entreprise}</p>
                             </div>
                           )}
                         </div>
@@ -317,16 +317,22 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                           <h4 className="font-medium text-blue-gray900">Informations entreprise</h4>
                         </div>
                         <div className="bg-blue-50 p-4 rounded-lg space-y-3">
-                          {order.formData.activity && (
+                          {order.formData.secteur_activite && (
                             <div>
                               <span className="text-sm font-medium text-blue-gray700">Secteur d'activité :</span>
-                              <p className="text-sm text-blue-gray600">{order.formData.activity}</p>
+                              <p className="text-sm text-blue-gray600">{order.formData.secteur_activite}</p>
                             </div>
                           )}
-                          {order.formData.description && (
+                          {order.formData.adresse_complete && (
                             <div>
-                              <span className="text-sm font-medium text-blue-gray700">Description de l'activité :</span>
-                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.description}</p>
+                              <span className="text-sm font-medium text-blue-gray700">Adresse complète :</span>
+                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.adresse_complete}</p>
+                            </div>
+                          )}
+                          {order.formData.zone_intervention && (
+                            <div>
+                              <span className="text-sm font-medium text-blue-gray700">Zone d'intervention :</span>
+                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.zone_intervention}</p>
                             </div>
                           )}
                         </div>
@@ -339,24 +345,90 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                           <h4 className="font-medium text-blue-gray900">Configuration du site</h4>
                         </div>
                         <div className="bg-purple-50 p-4 rounded-lg space-y-3">
-                          {order.formData.colors && (
+                          {order.formData.concurrents_principaux && (
                             <div>
-                              <span className="text-sm font-medium text-blue-gray700">Couleurs préférées :</span>
-                              <p className="text-sm text-blue-gray600">{order.formData.colors}</p>
+                              <span className="text-sm font-medium text-blue-gray700">Concurrents principaux :</span>
+                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.concurrents_principaux}</p>
                             </div>
                           )}
-                          {order.formData.services && (
+                          {order.formData.services_proposes && (
                             <div>
-                              <span className="text-sm font-medium text-blue-gray700">Services principaux :</span>
-                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.services}</p>
+                              <span className="text-sm font-medium text-blue-gray700">Services proposés :</span>
+                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.services_proposes}</p>
                             </div>
                           )}
-                          {order.formData.logo && (
+                          {order.formData.specificite_positionnement && (
                             <div>
-                              <span className="text-sm font-medium text-blue-gray700">Logo :</span>
+                              <span className="text-sm font-medium text-blue-gray700">Spécificité / Positionnement :</span>
+                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.specificite_positionnement}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Clientèle et communication */}
+                      <div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <UserIcon className="w-4 h-4 text-orange-600" />
+                          <h4 className="font-medium text-blue-gray900">Clientèle et communication</h4>
+                        </div>
+                        <div className="bg-orange-50 p-4 rounded-lg space-y-3">
+                          {order.formData.types_clients && (
+                            <div>
+                              <span className="text-sm font-medium text-blue-gray700">Types de clients :</span>
+                              <p className="text-sm text-blue-gray600">{order.formData.types_clients}</p>
+                            </div>
+                          )}
+                          {order.formData.ton_communication && (
+                            <div>
+                              <span className="text-sm font-medium text-blue-gray700">Ton de communication :</span>
+                              <p className="text-sm text-blue-gray600">{order.formData.ton_communication}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Éléments visuels et contenus */}
+                      <div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <PaletteIcon className="w-4 h-4 text-pink-600" />
+                          <h4 className="font-medium text-blue-gray900">Éléments visuels et contenus</h4>
+                        </div>
+                        <div className="bg-pink-50 p-4 rounded-lg space-y-3">
+                          {order.formData.elements_visuels && (
+                            <div>
+                              <span className="text-sm font-medium text-blue-gray700">Éléments visuels :</span>
                               <p className="text-sm text-blue-gray600">
-                                📎 Fichier logo fourni ({typeof order.formData.logo === 'object' ? order.formData.logo.name : 'Logo personnalisé'})
+                                📎 Fichier fourni ({typeof order.formData.elements_visuels === 'object' ? order.formData.elements_visuels.name : 'Fichier personnalisé'})
                               </p>
+                            </div>
+                          )}
+                          {order.formData.textes_contenus && (
+                            <div>
+                              <span className="text-sm font-medium text-blue-gray700">Textes et contenus :</span>
+                              <p className="text-sm text-blue-gray600">
+                                📎 Fichier fourni ({typeof order.formData.textes_contenus === 'object' ? order.formData.textes_contenus.name : 'Fichier personnalisé'})
+                              </p>
+                            </div>
+                          )}
+                          {order.formData.autres_fichiers && (
+                            <div>
+                              <span className="text-sm font-medium text-blue-gray700">Autres fichiers :</span>
+                              <p className="text-sm text-blue-gray600">
+                                📎 Fichier fourni ({typeof order.formData.autres_fichiers === 'object' ? order.formData.autres_fichiers.name : 'Fichier personnalisé'})
+                              </p>
+                            </div>
+                          )}
+                          {order.formData.liens_contenus_existants && (
+                            <div>
+                              <span className="text-sm font-medium text-blue-gray700">Liens vers contenus existants :</span>
+                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.liens_contenus_existants}</p>
+                            </div>
+                          )}
+                          {order.formData.informations_diverses && (
+                            <div>
+                              <span className="text-sm font-medium text-blue-gray700">Informations diverses :</span>
+                              <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.informations_diverses}</p>
                             </div>
                           )}
                         </div>
@@ -417,7 +489,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                     </label>
                     <input
                       type="text"
-                      value={customer.firstName}
+                      value={customer.firstName || ''}
                       disabled
                       className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
                     />
@@ -428,7 +500,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                     </label>
                     <input
                       type="text"
-                      value={customer.lastName}
+                      value={customer.lastName || ''}
                       disabled
                       className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
                     />
@@ -439,7 +511,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                     </label>
                     <input
                       type="email"
-                      value={customer.email}
+                      value={customer.email || ''}
                       disabled
                       className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
                     />
@@ -450,7 +522,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                     </label>
                     <input
                       type="tel"
-                      value={customer.phone}
+                      value={customer.phone || ''}
                       disabled
                       className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
                     />
