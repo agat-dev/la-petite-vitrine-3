@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader } from '../ui/card';
 import { Pack, MaintenanceOption } from '../../types/ecommerce';
 import { MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { CheckIcon } from 'lucide-react';
+import { cn } from '../../lib/utils';
 
 interface OrderSummaryProps {
   selectedPack?: Pack;
