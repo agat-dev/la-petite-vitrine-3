@@ -414,171 +414,47 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                   <div>
                     <label className="block text-sm font-medium text-blue-gray900 mb-1">
                       Prénom
-                    
-                    {/* Informations client */}
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <UserIcon className="w-4 h-4 text-green-600" />
-                        <h5 className="font-medium text-blue-gray900">Informations client</h5>
-                      </div>
-                      <div className="bg-gray-50 p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {order.formData.nom && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Nom :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.nom}</p>
-                          </div>
-                        )}
-                        {order.formData.prenom && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Prénom :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.prenom}</p>
-                          </div>
-                        )}
-                        {order.formData.mail && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Email :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.mail}</p>
-                          </div>
-                        )}
-                        {order.formData.telephone && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Téléphone :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.telephone}</p>
-                          </div>
-                        )}
-                        {order.formData.entreprise && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Entreprise :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.entreprise}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Activité et localisation */}
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <BuildingIcon className="w-4 h-4 text-blue-600" />
-                        <h5 className="font-medium text-blue-gray900">Activité et localisation</h5>
-                      </div>
-                      <div className="bg-blue-50 p-4 rounded-lg space-y-3">
-                        {order.formData.secteur_activite && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Secteur d'activité :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.secteur_activite}</p>
-                          </div>
-                        )}
-                        {order.formData.adresse_complete && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Adresse complète :</span>
-                            <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.adresse_complete}</p>
-                          </div>
-                        )}
-                        {order.formData.zone_intervention && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Zone d'intervention :</span>
-                            <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.zone_intervention}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Positionnement et concurrence */}
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <PaletteIcon className="w-4 h-4 text-purple-600" />
-                        <h5 className="font-medium text-blue-gray900">Positionnement et concurrence</h5>
-                      </div>
-                      <div className="bg-purple-50 p-4 rounded-lg space-y-3">
-                        {order.formData.concurrents_principaux && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Concurrents principaux :</span>
-                            <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.concurrents_principaux}</p>
-                          </div>
-                        )}
-                        {order.formData.services_proposes && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Services proposés :</span>
-                            <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.services_proposes}</p>
-                          </div>
-                        )}
-                        {order.formData.specificite_positionnement && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Spécificité / Positionnement :</span>
-                            <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.specificite_positionnement}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Clientèle et communication */}
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <UserIcon className="w-4 h-4 text-orange-600" />
-                        <h5 className="font-medium text-blue-gray900">Clientèle et communication</h5>
-                      </div>
-                      <div className="bg-orange-50 p-4 rounded-lg space-y-3">
-                        {order.formData.types_clients && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Types de clients :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.types_clients}</p>
-                          </div>
-                        )}
-                        {order.formData.ton_communication && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Ton de communication :</span>
-                            <p className="text-sm text-blue-gray600">{order.formData.ton_communication}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Éléments visuels et contenus */}
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <PaletteIcon className="w-4 h-4 text-pink-600" />
-                        <h5 className="font-medium text-blue-gray900">Éléments visuels et contenus</h5>
-                      </div>
-                      <div className="bg-pink-50 p-4 rounded-lg space-y-3">
-                        {order.formData.elements_visuels && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Éléments visuels :</span>
-                            <p className="text-sm text-blue-gray600">
-                              📎 Fichier fourni ({typeof order.formData.elements_visuels === 'object' ? order.formData.elements_visuels.name : 'Éléments visuels'})
-                            </p>
-                          </div>
-                        )}
-                        {order.formData.textes_contenus && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Textes et contenus :</span>
-                            <p className="text-sm text-blue-gray600">
-                              📎 Fichier fourni ({typeof order.formData.textes_contenus === 'object' ? order.formData.textes_contenus.name : 'Textes et contenus'})
-                            </p>
-                          </div>
-                        )}
-                        {order.formData.autres_fichiers && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Autres fichiers :</span>
-                            <p className="text-sm text-blue-gray600">
-                              📎 Fichier fourni ({typeof order.formData.autres_fichiers === 'object' ? order.formData.autres_fichiers.name : 'Autres fichiers'})
-                            </p>
-                          </div>
-                        )}
-                        {order.formData.liens_contenus_existants && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Liens vers contenus existants :</span>
-                            <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.liens_contenus_existants}</p>
-                          </div>
-                        )}
-                        {order.formData.informations_diverses && (
-                          <div>
-                            <span className="text-sm font-medium text-blue-gray700">Informations diverses :</span>
-                            <p className="text-sm text-blue-gray600 whitespace-pre-line">{order.formData.informations_diverses}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
+                    </label>
+                    <input
+                      type="text"
+                      value={customer.firstName}
+                      disabled
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-blue-gray900 mb-1">
+                      Nom
+                    </label>
+                    <input
+                      type="text"
+                      value={customer.lastName}
+                      disabled
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-blue-gray900 mb-1">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      value={customer.email}
+                      disabled
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-blue-gray900 mb-1">
+                      Téléphone
+                    </label>
+                    <input
+                      type="tel"
+                      value={customer.phone}
+                      disabled
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                    />
+                  </div>
                 </div>
                 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
