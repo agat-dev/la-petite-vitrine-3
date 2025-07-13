@@ -32,6 +32,13 @@ export const MainContentSection = (): JSX.Element => {
       category: "Vitrine",
       url: "https://artisan-coiffeur.lapetitevitrine.com",
     },
+    {
+      image: "/artisan-menuisier.jpg",
+      title: "Site d'artisan menuisier",
+      description: "OnePage vitrine pour menuisiers avec galerie de réalisations",
+      category: "Vitrine",
+      url: "https://artisan-menuisier.lapetitevitrine.com",
+    },
   ];
 
   return (
