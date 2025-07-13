@@ -1,5 +1,6 @@
 import React from "react";
 import { MenuIcon } from "lucide-react";
+import { UserIcon } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -52,6 +53,16 @@ export const HeaderSection = (): JSX.Element => {
           <MenuIcon className="w-6 h-6 text-amber-900" />
         </div>
 
+        {/* Desktop Login Button */}
+        <div className="hidden lg:block">
+          <a
+            href="/commande"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors duration-300 font-medium shadow-md hover:shadow-lg"
+          >
+            <UserIcon className="w-4 h-4" />
+            Espace client
+          </a>
+        </div>
       </div>
     </header>
   );
