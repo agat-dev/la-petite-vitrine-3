@@ -293,7 +293,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                   <Button
                     onClick={() => {
                       console.log('Maintenance continue button clicked');
-                      handleMaintenanceSelected();
+                     setCurrentFlow('form');
                     }}
                     disabled={!stepFormData.selectedMaintenance}
                     className="bg-amber-600 hover:bg-amber-700"
