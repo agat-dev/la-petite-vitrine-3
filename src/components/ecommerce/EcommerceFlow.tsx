@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
-import { MaintenanceSelector } from './MaintenanceSelector';
 import { StepForm } from './StepForm';
 import { OrderSummary } from './OrderSummary';
 import { CustomerDashboard } from './CustomerDashboard';
@@ -34,7 +33,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     stepFormData,
     customer,
     selectPack,
-    selectSocialOptions,
     selectMaintenance,
     updateFormData,
     goToStep,
@@ -66,20 +64,17 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Pré-sélection de la maintenance si spécifiée
   useEffect(() => {
-    console.log('Social options useEffect - preSelectedMaintenanceId:', preSelectedMaintenanceId, 'current options:', stepFormData.selectedSocialOptions);
     if (preSelectedMaintenanceId !== undefined) {
       const option = preSelectedMaintenanceId ? MAINTENANCE_OPTIONS.find(m => m.id === preSelectedMaintenanceId) : null;
-      console.log('Found option:', option);
-      if (option && (!stepFormData.selectedSocialOptions || stepFormData.selectedSocialOptions.length === 0)) {
-        selectSocialOptions([option]);
+      if (option && !stepFormData.selectedMaintenance) {
+        selectMaintenance(option);
       }
     }
-  }, [preSelectedMaintenanceId, stepFormData.selectedSocialOptions, selectSocialOptions]);
+  }, [preSelectedMaintenanceId, stepFormData.selectedMaintenance, selectMaintenance]);
 
   // Debug: afficher l'état actuel
   console.log('EcommerceFlow render - currentFlow:', currentFlow);
   console.log('EcommerceFlow render - selectedPack:', stepFormData.selectedPack?.title);
-  console.log('EcommerceFlow render - selectedSocialOptions:', stepFormData.selectedSocialOptions?.length);
   console.log('EcommerceFlow render - selectedMaintenance:', stepFormData.selectedMaintenance?.title);
 
   // Gestion de la connexion
@@ -122,11 +117,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     setCurrentFlow('social-options');
   };
 
-  const handleSocialOptionsSelected = () => {
-    console.log('handleSocialOptionsSelected - going to form');
-    setCurrentFlow('form');
-  };
-
   const handleFormCompleted = () => {
     setCurrentFlow('summary');
   };
@@ -136,11 +126,8 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
       case 'maintenance-selection':
         setCurrentFlow('pack-selection');
         break;
-      case 'social-options':
-        setCurrentFlow('maintenance-selection');
-        break;
       case 'form':
-        setCurrentFlow('social-options');
+        setCurrentFlow('maintenance-selection');
         break;
       case 'summary':
         setCurrentFlow('form');
@@ -317,29 +304,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
               </div>
             )}
 
-            {currentFlow === 'social-options' && (
-              <div>
-                <div className="space-y-6">
-                  <MaintenanceSelector
-                    selectedSocialOptions={stepFormData.selectedSocialOptions}
-                    onSelectSocialOptions={selectSocialOptions}
-                  />
-
-                  <div className="flex justify-end">
-                    <Button
-                      onClick={() => {
-                        console.log('Social options continue button clicked');
-                        handleSocialOptionsSelected();
-                      }}
-                      className="bg-amber-600 hover:bg-amber-700"
-                    >
-                      Continuer
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
-
             {currentFlow === 'form' && (
               <StepForm
                 steps={stepFormData.steps}
@@ -408,7 +372,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
               <OrderSummary
                 selectedPack={stepFormData.selectedPack}
                 selectedMaintenance={stepFormData.selectedMaintenance}
-                selectedSocialOptions={stepFormData.selectedSocialOptions}
                 formData={stepFormData.formData}
                 totalPrice={calculateTotal()}
               />

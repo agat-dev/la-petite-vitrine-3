@@ -7,7 +7,6 @@ import { CheckIcon } from 'lucide-react';
 interface OrderSummaryProps {
   selectedPack?: Pack;
   selectedMaintenance?: MaintenanceOption;
-  selectedSocialOptions?: MaintenanceOption[];
   formData: Record<string, any>;
   totalPrice: number;
   className?: string;
@@ -16,13 +15,12 @@ interface OrderSummaryProps {
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
   selectedPack,
   selectedMaintenance,
-  selectedSocialOptions = [],
   formData,
   totalPrice,
   className
 }) => {
   
-  console.log('OrderSummary render - selectedPack:', selectedPack, 'selectedMaintenance:', selectedMaintenance, 'selectedSocialOptions:', selectedSocialOptions);
+  console.log('OrderSummary render - selectedPack:', selectedPack, 'selectedMaintenance:', selectedMaintenance);
   
   return (
     <Card className={className}>
@@ -30,9 +28,6 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
         <h3 className="text-xl font-bold text-blue-gray900">
           Récapitulatif de votre commande
         </h3>
-        <p className="text-sm text-blue-gray600">
-          Debug: Pack={selectedPack?.title || 'Aucun'}, Options={selectedSocialOptions.length || 0}
-        </p>
       </CardHeader>
 
       <CardContent className="space-y-6">
@@ -77,36 +72,6 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
           </div>
         )}
 
-        {/* Maintenance sélectionnée */}
-        <div className="border-b pb-4">
-          <h4 className="font-semibold text-blue-gray900 mb-2">Options réseaux sociaux</h4>
-          {selectedSocialOptions.length > 0 ? (
-            <div className="space-y-2">
-              {selectedSocialOptions.map((option, index) => (
-                <div key={option.id} className="bg-blue-50 p-3 rounded-lg">
-                  <div className="flex justify-between items-start mb-1">
-                    <h5 className="font-medium text-blue-gray900">{option.title}</h5>
-                    <span className="font-bold text-blue-600">{option.price}€</span>
-                  </div>
-                  <p className="text-xs text-blue-gray600">{option.description}</p>
-                </div>
-              ))}
-              <div className="bg-amber-50 p-2 rounded-lg border border-amber-200 mt-2">
-                <div className="flex justify-between items-center text-sm font-medium">
-                  <span className="text-amber-800">Total options :</span>
-                  <span className="text-amber-900">
-                    {selectedSocialOptions.reduce((total, option) => total + option.price, 0)}€
-                  </span>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-sm text-blue-gray600">Aucune option sélectionnée</p>
-            </div>
-          )}
-        </div>
-
         {/* Informations client */}
         {(formData.firstName || Object.keys(formData).length > 0) && (
           <div className="border-b pb-4">
@@ -137,6 +102,11 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
             <span className="text-lg font-semibold text-blue-gray900">Total</span>
             <div className="text-right">
               <div className="text-2xl font-bold text-amber-900">{totalPrice}€</div>
+              {selectedMaintenance && (
+                <div className="text-sm text-blue-gray600">
+                  + {selectedMaintenance.price}€/mois
+                </div>
+              )}
             </div>
           </div>
           

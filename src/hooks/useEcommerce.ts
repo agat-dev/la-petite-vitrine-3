@@ -102,10 +102,8 @@ export const useEcommerce = () => {
   // Calculer le prix total
   const calculateTotal = () => {
     const packPrice = stepFormData.selectedPack?.price || 0;
-    const maintenancePrice = stepFormData.selectedMaintenance?.price || 0;
-    const socialOptionsPrice = (stepFormData.selectedSocialOptions || [])
-      .reduce((total, option) => total + option.price, 0);
-    return packPrice + maintenancePrice + socialOptionsPrice;
+    // La maintenance est facturée séparément (mensuelle)
+    return packPrice;
   };
 
   // Créer une commande
