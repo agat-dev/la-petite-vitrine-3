@@ -166,6 +166,7 @@ export const MainContentSection = (): JSX.Element => {
                   </Card>
                 </AnimatePresence>
               </Card>
+            </AnimatedSection>
           </Card>
         </AnimatedSection>
         {/* Additional decorative shape - hidden on mobile */}
