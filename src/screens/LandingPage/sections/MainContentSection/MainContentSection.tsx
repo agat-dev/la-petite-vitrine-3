@@ -170,9 +170,6 @@ export const MainContentSection = (): JSX.Element => {
           </AnimatedSection>
 
           {/* Additional decorative shape - hidden on mobile */}
-          <div className="hidden lg:block absolute w-[85px] h-[86px] top-[399px] left-[750px] bg-green-700 rounded-[50px] opacity-75 z-0" />
-        </Card>
-      </AnimatedSection>
 
       </div>
     </section>
