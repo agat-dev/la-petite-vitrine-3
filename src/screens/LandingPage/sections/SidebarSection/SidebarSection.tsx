@@ -30,7 +30,8 @@ export const SidebarSection = (): JSX.Element => {
         alt: "Rectangle",
         className: "absolute w-[53px] h-[53px] top-[-15px] left-12 z-50",
       },
-       {
+    },
+    {
       id: 3,
       icon: "/icon---iconoir---tunnel.svg",
       iconAlt: "Icon iconoir tunnel",
