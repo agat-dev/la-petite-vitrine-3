@@ -22,11 +22,11 @@ export const AboutSection = (): JSX.Element => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 relative w-full sm:w-auto">
-            <StyledWrapper>
-              <a href="#products">
+            <a href="#products">
+              <StyledWrapper>
               Voir l'offre
-              </a>
-            </StyledWrapper>
+              </StyledWrapper>
+            </a>
             {/*}
             <div className="w-full sm:w-auto flex items-center px-2 py-3 rounded-lg hover:bg-amber-50 transition-colors duration-300 cursor-pointer">
               <PlayIcon className="w-6 h-6 text-amber-900" />

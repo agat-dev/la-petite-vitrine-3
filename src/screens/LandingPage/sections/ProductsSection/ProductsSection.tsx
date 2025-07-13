@@ -365,13 +365,13 @@ export const ProductsSection = (): JSX.Element => {
                       ))}
                     </div>
                     <div className="h-16 flex-1 flex items-center justify-center">
-                      <StyledWrapper>
-                        <a href={`/commande?pack=${pack.id}`} className="text-sm text-blue-gray800">
+                      <a href={`/commande?pack=${pack.id}`} className="w-full">
+                        <StyledWrapper className="text-sm text-blue-gray800">
                           {selectedPack?.id === pack.id
                             ? "Sélectionné"
                             : "Commander ce pack"}
-                        </a>
-                      </StyledWrapper>
+                        </StyledWrapper>
+                      </a>
                     </div>
                   </CardContent>
                 </Card>

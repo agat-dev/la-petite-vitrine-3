@@ -76,8 +76,8 @@ export const MainContentSection = (): JSX.Element => {
               </AnimatedSection>
 
               <AnimatedSection animation="slideUp" delay={800}>
-                <a href="#products" className="cursor-pointer">
-                  <StyledWrapper>
+                <a href="#products">
+                  <StyledWrapper className="cursor-pointer">
                     Voir les tarifs
                   </StyledWrapper>
                 </a>
