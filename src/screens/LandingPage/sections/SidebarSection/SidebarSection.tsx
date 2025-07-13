@@ -39,9 +39,8 @@ export const SidebarSection = (): JSX.Element => {
       description:
         "Si à la livraison, le site ne correspond pas à vos attentes, vous pouvez être remboursé sous 48h sur simple message.",
       decoration: {
-        src: "/rectangle-26.svg",
-        alt: "Rectangle",
-        className: "absolute w-[53px] h-[53px] top-[-15px] left-12 z-50",
+        isDiv: true,
+        className: "absolute w-[70px] h-[70px] top-[-25px] right-8 z-50 bg-pink-500 rounded-[20px] transform rotate-12 shadow-lg",
       },
     },
   ];
