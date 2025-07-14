@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader } from '../ui/card';
 import { Button } from '../ui/button';
 import { useAuthContext } from '../../hooks/useAuth';
 import { useEcommerce } from '../../hooks/useEcommerce';
+import { CustomerDashboard } from '../ecommerce/CustomerDashboard';
 import { 
   UserIcon, 
   LogOutIcon, 
@@ -92,6 +93,8 @@ export const ClientSpace: React.FC<ClientSpaceProps> = ({
   if (!authState.user) {
     return null;
   }
+
+  console.log('ClientSpace rendered with user:', authState.user);
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -270,6 +273,8 @@ export const ClientSpace: React.FC<ClientSpaceProps> = ({
           </div>
         </CardContent>
       </Card>
+
+      <CustomerDashboard customer={authState.user.id}  />
 
       {/* Mes commandes */}
       <Card>

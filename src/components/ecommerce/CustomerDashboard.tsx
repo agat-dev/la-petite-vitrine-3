@@ -174,25 +174,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
 
   return (
     <div className={className}>
-      {/* En-tête */}
-      <div className="bg-blue-gray900 text-white p-6 rounded-t-lg">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold">Espace Client</h1>
-            <p className="text-blue-gray200">
-              Bienvenue, {customer.firstName} {customer.lastName}
-            </p>
-          </div>
-          <Button
-            variant="outline"
-            onClick={onLogout}
-            className="flex items-center gap-2 border-red-300 text-red-600 hover:bg-red-50"
-          >
-            <LogOutIcon className="w-4 h-4 mr-2" />
-            Déconnexion
-          </Button>
-        </div>
-      </div>
+      {/* En-tête supprimé */}
 
       {/* Navigation */}
       <div className="border-b">
@@ -223,7 +205,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-blue-gray900">Mes commandes</h2>
             
-            {customer.orders.length === 0 ? (
+            {(!customer || !customer.orders || customer.orders.length === 0) ? (
               <Card>
                 <CardContent className="text-center py-12">
                   <ShoppingBagIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -237,7 +219,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
               </Card>
             ) : (
               <div className="space-y-4">
-                {customer.orders.map(renderOrderDetails)}
+                {customer && customer.orders && customer.orders.map(renderOrderDetails)}
               </div>
             )}
           </div>
@@ -247,7 +229,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-blue-gray900">Configuration des projets</h2>
             
-            {customer.orders.length === 0 ? (
+            {(!customer || !customer.orders || customer.orders.length === 0) ? (
               <Card>
                 <CardContent className="text-center py-12">
                   <FileTextIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -261,7 +243,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
               </Card>
             ) : (
               <div className="space-y-6">
-                {customer.orders.map((order, index) => (
+                {customer && customer.orders && customer.orders.map((order, index) => (
                   <Card key={index}>
                     <CardHeader>
                       <div className="flex justify-between items-start">
