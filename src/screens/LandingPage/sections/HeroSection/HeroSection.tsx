@@ -18,19 +18,19 @@ export const HeroSection = (): JSX.Element => {
   // Card data for mapping
   const cards = [
     {
-      image: "..//sans-engagement.png",
+      image: "../sans-engagement.png",
       title: "Sans engagement",
       description:
-        "Vous pouvez résilier à tout moment votre abonnement mensuel. Votre investissement initial de 290€ est sans engagement.",
+        "Vous pouvez résilier à tout moment votre abonnement mensuel. Votre investissement initial de 390€ est sans engagement.",
     },
     {
-      image: "..//keys.png",
+      image: "../keys.png",
       title: "Clé en main",
       description:
         "Nous nous occupons de tout : création complète du site, réseaux sociaux, textes, visuels et optimisation SEO.",
     },
     {
-      image: "..//time.png",
+      image: "../time.png",
       title: "Sous 5 jours",
       description:
         "Vous avez un site web et des réseaux sociaux opérationnels en 5 jours ouvrés. Pas de perte de temps, tout est prêt.",
@@ -41,23 +41,23 @@ export const HeroSection = (): JSX.Element => {
   const shapes = [
     {
       className:
-        "w-[232px] h-[232px] top-16 left-[1126px] bg-green-700 absolute rounded-[50px] opacity-75",
+        "w-[232px] h-[232px] top-16 left-[1126px] bg-green-700 absolute rounded-[50px] opacity-25",
     },
     {
       className:
-        "w-[202px] h-[202px] top-[325px] left-[1017px] bg-fuchsia-700 rounded-[30px] absolute opacity-75",
+        "w-[202px] h-[202px] top-[325px] left-[1017px] bg-fuchsia-700 rounded-[30px] absolute opacity-15",
     },
     {
       className:
-        "w-[130px] h-[130px] top-[325px] left-[756px] bg-amber-700 absolute rounded-[30px] opacity-75",
+        "w-[130px] h-[130px] top-[325px] left-[756px] bg-amber-700 absolute rounded-[30px] opacity-35",
     },
     {
       className:
-        "w-[161px] h-[161px] top-0 left-[457px] bg-blue-light700 rounded-[50px] absolute opacity-75",
+        "w-[161px] h-[161px] top-0 left-[457px] bg-blue-light700 rounded-[50px] absolute opacity-15",
     },
     {
       className:
-        "w-[271px] h-[271px] top-[207px] left-0 bg-pink-700 absolute rounded-[50px] opacity-75",
+        "w-[271px] h-[271px] top-[207px] left-0 bg-pink-700 absolute rounded-[50px] opacity-25",
     },
   ];
 
@@ -75,13 +75,15 @@ export const HeroSection = (): JSX.Element => {
                 Simple et sans risque
               </h2>
             </div>
-        </AnimatedSection>
+          </AnimatedSection>
 
-        <AnimatedSection animation="slideLeft" delay={200}>
-          <div onClick={() => setIsPopupOpen(true)} className="cursor-pointer mb-12">
-            <StyledWrapper>Voir une démo</StyledWrapper>
-          </div>
-        </AnimatedSection>
+          <AnimatedSection animation="slideLeft" delay={200}>
+            <div onClick={() => setIsPopupOpen(true)} className="cursor-pointer mb-12">
+              <StyledWrapper>
+                Voir une démo
+              </StyledWrapper>
+            </div>
+          </AnimatedSection>
       </div>
 
       <div className="flex items-start gap-6 md:gap-8 lg:gap-12 relative w-full overflow-hidden">
@@ -126,12 +128,12 @@ export const HeroSection = (): JSX.Element => {
         </StaggeredContainer>
         </div>
         <div className="w-64 mx-auto md:mb-0 mb-8">
-            <a href="#products" className="w-full flex items-center justify-center">
-              <StyledButton className="w-full flex items-center justify-center">
-                <span className="ml-2">Voir les offres</span>
-              </StyledButton>
-            </a>
-            </div>
+          <a href="#products" className="w-full flex items-center justify-center">
+            <StyledButton className="w-full flex items-center justify-center">
+              <span className="ml-2">Voir les offres</span>
+            </StyledButton>
+          </a>
+        </div>
       </div>
             {/* Demo Popup */}
       <DemoPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />

@@ -194,7 +194,7 @@ export const ProductsSection = (): JSX.Element => {
         <div className="pb-16 flex flex-col items-center gap-6 w-full relative z-10">
           <AnimatedSection
             animation="slideRight"
-            className="flex-1 flex flex-col items-start gap-6"
+            className="flex-1 flex flex-col items-start gap-6 mb-8"
           >
             <div className="flex flex-col items-start gap-4 w-full">
               <h2 className="text-blue-gray200 font-heading-2 md:font-medium font-bold text-4xl md:text-4xl lg:text-6xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">

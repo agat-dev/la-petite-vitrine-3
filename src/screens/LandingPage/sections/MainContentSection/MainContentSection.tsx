@@ -38,19 +38,33 @@ export const MainContentSection = (): JSX.Element => {
       category: "Vitrine",
       url: "https://artisan-menuisier.lapetitevitrine.com",
     },
+    {
+      image: "/artisan-chevrerie.jpg",
+      title: "Site de producteur de fromages",
+      description: "OnePage vitrine pour producteur local de fromages",
+      category: "Vitrine",
+      url: "https://artisan-chevrerie.lapetitevitrine.com",
+    },
+    {
+      image: "/artisan-garagiste.jpg",
+      title: "Site d'artisan garagiste",
+      description: "OnePage vitrine de garagiste avec services et contact",
+      category: "Vitrine",
+      url: "https://artisan-garagiste.lapetitevitrine.com",
+    },
   ];
 
   return (
-    <section id="demos" className="flex flex-col items-start pt-16 md:pb-36 pb-36 relative self-stretch w-full">
+    <section id="demos" className="h-fit flex flex-col items-start pt-16 md:pb-20 relative self-stretch w-full">
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1600px] mx-auto">
         <AnimatedSection animation="scaleIn" className="w-full">
-          <Card className="flex flex-col lg:flex-row min-h-[400px] lg:h-[496px] 3xl:h-[600px] 4xl:h-[700px] items-center gap-8 lg:gap-20 3xl:gap-24 4xl:gap-32 p-6 md:p-12 lg:p-20 3xl:p-24 4xl:p-32 relative self-stretch w-full rounded-[20px] lg:rounded-[30px] transition-all duration-500">
+          <Card className="flex items-start gap-8 lg:gap-20 3xl:gap-24 4xl:gap-32 p-6 md:p-12 lg:p-20 3xl:p-24 4xl:p-32 relative self-stretch w-full rounded-[20px] lg:rounded-[30px] transition-all duration-500">
             <div className="flex flex-col items-start gap-6 relative w-full lg:w-auto">
               <AnimatedSection animation="slideRight" delay={200}>
-                <div className="w-full lg:w-[520px] 3xl:w-[640px] 4xl:w-[800px] gap-6 flex flex-col items-start relative">
+                <div className="w-full gap-6 flex flex-col items-start relative">
                   <div className="flex-col items-start gap-2 flex relative self-stretch w-full">
-                    <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 md:font-medium font-bold text-4xl md:text-6xl 3xl:text-7xl 4xl:text-8xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
+                    <h2 className="mt-[-1.00px] text-blue-gray900 relative self-stretch font-heading-2 md:font-medium font-bold text-4xl md:text-6xl tracking-[var(--heading-2-letter-spacing)] leading-[var(--heading-2-line-height)] [font-style:var(--heading-2-font-style)]">
                       Voir <span className="pt-4 font-serif italic text-amber-800">les démos</span>
                     </h2>
                   </div>
@@ -76,8 +90,8 @@ export const MainContentSection = (): JSX.Element => {
 
               <AnimatedSection animation="slideUp" delay={800}>
                 <a href="#products">
-                  <StyledWrapper className="cursor-pointer">
-                    {"Voir les tarifs"}
+                  <StyledWrapper>
+                    Voir les tarifs
                   </StyledWrapper>
                 </a>
               </AnimatedSection>
@@ -96,20 +110,20 @@ export const MainContentSection = (): JSX.Element => {
               </div>
             </div>
 
-            <AnimatedSection animation="slideLeft" delay={600}>
-              <Card className="w-full flex items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[3px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500 z-20">
+            <AnimatedSection animation="slideLeft" delay={600} className="w-2/3">
+              <Card className="flex items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[3px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500 z-20">
                 <AnimatePresence>
-                  <Card className="bg-amber-600 backdrop-blur-md">
-                    <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50/80 to-blue-gray100/30 backdrop-blur-md rounded-t-[20px]">
+                  <Card className="backdrop-blur-md">
+                    <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50/80 to-blue-gray100/90 backdrop-blur-md rounded-t-[20px]">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-amber-900 to-amber-800 rounded-full flex items-center justify-center shadow-lg">
                           <Play className="w-6 h-6 text-white ml-0.5" />
                         </div>
                         <div>
-                          <h2 className="text-xl font-bold text-blue-gray100 font-heading-2">
+                          <h2 className="text-xl font-bold text-blue-gray900 font-heading-2">
                             Découvrez nos sites d'artisans
                           </h2>
-                          <p className="text-blue-gray200 font-body-m text-sm">
+                          <p className="text-blue-gray800 font-body-m text-sm">
                             Votre site web professionnel en 5 jours
                           </p>
                         </div>
@@ -119,7 +133,7 @@ export const MainContentSection = (): JSX.Element => {
                     <CardContent className="pt-8">
                       <div className="space-y-4">
                         {/* Demo Cards - 2 colonnes */}
-                        <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+                        <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
                           {demoCards.map((card, index) => (
                             <motion.div
                               key={index}
