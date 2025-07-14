@@ -24,7 +24,7 @@ export const SidebarSection = (): JSX.Element => {
       iconAlt: "Icon iconoir tunnel",
       title: "Vos Réseaux Sociaux",
       description:
-        "Votre fiche Google My Business et vos pages Facebook et Instagram pour être visible partout où vos clients vous cherchent.",
+        "Votre fiche Google My Business et vos pages Facebook et Instagram pour être visible partout où vos clients sont.",
       decoration: {
         src: "/rectangle-26.svg",
         alt: "Rectangle",
@@ -36,14 +36,14 @@ export const SidebarSection = (): JSX.Element => {
   return (
     <section id="offre" className="max-w-[1400px] mx-auto md:mt-8 mt-36 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
       <StaggeredContainer 
-        className="flex flex-col md:flex-row w-full max-w-[1280px] items-start gap-6 md:gap-8 lg:gap-10 relative z-40"
+        className="w-fit flex flex-col md:flex-row max-w-[1280px] items-start relative gap-16 z-40"
         staggerDelay={150}
         animation="slideUp"
       >
         {featureCards.map((card) => (
           <div
             key={card.id}
-            className="flex flex-col items-center gap-2.5 relative flex-1 group w-full md:w-auto"
+            className="flex flex-col items-center gap-2.5 relative flex-1 group w-fit md:w-auto"
           >
             {card.decoration.isDiv ? (
               <div className={card.decoration.className} />
@@ -55,20 +55,20 @@ export const SidebarSection = (): JSX.Element => {
               />
             )}
 
-            <Card className="md:w-[80%] w-full pb-8 px-8 bg-white border-none transition-transform duration-300 group-hover:scale-105">
+            <Card className="w-full pb-8 px-8 bg-white border-none transition-transform duration-300 group-hover:scale-105">
               <CardContent className="p-0">
                 <div className="flex flex-col items-start gap-4 relative w-full">
-                  {/*<div className="inline-flex justify-center items-center transition-transform duration-300 group-hover:scale-110">
+                  <div className="inline-flex justify-center items-center transition-transform duration-300 group-hover:scale-110">
                     <img
                       className="relative w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16"
                       alt={card.iconAlt}
                       src={card.icon}
                     />
-                  </div>*/}
+                  </div>
 
-                  <div className="mt-16 flex flex-col items-start gap-1 relative w-full">
+                  <div className="mt-4 flex flex-col items-start gap-1 relative w-full">
                     <div className="flex items-center gap-2 relative w-full">
-                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-bold text-amber-900 text-2xl md:text-3xl lg:text-4xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
+                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-medium text-amber-900 text-2xl md:text-3xl lg:text-4xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
                         {card.title}
                       </h3>
                     </div>

@@ -13,10 +13,7 @@ export const ProductsSection = (): JSX.Element => {
   const [selectedSocialOptions, setSelectedSocialOptions] = useState<any[]>([]);
   const [showMaintenanceSelector, setShowMaintenanceSelector] = useState(false);
 
-  const getPackMaintenance = (packId: string) => {
-    const pack = mainPacks.find(p => p.id === packId);
-    return pack ? MAINTENANCE_OPTIONS.find(m => m.id === pack.maintenanceId) : null;
-  };
+  // La logique de maintenanceId est supprimée, on utilise selectedSocialOptions pour la sélection.
 
   // Packs principaux
   const mainPacks = [
@@ -137,52 +134,22 @@ export const ProductsSection = (): JSX.Element => {
   ];
 
 
-  // Fonction pour obtenir la maintenance par défaut selon le pack
-  const getDefaultMaintenance = (packId: string): MaintenanceService => {
-    if (packId === "pack-metier") {
-      // Pour le Pack Pro Plus, maintenance premium par défaut
-      return maintenanceServices.find((m) => m.id === "visibilite-plus")!;
-    }
-    // Pour les autres packs, maintenance simple par défaut
-    return maintenanceServices.find((m) => m.id === "maintenance-simple")!;
-  };
+  // La logique de maintenanceId et de maintenance par défaut est supprimée.
 
-  // Fonction pour filtrer les services de maintenance selon le pack
-  const getAvailableMaintenanceServices = (
-    packId: string
-  ) => {
-    if (packId === "pack-base") {
-      // Pour le Pack Essentiel, proposer seulement Google My Business
-      return maintenanceServices.filter((m) => m.id === "google-business");
-    } else if (packId === "pack-presence") {
-      // Pour le Pack Pro, proposer Google Business + Réseaux Sociaux
-      return maintenanceServices.filter((m) => 
-        m.id === "google-business" || m.id === "reseaux-sociaux"
-      );
-    } else if (packId === "pack-metier") {
-      // Pour le Pack Pro Plus, proposer toutes les options
-      return maintenanceServices;
-    }
-    // Par défaut, proposer Google My Business
-    return maintenanceServices.filter((m) => m.id === "google-business");
-  };
-
-  const handlePackSelect = (pack) => {
+  const handlePackSelect = (pack: typeof mainPacks[number]) => {
     setSelectedPack(pack);
     setShowMaintenanceSelector(false); // Reset l'affichage
     setSelectedSocialOptions([]); // Reset des options
   };
 
-  const handleMaintenanceSelect = (maintenance) => {
-    setSelectedSocialOptions([maintenance]);
-  };
+  // handleMaintenanceSelect supprimé, on utilise handleSocialOptionsSelect
 
-  const handleSocialOptionsSelect = (options) => {
+  const handleSocialOptionsSelect = (options: any[]) => {
     setSelectedSocialOptions(options);
   };
 
   const handleCheckout = async () => {
-    if (!selectedPack || !selectedMaintenance) return;
+    if (!selectedPack) return;
 
     // Construire l'URL avec les sélections
     const params = new URLSearchParams({
@@ -212,26 +179,19 @@ export const ProductsSection = (): JSX.Element => {
   ];
 
   return (
-    <>
     <section className="flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 px-4 py-16 md:px-8 md:py-24 lg:py-16 lg:px-20 3xl:px-24 3xl:py-40 4xl:px-32 4xl:py-48 relative w-full bg-amber-900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
-      {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1400px] mx-auto">
-        {/* Background vector conservé */}
         <img
           className="hidden lg:block absolute w-full h-[300px] top-[436px] left-0 opacity-20"
           alt="Vector"
           src="/vector-13.svg"
         />
-
-        {/* Formes décoratives */}
         <div className="hidden lg:block absolute w-full h-full top-0 left-0 overflow-hidden">
           {decorativeShapes.map((shape, index) => (
             <div key={`shape-${index}`} className={shape.className} />
           ))}
         </div>
-
-        {/* En-tête de section */}
-        <div className="pb-16 flex items-center gap-6 w-full relative z-10">
+        <div className="pb-16 flex flex-col items-center gap-6 w-full relative z-10">
           <AnimatedSection
             animation="slideRight"
             className="flex-1 flex flex-col items-start gap-6"
@@ -254,162 +214,138 @@ export const ProductsSection = (): JSX.Element => {
               </p>
             </div>
           </AnimatedSection>
-        </div>
-
-        {/* Affichage des erreurs */}
-        {/* Message d'erreur Stripe supprimé */}
-
-        <div className="flex flex-col lg:flex-row gap-8 w-full relative z-10">
-          <div className="flex-1">
-            {/* Packs principaux - 3 colonnes */}
-            <StaggeredContainer
-              className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full mb-8"
-              staggerDelay={200}
-              animation="slideUp"
-            >
-              {mainPacks.map((pack, index) => (
-                <Card
-                  key={pack.id}
-                  className={cn(
-                    "flex flex-col overflow-hidden rounded-[20px] transition-all duration-500 group relative cursor-pointer",
-                    pack.bgColor,
-                    "border border-solid",
-                    selectedPack?.id === pack.id
-                      ? "border-amber-400 scale-105 shadow-shadow-dark-XL"
-                      : "border-white hover:scale-105"
-                  )}
-                  onClick={() => handlePackSelect(pack)}
-                >
-                  {/* Badge Satisfait ou remboursé */}
-                  <div className="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg z-20 flex items-center gap-1">
-                    <CheckIcon className="w-3 h-3" />
-                    Satisfait ou remboursé
+          <StaggeredContainer>
+            <div className="flex gap-6 w-full">
+            {mainPacks.map((pack, index) => (
+              <Card
+                key={pack.id}
+                className={cn(
+                  "basis-1/3 flex flex-col bg-orange-50 overflow-hidden rounded-[20px] transition-all duration-500 group relative cursor-pointer",
+                  pack.bgColor,
+                  "border border-solid",
+                  selectedPack?.id === pack.id
+                    ? "border-amber-400 scale-105 shadow-shadow-dark-XL"
+                    : "border-white hover:scale-105"
+                )}
+                onClick={() => handlePackSelect(pack)}
+              >
+                <div className="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg z-20 flex items-center gap-1">
+                  <CheckIcon className="w-3 h-3" />
+                  Satisfait ou remboursé
+                </div>
+                {selectedPack?.id === pack.id && (
+                  <div className="absolute top-3 right-3 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
+                    <CheckIcon className="w-4 h-4 text-blue-gray900" />
                   </div>
-
-                  {selectedPack?.id === pack.id && (
-                    <div className="absolute top-3 right-3 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center">
-                      <CheckIcon className="w-4 h-4 text-blue-gray900" />
-                    </div>
-                  )}
-
-                  {/* Image de fond décorative */}
+                )}
+                <div
+                  className="absolute w-full h-[150px] md:h-[180px] top-0 left-0 bg-cover bg-center opacity-15"
+                  style={{
+                    backgroundImage: `url(../pack-${index + 1}.jpg)`,
+                  }}
+                />
+                <CardHeader className="text-center pt-6 md:pt-8 relative z-10">
+                  <div className="hidden text-3xl md:text-4xl mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-110">
+                    {pack.icon}
+                  </div>
+                  <h3
+                    className={`font-heading-6 font-[number:var(--heading-6-font-weight)] ${pack.textColor} text-3xl md:text-4xl lg:text-[length:var(--heading-6-font-size)] tracking-[var(--heading-6-letter-spacing)] leading-[var(--heading-6-line-height)] [font-style:var(--heading-6-font-style)] mb-2`}
+                  >
+                    {pack.title}
+                  </h3>
                   <div
-                    className="absolute w-full h-[150px] md:h-[180px] top-0 left-0 bg-cover bg-center opacity-15"
-                    style={{
-                      backgroundImage: `url(../pack-${index + 1}.jpg)`,
-                    }}
-                  />
-
-                  <CardHeader className="text-center pt-6 md:pt-8 relative z-10">
-                    <div className="hidden text-3xl md:text-4xl mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-110">
-                      {pack.icon}
-                    </div>
-                    <h3
-                      className={`font-heading-6 font-[number:var(--heading-6-font-weight)] ${pack.textColor} text-3xl md:text-4xl lg:text-[length:var(--heading-6-font-size)] tracking-[var(--heading-6-letter-spacing)] leading-[var(--heading-6-line-height)] [font-style:var(--heading-6-font-style)] mb-2`}
-                    >
-                      {pack.title}
-                    </h3>
-                    <div
-                      className={`text-4xl md:text-4xl font-bold ${pack.priceColor} mb-1`}
-                    >
-                      {pack.price}
-                    </div>
-                    <p className="text-xs md:text-sm text-blue-gray800">
-                      {pack.maintenance}
-                    </p>
-                  </CardHeader>
-
-                  <CardContent className="flex-1 mt-4 px-4 md:px-6 py-4 md:py-6 relative z-10">
-                    <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
-                      {pack.features.map((feature, featureIndex) => (
-                        <div
-                          key={featureIndex}
-                          className="flex items-start gap-3 group"
+                    className={`text-4xl md:text-4xl font-bold ${pack.priceColor} mb-1`}
+                  >
+                    {pack.price}
+                  </div>
+                  <p className="text-xs md:text-sm text-blue-gray800">
+                    {pack.maintenance}
+                  </p>
+                </CardHeader>
+                <CardContent className="flex-1 mt-4 px-4 md:px-6 py-4 md:py-6 relative z-10">
+                  <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
+                    {pack.features.map((feature, featureIndex) => (
+                      <div
+                        key={featureIndex}
+                        className="flex items-start gap-3 group"
+                      >
+                        <CheckIcon className="w-4 h-4 md:w-5 md:h-5 text-green-400 mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                        <span
+                          className={`${pack.textColor} font-body-m text-sm md:text-base lg:text-[length:var(--body-m-font-size)] leading-[var(--body-m-line-height)]`}
                         >
-                          <CheckIcon className="w-4 h-4 md:w-5 md:h-5 text-green-400 mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
-                          <span
-                            className={`${pack.textColor} font-body-m text-sm md:text-base lg:text-[length:var(--body-m-font-size)] leading-[var(--body-m-line-height)]`}
-                          >
-                            {(() => {
-                              const shouldBeBold =
-                                featureIndex === 0 ||
-                                featureIndex === 1 ||
-                                featureIndex === pack.features.length - 1;
-
-                              if (shouldBeBold && feature.includes(":")) {
-                                const [beforeColon, afterColon] = feature.split(
-                                  ":",
-                                  2
-                                );
-                                return (
-                                  <>
-                                    <span className="font-semibold">
-                                      {beforeColon}:
-                                    </span>
-                                    <span>{afterColon}</span>
-                                  </>
-                                );
-                              } else if (shouldBeBold) {
-                                return (
+                          {(() => {
+                            const shouldBeBold =
+                              featureIndex === 0 ||
+                              featureIndex === 1 ||
+                              featureIndex === pack.features.length - 1;
+                            if (shouldBeBold && feature.includes(":")) {
+                              const [beforeColon, afterColon] = feature.split(
+                                ":",
+                                2
+                              );
+                              return (
+                                <>
                                   <span className="font-semibold">
-                                    {feature}
+                                    {beforeColon}:
                                   </span>
-                                );
-                              } else {
-                                return feature;
-                              }
-                            })()}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="h-16 flex-1 flex items-center justify-center">
-                      <a href={`/commande?pack=${pack.id}`} className="w-full">
-                        <StyledWrapper className="text-sm text-blue-gray800">
-                          {selectedPack?.id === pack.id
-                            ? "Sélectionné"
-                            : "Commander ce pack"}
-                        </StyledWrapper>
-                      </a>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </StaggeredContainer>
-
-            {/* Sélecteur de maintenance */}
-            {showMaintenanceSelector && selectedPack && (
-              <div id="social-options-section" className="scroll-mt-8">
-                <AnimatedSection animation="slideUp" delay={300}>
-                  <div>
-                    <div className="flex flex-col lg:flex-row gap-8">
-                      {/* Section options sociales à gauche */}
-                      <div className="flex-1 basis-0 lg:basis-1/2">
-                        <MaintenanceSelector
-                          selectedSocialOptions={selectedSocialOptions}
-                          onSelectSocialOptions={handleSocialOptionsSelect}
-                        />
+                                  <span>{afterColon}</span>
+                                </>
+                              );
+                            } else if (shouldBeBold) {
+                              return (
+                                <span className="font-semibold">
+                                  {feature}
+                                </span>
+                              );
+                            } else {
+                              return feature;
+                            }
+                          })()}
+                        </span>
                       </div>
-
-                      {/* Panier à droite sur desktop */}
-                      <div className="basis-0 lg:basis-1/2 flex items-center justify-center">
-                        <button
-                          onClick={handleCheckout}
-                          disabled={!selectedPack}
-                          className="px-6 py-3 bg-amber-400 text-blue-gray900 rounded-lg font-bold shadow hover:bg-amber-500 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          Commencer maintenant
-                        </button>
-                      </div>
+                    ))}
+                  </div>
+                  <div className="h-16 flex-1 flex items-center justify-center">
+                    <a href={`/commande?pack=${pack.id}`} className="w-full">
+                      <StyledWrapper>
+                        {selectedPack?.id === pack.id
+                          ? "Sélectionné"
+                          : "Commander ce pack"}
+                      </StyledWrapper>
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+            </div>
+          </StaggeredContainer>
+          {showMaintenanceSelector && selectedPack && (
+            <div id="social-options-section" className="scroll-mt-8">
+              <AnimatedSection animation="slideUp" delay={300}>
+                <div>
+                  <div className="flex flex-col lg:flex-row gap-8">
+                    <div className="flex-1 basis-0 lg:basis-1/2">
+                      <MaintenanceSelector
+                        selectedSocialOptions={selectedSocialOptions}
+                        onSelectSocialOptions={handleSocialOptionsSelect}
+                      />
+                    </div>
+                    <div className="basis-0 lg:basis-1/2 flex items-center justify-center">
+                      <button
+                        onClick={handleCheckout}
+                        disabled={!selectedPack}
+                        className="px-6 py-3 bg-amber-400 text-blue-gray900 rounded-lg font-bold shadow hover:bg-amber-500 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        Commencer maintenant
+                      </button>
                     </div>
                   </div>
-                </AnimatedSection>
-              </div>
-            )}
-          </div>
+                </div>
+              </AnimatedSection>
+            </div>
+          )}
         </div>
       </div>
     </section>
-    </>
   );
 };

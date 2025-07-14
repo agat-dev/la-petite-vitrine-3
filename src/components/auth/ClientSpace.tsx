@@ -17,7 +17,6 @@ import {
   BuildingIcon,
   EyeIcon,
   DownloadIcon,
-  FileTextIcon,
   PaletteIcon
 } from 'lucide-react';
 
@@ -274,7 +273,7 @@ export const ClientSpace: React.FC<ClientSpaceProps> = ({
         </CardContent>
       </Card>
 
-      <CustomerDashboard customer={authState.user.id}  />
+      <CustomerDashboard customer={customer}  />
 
       {/* Mes commandes */}
       <Card>

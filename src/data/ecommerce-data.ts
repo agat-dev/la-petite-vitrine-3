@@ -56,6 +56,10 @@ export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
     title: "Maintenance Basique",
     price: 9,
     description: "Hébergement + nom de domaine",
+    features: [
+      "Hébergement inclus",
+      "Nom de domaine inclus"
+    ],
     billingCycle: "monthly"
   },
   {
@@ -63,35 +67,38 @@ export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
     title: "Maintenance Premium",
     price: 29,
     description: "Hébergement + nom de domaine + modifications du contenu du site",
+    features: [
+      "Hébergement inclus",
+      "Nom de domaine inclus",
+      "Modifications du contenu du site incluses"
+    ],
     billingCycle: "monthly"
   }
 ];
 
-export const SOCIAL_OPTIONS: MaintenanceOption[] = [
+
+// Configuration des étapes du formulaire (structure de base)
+// Options sociales pour MaintenanceSelector
+export const SOCIAL_OPTIONS = [
   {
     id: "google-business",
     title: "Google My Business",
-    price: 25,
     description: "Création et optimisation de votre fiche Google My Business",
-    billingCycle: "one-time"
+    price: 25,
   },
   {
     id: "reseaux-sociaux",
     title: "2 Réseaux Sociaux",
-    price: 25,
     description: "Création de 2 pages professionnelles (Facebook, Instagram ou LinkedIn)",
-    billingCycle: "one-time"
+    price: 25,
   },
   {
     id: "annuaires-pro",
     title: "Annuaires Professionnels",
-    price: 25,
     description: "Inscription dans les principaux annuaires professionnels",
-    billingCycle: "one-time"
-  }
+    price: 25,
+  },
 ];
-
-// Configuration des étapes du formulaire (structure de base)
 export const DEFAULT_FORM_STEPS: FormStep[] = [
   {
     id: "step-1",

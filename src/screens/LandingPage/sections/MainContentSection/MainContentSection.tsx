@@ -1,9 +1,8 @@
 import { CheckIcon } from "lucide-react";
-import { useState } from "react";
 import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import StyledWrapper from "../../../../components/ui/button-ui";
 
 export const MainContentSection = (): JSX.Element => {
@@ -78,7 +77,7 @@ export const MainContentSection = (): JSX.Element => {
               <AnimatedSection animation="slideUp" delay={800}>
                 <a href="#products">
                   <StyledWrapper className="cursor-pointer">
-                    Voir les tarifs
+                    {"Voir les tarifs"}
                   </StyledWrapper>
                 </a>
               </AnimatedSection>

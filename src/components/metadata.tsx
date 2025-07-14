@@ -127,11 +127,11 @@ export const SEO: React.FC<SEOProps> = ({
 
     // Structured Data (JSON-LD)
     if (structuredData) {
-      let scriptElement = document.querySelector('script[type="application/ld+json"]');
+      let scriptElement = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
       if (scriptElement) {
         scriptElement.textContent = JSON.stringify(structuredData);
       } else {
-        scriptElement = document.createElement('script');
+        scriptElement = document.createElement('script') as HTMLScriptElement;
         scriptElement.type = 'application/ld+json';
         scriptElement.textContent = JSON.stringify(structuredData);
         document.head.appendChild(scriptElement);
@@ -145,11 +145,11 @@ export const SEO: React.FC<SEOProps> = ({
         "description": description,
       };
 
-      let scriptElement = document.querySelector('script[type="application/ld+json"]');
+      let scriptElement = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
       if (scriptElement) {
         scriptElement.textContent = JSON.stringify(defaultStructuredData);
       } else {
-        scriptElement = document.createElement('script');
+        scriptElement = document.createElement('script') as HTMLScriptElement;
         scriptElement.type = 'application/ld+json';
         scriptElement.textContent = JSON.stringify(defaultStructuredData);
         document.head.appendChild(scriptElement);
