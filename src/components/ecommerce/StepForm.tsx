@@ -111,7 +111,12 @@ export const StepForm: React.FC<StepFormProps> = ({
       console.log('FormData (étape)', currentStepInfo.id, { ...formData, ...currentStepData });
       onUpdateFormData(currentStepInfo.id, currentStepData);
       setCurrentStepData({});
-      onNextStep();
+      if (isLastStep) {
+        // Redirection vers la page de succès après la soumission finale
+        window.location.href = '/success';
+      } else {
+        onNextStep();
+      }
     }
   };
 

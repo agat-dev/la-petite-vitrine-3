@@ -86,11 +86,11 @@ export const Success: React.FC = () => {
               </li>
               <li className="flex items-start gap-2">
                 <CheckIcon className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                <span>Notre équipe vous contactera sous 24h pour démarrer votre projet</span>
+                <span>Notre équipe vous contactera sous 48h pour démarrer votre projet</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckIcon className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                <span>Votre site sera livré selon les délais annoncés dans votre pack</span>
+                <span>Votre site sera livré selon les délais annoncés dans votre pack dès validation de votre commande.</span>
               </li>
             </ul>
           </div>
@@ -98,8 +98,8 @@ export const Success: React.FC = () => {
           <div className="text-center space-y-4">
             <p className="text-blue-gray600 font-body-m">
               Une question ? Contactez-nous à{' '}
-              <a href="mailto:support@example.com" className="text-amber-900 hover:underline">
-                support@example.com
+              <a href="mailto:contact@lapetitevitrine.com" className="text-amber-900 hover:underline">
+                contact@lapetitevitrine.com
               </a>
             </p>
             

@@ -1,32 +1,6 @@
 {
   "version": 2,
   "builds": [
-<<<<<<< HEAD
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
-}
-=======
     { "src": "src/**/*.{js,ts,tsx}", "use": "@vercel/node" },
     { "src": "public/**/*", "use": "@vercel/static" },
     { "src": "index.html", "use": "@vercel/static" }
@@ -37,4 +11,3 @@
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
->>>>>>> stripe
