@@ -6,6 +6,7 @@ import { PolitiqueConfidentialitePage } from './pages/PolitiqueConfidentialite';
 import { EcommercePage } from './pages/Ecommerce';
 import { LoginPage } from './pages/Login';
 import { AuthProvider } from './components/auth/AuthProvider';
+import { Success } from './pages/Success';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/cgv" element={<CGVPage />} />
             <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
             <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
+            <Route path="/success" element={<Success />} />
           </Routes>
         </Router>
       </div>

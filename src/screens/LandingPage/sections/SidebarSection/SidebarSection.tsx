@@ -31,24 +31,12 @@ export const SidebarSection = (): JSX.Element => {
         className: "absolute w-[53px] h-[53px] top-[-15px] left-12 z-50",
       },
     },
-    {
-      id: 3,
-      icon: "/icon---iconoir---tunnel.svg",
-      iconAlt: "Icon iconoir tunnel",
-      title: "Satisfait ou remboursé",
-      description:
-        "Si à la livraison, le site ne correspond pas à vos attentes, vous pouvez être remboursé sous 48h sur simple message.",
-      decoration: {
-        isDiv: true,
-        className: "absolute w-[70px] h-[70px] top-[-25px] right-8 z-50 bg-pink-500 rounded-[20px] transform rotate-12 shadow-lg",
-      },
-    },
   ];
 
   return (
     <section id="offre" className="max-w-[1400px] mx-auto md:mt-8 mt-36 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
       <StaggeredContainer 
-        className="flex flex-col md:flex-row w-full max-w-[1280px] items-start gap-8 md:gap-12 lg:gap-20 relative z-40"
+        className="flex flex-col md:flex-row w-full max-w-[1280px] items-start gap-6 md:gap-8 lg:gap-10 relative z-40"
         staggerDelay={150}
         animation="slideUp"
       >
@@ -95,6 +83,9 @@ export const SidebarSection = (): JSX.Element => {
           </div>
         ))}
       </StaggeredContainer>
+
+      
+
     </section>
   );
 };

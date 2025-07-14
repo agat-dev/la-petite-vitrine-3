@@ -1,9 +1,6 @@
-import { PlayIcon } from "lucide-react";
 import { CheckIcon } from "lucide-react";
-import React from "react";
 import { Card } from "../../../../components/ui/card";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
-import StyledButton from "../../../../components/ui/styled-button";
 import StyledWrapper from "../../../../components/ui/button-ui";
 
 export const AboutSection = (): JSX.Element => {
