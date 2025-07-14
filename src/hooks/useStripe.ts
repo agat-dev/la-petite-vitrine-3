@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 
 export const useStripe = () => {
@@ -36,3 +37,6 @@ export const useStripe = () => {
     isStripeEnabled
   };
 };
+=======
+// Hook Stripe supprimé
+>>>>>>> 705befd6575150ab191e53b0b4929077c0460cae

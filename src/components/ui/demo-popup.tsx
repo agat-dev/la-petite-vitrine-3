@@ -166,12 +166,13 @@ export const DemoPopup: React.FC<DemoPopupProps> = ({ isOpen, onClose }) => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2 justify-center">
                       <StyledWrapper>
-                        <button
-                          onClick={handleGetStarted}
-                          className="w-full"
+                        <a
+                          href="#products"
+                          rel="noopener noreferrer"
+                          onClick={onClose}
                         >
-                          Demander un devis
-                        </button>
+                        Commencer maintenant
+                        </a>
                       </StyledWrapper>
                     </div>
                   </div>

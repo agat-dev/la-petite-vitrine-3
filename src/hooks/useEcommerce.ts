@@ -3,55 +3,6 @@ import { Pack, MaintenanceOption, StepFormData, OrderData, Customer } from '../t
 import { DEFAULT_FORM_STEPS } from '../data/ecommerce-data';
 
 export const useEcommerce = () => {
-  // Transforme les données du formulaire en objet compatible Supabase (order_forms)
-  // Ajout du paramètre orderId pour rattacher le formulaire à la commande
-  const mapFormDataToOrderForm = (formData: Record<string, any>, stepFormData: StepFormData, orderId?: string) => {
-    return {
-      orderId: orderId || formData.orderId || null,
-      firstName: formData.prenom || '',
-      lastName: formData.nom || '',
-      email: formData.mail || '',
-      phone: formData.telephone || '',
-      company: formData.entreprise || '',
-      street: formData.street || '',
-      city: formData.city || '',
-      postalCode: formData.postalCode || '',
-      country: formData.country || '',
-      packId: stepFormData.selectedPack?.id || null,
-      packTitle: stepFormData.selectedPack?.title || '',
-      packDescription: stepFormData.selectedPack?.description || '',
-      packFeatures: stepFormData.selectedPack?.features || [],
-      packDeliverytime: stepFormData.selectedPack?.deliveryTime || '',
-      maintenanceId: stepFormData.selectedMaintenance?.id || null,
-      maintenanceTitle: stepFormData.selectedMaintenance?.title || '',
-      maintenanceDescription: stepFormData.selectedMaintenance?.description || '',
-      maintenanceFeatures: stepFormData.selectedMaintenance?.features || [],
-      maintenanceBillingCycle: stepFormData.selectedMaintenance?.billingCycle || '',
-      socialOptions: stepFormData.selectedSocialOptions?.map(opt => opt.label) || [],
-      additionalInfo: formData.additionalInfo || '',
-      budget: formData.budget || '',
-      objectif: formData.objectif || '',
-      delai: formData.delai || '',
-      referenceUrl: formData.referenceUrl || '',
-      description: formData.description || '',
-      color: formData.color || '',
-      logoUrl: formData.logoUrl || '',
-      imageUrl: formData.imageUrl || '',
-      domain: formData.domain || '',
-      cms: formData.cms || '',
-      hebergement: formData.hebergement || '',
-      paiement: formData.paiement || '',
-      livraison: formData.livraison || '',
-      produit: formData.produit || '',
-      service: formData.service || '',
-      autre: formData.autre || '',
-      besoin: formData.besoin || '',
-      fonctionnalite: formData.fonctionnalite || '',
-      rgpdAccepted: formData.rgpdAccepted || false,
-      status: 'en cours de validation',
-      createdAt: new Date().toISOString()
-    };
-  };
   const [stepFormData, setStepFormData] = useState<StepFormData>({
     currentStep: 0,
     steps: DEFAULT_FORM_STEPS,
@@ -112,23 +63,18 @@ export const useEcommerce = () => {
 
   // Mettre à jour les données du formulaire
   const updateFormData = (stepId: string, fieldData: Record<string, any>) => {
-    setStepFormData(prev => {
-      const updatedFormData = {
+    setStepFormData(prev => ({
+      ...prev,
+      formData: {
         ...prev.formData,
         ...fieldData
-      };
-      // Stockage local des données du formulaire à chaque mise à jour
-      localStorage.setItem('formData', JSON.stringify(updatedFormData));
-      return {
-        ...prev,
-        formData: updatedFormData,
-        steps: prev.steps.map(step => 
-          step.id === stepId 
-            ? { ...step, isCompleted: true }
-            : step
-        )
-      };
-    });
+      },
+      steps: prev.steps.map(step => 
+        step.id === stepId 
+          ? { ...step, isCompleted: true }
+          : step
+      )
+    }));
   };
 
   // Naviguer entre les étapes
@@ -173,63 +119,18 @@ export const useEcommerce = () => {
       totalPrice: calculateTotal(),
       status: 'pending',
       createdAt: new Date(),
-      updatedAt: new Date(),
-      customerId: customer?.id || null // Ajout du rattachement au customer
+      updatedAt: new Date()
     };
 
     // Sauvegarder la commande dans le localStorage global
     const existingOrders = JSON.parse(localStorage.getItem('all_orders') || '[]');
     const newOrders = [...existingOrders, order];
     localStorage.setItem('all_orders', JSON.stringify(newOrders));
+    
     // Mettre à jour l'état local
     setOrders(newOrders);
+
     return order;
-  };
-
-  // Soumission complète : crée la commande puis le formulaire lié
-  const submitOrderAndForm = async () => {
-    // 1. Création de la commande (order)
-    const orderPayload = {
-      customerId: customer?.id || null,
-      packId: stepFormData.selectedPack?.id || null,
-      maintenanceId: stepFormData.selectedMaintenance?.id || null,
-      formData: stepFormData.formData,
-      totalPrice: calculateTotal(),
-      status: 'pending',
-      createdAt: new Date().toISOString()
-    };
-    const orderRes = await fetch('/api/order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderPayload)
-    });
-    const orderData = await orderRes.json();
-    if (!orderData.id) throw new Error('Erreur création commande');
-
-    // 2. Conversion des données du formulaire pour correspondre à la table order_forms
-    const orderFormPayload = mapFormDataToOrderForm(
-      stepFormData.formData,
-      stepFormData,
-      orderData.id
-    );
-    // Conversion des champs ARRAY en format compatible Supabase (ex: JSON.stringify)
-    (orderFormPayload as any).packFeatures = JSON.stringify(orderFormPayload.packFeatures);
-    (orderFormPayload as any).maintenanceFeatures = JSON.stringify(orderFormPayload.maintenanceFeatures);
-    (orderFormPayload as any).socialOptions = JSON.stringify(orderFormPayload.socialOptions);
-
-    const formRes = await fetch('/api/order_form', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderFormPayload)
-    });
-    const formDataRes = await formRes.json();
-    if (!formDataRes.id) throw new Error('Erreur création order_form');
-
-    // 3. Mise à jour locale
-    setOrders(prev => [...prev, orderData]);
-    localStorage.setItem('orders', JSON.stringify([...orders, orderData]));
-
-    return { order: orderData, orderForm: formDataRes };
   };
 
   // Réinitialiser le formulaire
@@ -282,7 +183,6 @@ export const useEcommerce = () => {
     resetForm,
     loginCustomer,
     resetCustomerSession,
-    submitOrderAndForm,
     
     // Utilitaires
     isFormValid: stepFormData.steps.every(step => step.isCompleted) && stepFormData.selectedPack && stepFormData.selectedMaintenance,
