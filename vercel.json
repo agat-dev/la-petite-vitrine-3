@@ -1,6 +1,7 @@
 {
   "version": 2,
   "builds": [
+<<<<<<< HEAD
     {
       "src": "package.json",
       "use": "@vercel/static-build",
@@ -25,3 +26,15 @@
     }
   }
 }
+=======
+    { "src": "src/**/*.{js,ts,tsx}", "use": "@vercel/node" },
+    { "src": "public/**/*", "use": "@vercel/static" },
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/server/(.*)", "dest": "/server/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
+>>>>>>> stripe
