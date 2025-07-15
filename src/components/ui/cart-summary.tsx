@@ -2,7 +2,7 @@ import React from 'react';
 import { XIcon, ShoppingCartIcon } from 'lucide-react';
 import { CardContent, CardHeader } from './card';
 import StyledButton from './styled-button';
-// Remove type-only import for Pack and MaintenanceService since '../../types/stripe' is not a module
+import { Pack, MaintenanceService } from '../../types/ecommerce';
 
 interface CartSummaryProps {
   selectedPack: Pack;
@@ -41,9 +41,17 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
   };
 
   // Calculer les prix - utiliser la maintenance par défaut si aucune n'est sélectionnée
-  const packPrice = parseInt(selectedPack.price.replace('€', ''));
+  const packPrice = typeof selectedPack.price === 'string'
+    ? 0
+    : typeof selectedPack.price === 'number'
+      ? selectedPack.price
+      : 0;
   const activeMaintenance = selectedMaintenance || defaultMaintenance;
-  const maintenancePrice = parseInt(activeMaintenance.price.replace('€', ''));
+  const maintenancePrice = typeof activeMaintenance.price === 'string'
+    ? 0
+    : typeof activeMaintenance.price === 'number'
+      ? activeMaintenance.price
+      : 0;
   
   return (
     <div className="sticky top-12 bg-amber-50 rounded-[30px] shadow-shadow-dark-l p-6">

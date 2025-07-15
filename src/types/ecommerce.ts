@@ -15,6 +15,7 @@ export interface MaintenanceOption {
   features: string[];
   billingCycle: 'monthly' | 'yearly' | 'one-time';
 }
+export type MaintenanceService = MaintenanceOption;
 
 export interface FormStep {
   id: string;

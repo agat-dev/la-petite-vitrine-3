@@ -1,29 +1,6 @@
 import { useState, useCallback } from 'react';
-// Removed import of emailService to resolve TS2440 conflict; using local declaration below
+import type { FormData } from '../types/formTypes';
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  company: string;
-  sector: string;
-  interventionArea: string;
-  address: string;
-  city: string;
-  postalCode: string;
-  country: string;
-  mainCompetitors: string;
-  proposedServices: string;
-  specificityPositioning: string;
-  typesOfClients: string;
-  communicationTone: string;
-  existingContentLinks: string;
-  miscellaneousInfo: string;
-  visualFiles: File[];
-  textFiles: File[];
-  otherFiles: File[];
-}
 
 interface FormErrors {
   [key: string]: string;
@@ -52,7 +29,7 @@ export const useMultiStepForm = () => {
     mainCompetitors: '',
     proposedServices: '',
     specificityPositioning: '',
-    typesOfClients: '',
+    typesOfClients: 'particuliers',
     communicationTone: '',
     existingContentLinks: '',
     miscellaneousInfo: '',
@@ -161,7 +138,7 @@ export const useMultiStepForm = () => {
           mainCompetitors: '',
           proposedServices: '',
           specificityPositioning: '',
-          typesOfClients: '',
+          typesOfClients: 'particuliers',
           communicationTone: '',
           existingContentLinks: '',
           miscellaneousInfo: '',

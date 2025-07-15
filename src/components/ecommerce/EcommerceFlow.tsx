@@ -3,6 +3,7 @@ import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
 import { OrderSummary } from './OrderSummary';
+import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
@@ -216,65 +217,18 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             )}
 
             {currentFlow === 'maintenance-selection' && (
-              <Card className="bg-white backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-amber-100 to-blue-gray-100 p-8">
-                  <h2 className="text-3xl font-bold text-blue-gray900 mb-4 font-heading-2 text-center">
-                    Choisissez votre maintenance (obligatoire)
-                  </h2>
-                  <p className="text-blue-gray600 font-body-l text-center">
-                    Sélectionnez le niveau de maintenance qui vous convient
-                  </p>
-                </CardHeader>
-
-                <CardContent className="p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-                  {MAINTENANCE_OPTIONS.map((maintenance) => {
-                    const isSelected = stepFormData.selectedMaintenance?.id === maintenance.id;
-                    
-                    return (
-                      <Card
-                        key={maintenance.id}
-                        className={cn(
-                          "cursor-pointer transition-all duration-300 hover:scale-105 border-2 rounded-xl overflow-hidden",
-                          isSelected
-                            ? "border-amber-400 bg-amber-50 shadow-lg"
-                            : "border-amber-200 hover:border-amber-300 hover:shadow-lg bg-white"
-                        )}
-                        onClick={() => {
-                          console.log('Selecting maintenance:', maintenance);
-                          selectMaintenance(maintenance);
-                        }}
-                      >
-                        {isSelected && (
-                          <div className="absolute top-4 right-4 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center shadow-md">
-                            <CheckIcon className="w-4 h-4 text-white" />
-                          </div>
-                        )}
-
-                        <CardHeader className="text-center pb-4 bg-gradient-to-b from-white to-amber-50/30 p-6">
-                          <h3 className="text-xl font-bold text-blue-gray900 mb-2 font-heading-6">
-                            {maintenance.title}
-                          </h3>
-                          <div className="text-3xl font-bold text-amber-900 mb-2">
-                            {maintenance.price}€/mois
-                          </div>
-                        </CardHeader>
-
-                        <CardContent className="p-6">
-                          <p className="text-blue-gray700 text-sm text-center font-body-m">
-                            {maintenance.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-
+              <>
+                <MaintenanceSelector
+                  maintenanceOptions={MAINTENANCE_OPTIONS}
+                  selectedMaintenance={stepFormData.selectedMaintenance ?? null}
+                  onSelectMaintenance={selectMaintenance}
+                  className="mb-8"
+                />
                 <div className="flex justify-end">
                   <Button
                     onClick={() => {
                       console.log('Maintenance continue button clicked');
-                     setCurrentFlow('form');
+                      setCurrentFlow('form');
                     }}
                     disabled={!stepFormData.selectedMaintenance}
                     className="bg-amber-600 hover:bg-amber-700 text-white font-medium px-8 py-3 rounded-xl shadow-md"
@@ -282,8 +236,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                     Continuer
                   </Button>
                 </div>
-                </CardContent>
-              </Card>
+              </>
             )}
 
             {currentFlow === 'form' && (
