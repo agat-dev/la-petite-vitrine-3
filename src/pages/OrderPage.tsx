@@ -27,7 +27,7 @@ interface MaintenanceService {
 
 export const OrderPage: React.FC = () => {
   const navigate = useNavigate();
-  const isStripeEnabled = import.meta.env.VITE_STRIPE_ENABLED === 'false';
+  const isStripeEnabled = import.meta.env.VITE_STRIPE_ENABLED === 'true';
 
   useEffect(() => {
     // Si Stripe est désactivé, rediriger vers le formulaire de devis
