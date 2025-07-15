@@ -273,7 +273,7 @@ export const ClientSpace: React.FC<ClientSpaceProps> = ({
         </CardContent>
       </Card>
 
-      <CustomerDashboard customer={customer}  />
+      {customer && <CustomerDashboard customer={customer} />}
 
       {/* Mes commandes */}
       <Card>

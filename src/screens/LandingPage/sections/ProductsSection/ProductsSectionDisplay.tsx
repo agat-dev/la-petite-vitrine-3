@@ -1,3 +1,34 @@
+// Inline type definitions for Pack and MaintenanceService
+interface Pack {
+  id: string;
+  icon: React.ReactNode;
+  title: string;
+  price: string;
+  maintenance?: string;
+  features: string[];
+  buttonText?: string;
+  isRecommended?: boolean;
+  bgColor?: string;
+  textColor?: string;
+  priceColor?: string;
+  buttonVariant?: string;
+}
+
+interface MaintenanceService {
+  id: string;
+  icon: React.ReactNode;
+  title: string;
+  price: string;
+  features: string[];
+  buttonText?: string;
+  bgColor?: string;
+  borderColor?: string;
+  titleColor?: string;
+  priceColor?: string;
+  textColor?: string;
+  checkColor?: string;
+  buttonClass?: string;
+}
 import { CheckIcon } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
@@ -5,7 +36,7 @@ import { AnimatedSection } from "../../../../components/ui/animated-section";
 import { StaggeredContainer } from "../../../../components/ui/staggered-container";
 import { cn } from "../../../../lib/utils";
 import StyledWrapper from "../../../../components/ui/button-ui";
-import type { Pack, MaintenanceService } from "../../../../types/stripe";
+// Removed type-only import for Pack and MaintenanceService since '../../../../types/stripe' is not a module
 import { Link } from 'react-router-dom';
 
 export const ProductsSectionDisplay = (): JSX.Element => {

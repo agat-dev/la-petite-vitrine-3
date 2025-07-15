@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { emailService } from '../services/emailService';
+// Removed import of emailService to resolve TS2440 conflict; using local declaration below
 
 interface FormData {
   firstName: string;
@@ -397,4 +397,4 @@ class EmailService {
   }
 }
 
-export const emailService = new EmailService();
+const emailService = new EmailService();

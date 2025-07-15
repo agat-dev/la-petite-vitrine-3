@@ -15,10 +15,11 @@ export const StaggeredContainer: React.FC<StaggeredContainerProps> = ({
   staggerDelay = 100,
   animation = 'slideUp',
 }) => {
+  // Fix: ensure the ref is typed for HTMLDivElement
   const { elementRef, isVisible } = useScrollAnimation({
     threshold: 0.1,
     triggerOnce: true,
-  });
+  }) as { elementRef: React.RefObject<HTMLDivElement>; isVisible: boolean };
 
   const getAnimationClasses = (index: number) => {
     const delay = index * staggerDelay;
@@ -53,7 +54,7 @@ export const StaggeredContainer: React.FC<StaggeredContainerProps> = ({
   };
 
   return (
-    <div ref={elementRef} className={className}>
+    <div ref={elementRef as React.RefObject<HTMLDivElement>} className={className}>
       {React.Children.map(children, (child, index) => (
         <div className={getAnimationClasses(index)}>
           {child}

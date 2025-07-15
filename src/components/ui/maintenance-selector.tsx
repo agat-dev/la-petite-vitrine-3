@@ -1,8 +1,22 @@
+// Inline type definition for MaintenanceService to resolve TS2304 error
+interface MaintenanceService {
+  id: string;
+  title: string;
+  description?: string;
+  price: number | string;
+  features: string[];
+  icon?: React.ReactNode;
+  bgColor?: string;
+  borderColor?: string;
+  titleColor?: string;
+  priceColor?: string;
+  textColor?: string;
+  checkColor?: string;
+}
 import React from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Card, CardContent } from './card';
 import { cn } from '../../lib/utils';
-import type { MaintenanceService } from '../../types/stripe';
 
 interface MaintenanceSelectorProps {
   maintenanceServices: MaintenanceService[];
@@ -24,16 +38,16 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {maintenanceServices.map((service) => (
           <Card
-            key={maintenance.id}
+            key={service.id}
             className={cn(
               "cursor-pointer transition-all duration-300 hover:shadow-lg",
-              maintenance.bgColor,
-              maintenance.borderColor,
-              selectedMaintenance?.id === maintenance.id
+              service.bgColor,
+              service.borderColor,
+              selectedMaintenance?.id === service.id
                 ? "border-2 shadow-md"
                 : "border hover:border-amber-300"
             )}
-            onClick={() => onSelect(maintenance)}
+            onClick={() => onSelect(service)}
           >
             <CardContent className="p-4 relative">
               {selectedMaintenance?.id === service.id && (

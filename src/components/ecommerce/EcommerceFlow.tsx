@@ -161,13 +161,16 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Si un client est connecté et on est sur le dashboard
   if (customer && currentFlow === 'dashboard') {
+    // Only render if customer is not null
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50">
-        <CustomerDashboard
-          customer={customer}
-          onLogout={handleLogout}
-          className="max-w-6xl mx-auto"
-        />
+        {customer ? (
+          <CustomerDashboard
+            customer={customer}
+            onLogout={handleLogout}
+            className="max-w-6xl mx-auto"
+          />
+        ) : null}
       </div>
     );
   }
@@ -229,7 +232,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
               Commande en ligne
             </h1>
             <p className="text-blue-gray600 text-center font-body-l">
-              Nous vous répondons dans les 48h pour valider votre commande. <br />Nous vous recontactons pour affiner votre demande et démarrer la production le plus rapidement possible.
+              48h avant validation de votre commande. <br />Nous vous recontactons pour affiner votre demande et démarrer la production le plus rapidement possible.
             </p>
             </div>
           </div>

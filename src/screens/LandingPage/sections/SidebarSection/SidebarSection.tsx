@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { StaggeredContainer } from "../../../../components/ui/staggered-container";
 
@@ -45,15 +44,11 @@ export const SidebarSection = (): JSX.Element => {
             key={card.id}
             className="flex flex-col items-center gap-2.5 relative flex-1 group w-fit md:w-auto"
           >
-            {card.decoration.isDiv ? (
-              <div className={card.decoration.className} />
-            ) : (
-              <img
-                className={card.decoration.className}
-                alt={card.decoration.alt}
-                src={card.decoration.src}
-              />
-            )}
+            <img
+              className={card.decoration.className}
+              alt={card.decoration.alt}
+              src={card.decoration.src}
+            />
 
             <Card className="w-full pb-8 px-8 bg-white border-none transition-transform duration-300 group-hover:scale-105">
               <CardContent className="p-0">

@@ -1,5 +1,5 @@
 import React from 'react';
-import FileUpload from '../components/FileUpload';
+import { FileUpload } from '../components/FileUpload';
 
 const FilesStep = ({ onFileChange, files }) => {
   return (
@@ -8,15 +8,15 @@ const FilesStep = ({ onFileChange, files }) => {
       <p>Please upload the following files:</p>
       <FileUpload
         label="Visual Elements (logo, branding, photos, etc.)"
-        onChange={(file) => onFileChange('visualElements', file)}
+        onFileChange={(files) => onFileChange('visualElements', files)}
       />
       <FileUpload
         label="Texts and Content"
-        onChange={(file) => onFileChange('textsContent', file)}
+        onFileChange={(files) => onFileChange('textsContent', files)}
       />
       <FileUpload
         label="Other Files"
-        onChange={(file) => onFileChange('otherFiles', file)}
+        onFileChange={(files) => onFileChange('otherFiles', files)}
       />
       <div>
         <label>Link to Existing Content:</label>

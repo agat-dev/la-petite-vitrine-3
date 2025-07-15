@@ -19,11 +19,12 @@ export const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   duration = 600,
   threshold = 0.1,
 }) => {
+  // Fix: ensure the ref is typed for HTMLDivElement
   const { elementRef, isVisible } = useScrollAnimation({
     threshold,
     delay,
     triggerOnce: true,
-  });
+  }) as { elementRef: React.RefObject<HTMLDivElement>; isVisible: boolean };
 
   const getAnimationClasses = () => {
     const baseClasses = `transition-all ease-out`;
@@ -71,7 +72,7 @@ export const AnimatedSection: React.FC<AnimatedSectionProps> = ({
 
   return (
     <div
-      ref={elementRef}
+      ref={elementRef as React.RefObject<HTMLDivElement>}
       className={cn(getAnimationClasses(), className)}
     >
       {children}

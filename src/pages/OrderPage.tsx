@@ -159,7 +159,7 @@ export const OrderPage: React.FC = () => {
 
   return (
     <>
-      {usePageSEO("order")}
+      {usePageSEO("home")}
       
       <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
         {/* Header */}

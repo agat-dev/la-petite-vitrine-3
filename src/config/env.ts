@@ -1,23 +1,22 @@
+
 // Configuration centralisée des environnements
-export const ENV = {
-  NODE_ENV: import.meta.env.NODE_ENV || 'development',
-  PROD: import.meta.env.PROD,
-  DEV: import.meta.env.DEV,
-  
-  // URLs
-  BASE_URL: import.meta.env.VITE_BASE_URL || 'http://localhost:5173',
-  API_URL: import.meta.env.VITE_API_URL || 'http://localhost:3001',
-  
-  // Features
-  STRIPE_ENABLED: import.meta.env.VITE_STRIPE_ENABLED === 'true',
-  USE_BACKEND: import.meta.env.VITE_USE_BACKEND === 'true',
-  
-  // APIs
-  GOOGLE_MAPS_API_KEY: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-  
-  // Debug
-  DEBUG: import.meta.env.DEV
-} as const;
+export const NODE_ENV = import.meta.env.NODE_ENV || 'development';
+export const PROD = import.meta.env.PROD;
+export const DEV = import.meta.env.DEV;
+
+// URLs
+export const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:5173';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+// Features
+export const STRIPE_ENABLED = import.meta.env.VITE_STRIPE_ENABLED === 'true';
+export const USE_BACKEND = import.meta.env.VITE_USE_BACKEND === 'true';
+
+// APIs
+export const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+// Debug
+export const DEBUG = import.meta.env.DEV;
 
 // Validation des variables requises
 export const validateEnv = () => {

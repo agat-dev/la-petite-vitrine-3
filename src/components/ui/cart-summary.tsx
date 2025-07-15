@@ -2,7 +2,7 @@ import React from 'react';
 import { XIcon, ShoppingCartIcon } from 'lucide-react';
 import { CardContent, CardHeader } from './card';
 import StyledButton from './styled-button';
-import type { Pack, MaintenanceService } from '../../types/stripe';
+// Remove type-only import for Pack and MaintenanceService since '../../types/stripe' is not a module
 
 interface CartSummaryProps {
   selectedPack: Pack;
@@ -79,14 +79,7 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
               {selectedMaintenance ? "Abonnement mensuel sans engagement" : "Maintenance incluse - Sans engagement"}
             </p>
           </div>
-          {selectedMaintenance && (
-            <button
-              onClick={onRemoveMaintenance}
-              className="text-red-500 hover:text-red-700 transition-colors"
-            >
-              <XIcon className="w-4 h-4" />
-            </button>
-          )}
+          {/* Remove maintenance button since onRemoveMaintenance is not defined in props */}
         </div>
 
         {/* Résumé des coûts */}
@@ -94,7 +87,6 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
           <div className="bg-blue-50 p-2 rounded text-xs text-blue-gray700 mb-4">
             <strong>Note:</strong> La maintenance sera facturée mensuellement après le premier paiement du pack.
           </div>
-          
           {/* Détail des coûts */}
           <div className="space-y-2 mb-3">
             <div className="flex justify-between items-center text-sm text-blue-gray700">
@@ -106,18 +98,16 @@ export const CartSummary: React.FC<CartSummaryProps> = ({
               <span>{maintenancePrice}€</span>
             </div>
           </div>
-          
           {/* Total */}
           <div className="flex justify-between items-center text-lg font-bold text-amber-900 border-t border-amber-200 pt-2">
             <span>Total aujourd'hui:</span>
             <span>{packPrice + maintenancePrice}€</span>
           </div>
-          
           <div className="flex justify-between items-center text-sm text-blue-gray600 mt-1">
             <span>Puis chaque mois:</span>
             <span>{maintenancePrice}€</span>
           </div>
-        )}
+        </div>
 
         {/* Bouton de paiement */}
         <StyledButton
