@@ -10,7 +10,6 @@ import { AddressStep } from './../components/forms/steps/AddressStep';
 import { BusinessDetailsStep } from './../components/forms/steps/BusinessDetailsStep';
 import { CommunicationStep } from './../components/forms/steps/CommunicationStep';
 import { FilesStep } from './../components/forms/steps/FilesStep';
-import { usePageSEO } from './../components/metadata';
 
 interface Pack {
   id: string;
@@ -28,7 +27,7 @@ interface MaintenanceService {
 
 export const OrderPage: React.FC = () => {
   const navigate = useNavigate();
-  const isStripeEnabled = import.meta.env.VITE_STRIPE_ENABLED === 'true';
+  const isStripeEnabled = import.meta.env.VITE_STRIPE_ENABLED === 'false';
 
   useEffect(() => {
     // Si Stripe est désactivé, rediriger vers le formulaire de devis
@@ -159,7 +158,6 @@ export const OrderPage: React.FC = () => {
 
   return (
     <>
-      {usePageSEO("home")}
       
       <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
         {/* Header */}
