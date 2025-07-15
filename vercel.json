@@ -1,9 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "vite.config.ts", "use": "@vercel/static-build" }
+    { "src": "src/**/*.{js,ts,tsx}", "use": "@vercel/node" },
+    { "src": "public/**/*", "use": "@vercel/static" },
+    { "src": "index.html", "use": "@vercel/static" }
   ],
-  "outputDirectory": "dist",
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/server/(.*)", "dest": "/server/$1" },
