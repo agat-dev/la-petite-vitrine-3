@@ -62,7 +62,18 @@ export const HeroSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="-mt-[12%] flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 3xl:p-24 4xl:p-32 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200 overflow-hidden z-10">
+    <section className="-mt-56 flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 3xl:p-24 4xl:p-32 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200 overflow-hidden">
+        <Card className="relative w-max h-full border-none bg-transparent mx-auto z-100">
+          <div className="relative h-full">
+            <div className="absolute -left-48 w-max p-8 rounded-[30px] bg-amber-600 text-center font-body-l font-[number:var(--body-l-font-weight)] text-white text-3xl md:text-4xl lg:text-5xl tracking-[var(--body-l-letter-spacing)] [font-style:var(--body-l-font-style)] z-50">
+              <p>Satisfait</p>
+              <p className="mt-2 md:text-3xl text-2xl italic">
+                ou remboursé
+              </p>
+            </div>
+          </div>
+        </Card>
+      
       {/* Container pour centrer le contenu sur très grands écrans */}
       <div className="w-full max-w-[1400px] mx-auto">
         <div className="pt-[18%] flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 3xl:gap-24 4xl:gap-32 relative w-full">

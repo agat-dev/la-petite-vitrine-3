@@ -113,7 +113,7 @@ export const MainContentSection = (): JSX.Element => {
             <AnimatedSection animation="slideLeft" delay={600} className="w-2/3">
               <Card className="flex items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[3px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500 z-20">
                 <AnimatePresence>
-                  <Card className="backdrop-blur-md">
+                  <Card className="bg-amber-900 backdrop-blur-md">
                     <CardHeader className="relative p-4 pb-2 bg-gradient-to-r from-amber-50/80 to-blue-gray100/90 backdrop-blur-md rounded-t-[20px]">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-amber-900 to-amber-800 rounded-full flex items-center justify-center shadow-lg">
