@@ -38,11 +38,11 @@ interface SEOProps {
 }
 
 export const SEO: React.FC<SEOProps> = ({
-  title = DEFAULT_SEO.siteName,
-  description = DEFAULT_SEO.description,
-  keywords = DEFAULT_SEO.keywords,
+  title = "La Petite Vitrine",
+  description = "La Petite Vitrine - Création de sites web et solutions digitales pour artisans et PME.",
+  keywords = "site web, vitrine, artisan, PME, digital, maintenance, création, SEO, référencement",
   canonical,
-  ogImage = DEFAULT_SEO.ogImage,
+  ogImage = "/default-og-image.jpg",
   ogUrl,
   ogType = "website",
   twitterCard = "summary_large_image",
@@ -72,22 +72,22 @@ export const SEO: React.FC<SEOProps> = ({
     // Métadonnées de base
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
-    updateMetaTag('author', DEFAULT_SEO.author);
+    updateMetaTag('author', "La Petite Vitrine");
     updateMetaTag('robots', `${noIndex ? 'noindex' : 'index'}, ${noFollow ? 'nofollow' : 'follow'}`);
     updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
-    updateMetaTag('theme-color', DEFAULT_SEO.themeColor);
-    updateMetaTag('msapplication-TileColor', DEFAULT_SEO.themeColor);
-    updateMetaTag('application-name', DEFAULT_SEO.siteName);
+    updateMetaTag('theme-color', "#fbbf24");
+    updateMetaTag('msapplication-TileColor', "#fbbf24");
+    updateMetaTag('application-name', "La Petite Vitrine");
 
     // Open Graph
     updateMetaTag('og:title', title, true);
     updateMetaTag('og:description', description, true);
     updateMetaTag('og:type', ogType, true);
-    updateMetaTag('og:site_name', DEFAULT_SEO.siteName, true);
+    updateMetaTag('og:site_name', "La Petite Vitrine", true);
     updateMetaTag('og:locale', 'fr_FR', true);
     
     if (ogImage) {
-      const fullImageUrl = ogImage.startsWith('http') ? ogImage : `${DEFAULT_SEO.domain}${ogImage}`;
+      const fullImageUrl = ogImage.startsWith('http') ? ogImage : `${window.location.origin}${ogImage}`;
       updateMetaTag('og:image', fullImageUrl, true);
       updateMetaTag('og:image:alt', title, true);
       updateMetaTag('og:image:width', '1200', true);
@@ -104,11 +104,11 @@ export const SEO: React.FC<SEOProps> = ({
     updateMetaTag('twitter:card', twitterCard);
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
-    updateMetaTag('twitter:site', DEFAULT_SEO.twitterSite);
-    updateMetaTag('twitter:creator', DEFAULT_SEO.twitterCreator);
+    updateMetaTag('twitter:site', "@LaPetiteVitrine");
+    updateMetaTag('twitter:creator', "@LaPetiteVitrine");
     
     if (ogImage) {
-      const fullImageUrl = ogImage.startsWith('http') ? ogImage : `${DEFAULT_SEO.domain}${ogImage}`;
+      const fullImageUrl = ogImage.startsWith('http') ? ogImage : `${window.location.origin}${ogImage}`;
       updateMetaTag('twitter:image', fullImageUrl);
     }
 
