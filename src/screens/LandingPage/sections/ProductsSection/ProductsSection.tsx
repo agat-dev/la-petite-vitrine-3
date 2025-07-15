@@ -6,7 +6,6 @@ import { StaggeredContainer } from "../../../../components/ui/staggered-containe
 import { cn } from "../../../../lib/utils";
 import StyledWrapper from "../../../../components/ui/button-ui";
 import { MaintenanceSelector } from "../../../../components/ecommerce/MaintenanceSelector";
-import { MAINTENANCE_OPTIONS } from "../../../../data/ecommerce-data";
 
 export const ProductsSection = (): JSX.Element => {
   const [selectedPack, setSelectedPack] = useState<any>(null);
@@ -84,54 +83,6 @@ export const ProductsSection = (): JSX.Element => {
     },
   ];
 
-  // Services de maintenance
-  const maintenanceServices = [
-    {
-      id: "google-business",
-      icon: "🔧",
-      title: "Google My Business",
-      price: "25€",
-      description: "Création et optimisation de votre fiche Google My Business",
-      buttonText: "Choisir Google Business",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-300",
-      titleColor: "text-blue-900",
-      priceColor: "text-blue-700",
-      textColor: "text-blue-gray900",
-      checkColor: "text-blue-600",
-      buttonClass: "border-blue-600 text-blue-900 hover:bg-blue-50",
-    },
-    {
-      id: "reseaux-sociaux",
-      icon: "📱",
-      title: "2 Réseaux Sociaux",
-      price: "25€",
-      description: "Création de 2 pages professionnelles (Facebook, Instagram ou LinkedIn)",
-      buttonText: "Choisir Réseaux Sociaux",
-      bgColor: "bg-amber-50",
-      borderColor: "border-amber-300",
-      titleColor: "text-amber-900",
-      priceColor: "text-amber-700",
-      textColor: "text-blue-gray900",
-      checkColor: "text-amber-600",
-      buttonClass: "border-amber-600 text-amber-900 hover:bg-amber-50",
-    },
-    {
-      id: "annuaires-pro",
-      icon: "📋",
-      title: "Annuaires Professionnels",
-      price: "25€",
-      description: "Inscription dans les principaux annuaires professionnels",
-      buttonText: "Choisir Annuaires",
-      bgColor: "bg-green-50",
-      borderColor: "border-green-300",
-      titleColor: "text-green-900",
-      priceColor: "text-green-700",
-      textColor: "text-blue-gray900",
-      checkColor: "text-green-600",
-      buttonClass: "border-green-600 text-green-900 hover:bg-green-50",
-    },
-  ];
 
 
   // La logique de maintenanceId et de maintenance par défaut est supprimée.
@@ -324,12 +275,6 @@ export const ProductsSection = (): JSX.Element => {
               <AnimatedSection animation="slideUp" delay={300}>
                 <div>
                   <div className="flex flex-col lg:flex-row gap-8">
-                    <div className="flex-1 basis-0 lg:basis-1/2">
-                      <MaintenanceSelector
-                        selectedSocialOptions={selectedSocialOptions}
-                        onSelectSocialOptions={handleSocialOptionsSelect}
-                      />
-                    </div>
                     <div className="basis-0 lg:basis-1/2 flex items-center justify-center">
                       <button
                         onClick={handleCheckout}

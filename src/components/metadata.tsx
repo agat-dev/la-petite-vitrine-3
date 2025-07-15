@@ -1,27 +1,6 @@
 import { useEffect } from 'react';
-import { DEFAULT_SEO, PAGE_SEO, STRUCTURED_DATA_TEMPLATES } from '../components/seo-constants';
+import { PAGE_SEO, STRUCTURED_DATA_TEMPLATES } from '../components/seo-constants';
 
-interface MetaData {
-  title?: string;
-  description?: string;
-  keywords?: string;
-  author?: string;
-  robots?: string;
-  canonical?: string;
-  ogTitle?: string;
-  ogDescription?: string;
-  ogImage?: string;
-  ogUrl?: string;
-  ogType?: string;
-  ogSiteName?: string;
-  twitterCard?: string;
-  twitterTitle?: string;
-  twitterDescription?: string;
-  twitterImage?: string;
-  twitterSite?: string;
-  twitterCreator?: string;
-  structuredData?: object;
-}
 
 interface SEOProps {
   title?: string;
