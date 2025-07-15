@@ -3,19 +3,17 @@ import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
 import { OrderSummary } from './OrderSummary';
-import { CustomerDashboard } from './CustomerDashboard';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
-import { ArrowLeftIcon, ShoppingCartIcon, UserIcon, HomeIcon } from 'lucide-react';
+import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
 import { CheckIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
 import { cn } from '../../lib/utils';
 import { useAuthContext } from '../../hooks/useAuth';
 import { LoginForm } from '../auth/LoginForm';
-import { ClientSpace } from '../auth/ClientSpace';
 
-type FlowStep = 'pack-selection' | 'maintenance-selection' | 'social-options' | 'form' | 'summary' | 'dashboard';
+type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary';
 
 interface EcommerceFlowProps {
   initialFlow?: FlowStep;
@@ -30,7 +28,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 }) => {
   const [currentFlow, setCurrentFlow] = useState<FlowStep>(initialFlow);
   const [showLogin, setShowLogin] = useState(false);
-  const { authState, logout } = useAuthContext();
+  const { authState } = useAuthContext();
 
   // Vérifier si on doit afficher la connexion via URL
   useEffect(() => {
@@ -42,7 +40,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   const {
     stepFormData,
-    customer,
     selectPack,
     selectMaintenance,
     updateFormData,
@@ -51,10 +48,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     prevStep,
     calculateTotal,
     createOrder,
-    resetForm,
-    resetCustomerSession,
     isFormValid,
-    currentStep,
     isLastStep,
     isFirstStep
   } = useEcommerce();
@@ -85,7 +79,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   // Rediriger vers le dashboard si l'utilisateur est connecté
   useEffect(() => {
     if (authState.isAuthenticated && showLogin) {
-      setCurrentFlow('dashboard');
+      setCurrentFlow('pack-selection');
       setShowLogin(false);
     }
   }, [authState.isAuthenticated, showLogin]);
@@ -93,12 +87,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   // Debug: afficher l'état actuel
 
   // Gestion de la déconnexion
-  const handleLogout = () => {
-    resetCustomerSession();
-    logout();
-    setCurrentFlow('pack-selection');
-    resetForm();
-  };
 
   // Finaliser la commande
   const handleCompleteOrder = async () => {
@@ -134,11 +122,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     setCurrentFlow('maintenance-selection');
   };
 
-  const handleMaintenanceSelected = () => {
-    console.log('handleMaintenanceSelected - going to social-options');
-    setCurrentFlow('social-options');
-  };
-
   const handleFormCompleted = () => {
     setCurrentFlow('summary');
   };
@@ -160,57 +143,26 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   };
 
   // Si un client est connecté et on est sur le dashboard
-  if (customer && currentFlow === 'dashboard') {
-    // Only render if customer is not null
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50">
-        {customer ? (
-          <CustomerDashboard
-            customer={customer}
-            onLogout={handleLogout}
-            className="max-w-6xl mx-auto"
-          />
-        ) : null}
-      </div>
-    );
-  }
+  // Removed dashboard/customer logic
 
   // Si l'utilisateur est connecté via le système d'auth et veut voir son espace
-  if (authState.isAuthenticated && showLogin) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50">
-        <ClientSpace 
-          onLogout={handleLogout}
-          className="max-w-6xl mx-auto"
-        />
-      </div>
-    );
-  }
+  // Removed client space logic
 
   // Si l'utilisateur est connecté et on est sur le dashboard
-  if (authState.isAuthenticated && currentFlow === 'dashboard') {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50">
-        <ClientSpace 
-          onLogout={handleLogout}
-          className="max-w-6xl mx-auto"
-        />
-      </div>
-    );
-  }
+  // Removed client space logic
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
         {/* En-tête */}
-        <div className="flex justify-center items-center mb-8 bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200/50">
+        <div className="flex justify-center items-center mb-8 bg-amber-900 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200/50">
           <div className="flex flex-col items-center space-4 gap-6">
             <div className='flex justify-start gap-2'>
             {/* Bouton retour à l'accueil */}
             <Button
-              variant="outline"
+              variant="default"
               onClick={() => window.location.href = '/'}
-              className="flex items-center gap-2 border-blue-gray-300 text-blue-gray-700 hover:bg-blue-gray-50"
+              className="flex items-center gap-2 border-blue-gray-300 text-blue-gray-100 hover:bg-blue-gray-50"
             >
               <HomeIcon className="w-4 h-4" />
               Accueil
@@ -228,10 +180,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             )}
             </div>
             <div className="flex flex-col items-center gap-4">
-            <h1 className="text-3xl font-bold text-blue-gray900 font-heading-2">
+            <h1 className="text-3xl font-bold text-blue-gray100 font-heading-2">
               Commande en ligne
             </h1>
-            <p className="text-blue-gray600 text-center font-body-l">
+            <p className="text-blue-gray200 text-center font-body-l">
               48h avant validation de votre commande. <br />Nous vous recontactons pour affiner votre demande et démarrer la production le plus rapidement possible.
             </p>
             </div>
@@ -242,7 +194,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         {showLogin && (
           <div className="mb-8">
             <LoginForm 
-              onSuccess={() => setCurrentFlow('dashboard')}
+              onSuccess={() => setCurrentFlow('pack-selection')}
               className="bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl"
             />
           </div>
@@ -264,7 +216,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             )}
 
             {currentFlow === 'maintenance-selection' && (
-              <Card className="bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl overflow-hidden">
+              <Card className="bg-white backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl overflow-hidden">
                 <CardHeader className="bg-gradient-to-r from-amber-100 to-blue-gray-100 p-8">
                   <h2 className="text-3xl font-bold text-blue-gray900 mb-4 font-heading-2 text-center">
                     Choisissez votre maintenance (obligatoire)
@@ -275,7 +227,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 </CardHeader>
 
                 <CardContent className="p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
                   {MAINTENANCE_OPTIONS.map((maintenance) => {
                     const isSelected = stepFormData.selectedMaintenance?.id === maintenance.id;
                     
@@ -425,4 +377,4 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
       </div>
     </div>
   );
-};
+}

@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader } from '../ui/card';
 import { Button } from '../ui/button';
 import { useAuthContext } from '../../hooks/useAuth';
 import { useEcommerce } from '../../hooks/useEcommerce';
-import { CustomerDashboard } from '../ecommerce/CustomerDashboard';
 import { 
   UserIcon, 
   LogOutIcon, 
@@ -273,7 +272,6 @@ export const ClientSpace: React.FC<ClientSpaceProps> = ({
         </CardContent>
       </Card>
 
-      {customer && <CustomerDashboard customer={customer} />}
 
       {/* Mes commandes */}
       <Card>
