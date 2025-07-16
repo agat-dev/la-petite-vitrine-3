@@ -20,7 +20,7 @@ export const ProductsSection = (): JSX.Element => {
       id: "pack-base",
       icon: "💡",
       title: "Pack Essentiel",
-      price: "390€",
+      price: "490€",
       maintenance: "Maintenance à choisir",
       features: [
         "Site web One Page professionnel responsive",
@@ -43,7 +43,7 @@ export const ProductsSection = (): JSX.Element => {
       id: "pack-presence",
       icon: "⭐",
       title: "Pack Pro",
-      price: "590€",
+      price: "690€",
       maintenance: "Maintenance à choisir",
       features: [
         "Tout le pack de base",
@@ -64,7 +64,7 @@ export const ProductsSection = (): JSX.Element => {
       id: "pack-metier",
       icon: "🎨",
       title: "Pack Pro Plus",
-      price: "890€",
+      price: "990€",
       maintenance: "Maintenance à choisir",
       features: [
         "Tout le pack pro",
@@ -171,7 +171,7 @@ export const ProductsSection = (): JSX.Element => {
               <Card
                 key={pack.id}
                 className={cn(
-                  "basis-1/3 flex flex-col bg-orange-50 overflow-hidden rounded-[20px] transition-all duration-500 group relative cursor-pointer",
+                  "basis-1/3 h-max flex flex-col bg-orange-50 overflow-hidden rounded-[20px] transition-all duration-500 group relative cursor-pointer",
                   pack.bgColor,
                   "border border-solid",
                   selectedPack?.id === pack.id
@@ -259,9 +259,7 @@ export const ProductsSection = (): JSX.Element => {
                   <div className="h-16 flex-1 flex items-center justify-center">
                     <a href={`/commande?pack=${pack.id}`} className="w-full">
                       <StyledWrapper>
-                        {selectedPack?.id === pack.id
-                          ? "Sélectionné"
-                          : "Commander ce pack"}
+                        Commander ce pack
                       </StyledWrapper>
                     </a>
                   </div>

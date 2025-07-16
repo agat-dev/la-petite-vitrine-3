@@ -35,14 +35,14 @@ export const SidebarSection = (): JSX.Element => {
   return (
     <section id="offre" className="max-w-[1400px] mx-auto md:mt-8 mt-36 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
       <StaggeredContainer 
-        className="w-fit flex flex-col md:flex-row max-w-[1280px] items-start relative gap-16 z-40"
+        className="w-fit grid grid-cols-2 max-w-[1280px] gap-32 z-40"
         staggerDelay={150}
         animation="slideUp"
       >
         {featureCards.map((card) => (
           <div
             key={card.id}
-            className="flex flex-col items-center gap-2.5 relative flex-1 group w-fit md:w-auto"
+            className="col-span-1 flex flex-col items-center gap-2.5 relative flex-1 group md:w-auto"
           >
             <img
               className={card.decoration.className}
@@ -50,7 +50,7 @@ export const SidebarSection = (): JSX.Element => {
               src={card.decoration.src}
             />
 
-            <Card className="w-full pb-8 px-8 bg-white border-none transition-transform duration-300 group-hover:scale-105">
+            <Card className="w-fit pb-8 px-8 bg-white border-none transition-transform duration-300 group-hover:scale-105">
               <CardContent className="p-0">
                 <div className="flex flex-col items-start gap-4 relative w-full">
                   <div className="inline-flex justify-center items-center transition-transform duration-300 group-hover:scale-110">
@@ -61,9 +61,9 @@ export const SidebarSection = (): JSX.Element => {
                     />
                   </div>
 
-                  <div className="mt-4 flex flex-col items-start gap-1 relative w-full">
+                  <div className="mt-4 flex flex-col items-center gap-1 relative w-full">
                     <div className="flex items-center gap-2 relative w-full">
-                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-medium text-amber-900 text-2xl md:text-3xl lg:text-4xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)]">
+                      <h3 className="relative flex-1 mt-[-1.00px] font-subtitle-XL font-medium text-amber-900 text-2xl md:text-3xl lg:text-4xl tracking-[var(--subtitle-XL-letter-spacing)] leading-[var(--subtitle-XL-line-height)] [font-style:var(--subtitle-XL-font-style)] text-center">
                         {card.title}
                       </h3>
                     </div>

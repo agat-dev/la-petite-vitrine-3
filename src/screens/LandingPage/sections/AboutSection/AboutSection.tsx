@@ -50,27 +50,27 @@ export const AboutSection = (): JSX.Element => {
         className="relative w-full max-w-[486px] h-[300px] md:h-[350px] lg:h-[423px] mt-20 md:mt-8 lg:mt-0"
       >
         {/* Badge Satisfait ou remboursé en haut à gauche */}
-        <div className="absolute top-[20%] -left-[8%] z-10 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg hover:scale-110 transition-transform duration-300 flex items-center gap-1">
+        <div className="absolute top-[50%] -right-[15%] z-50 bg-green-500 text-white px-3 py-1 rounded-full text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300 flex items-center gap-2">
           <CheckIcon className="w-4 h-4" />
           Satisfait ou remboursé
         </div>
 
         {/* Badge Livré en 5 jours en haut à droite */}
-        <div className="absolute top-[5%] right-[5%] z-10 bg-black text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
+        <div className="absolute top-[5%] -right-[0%] z-10 bg-black text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
           Livré en 5 jours
         </div>
 
         {/* Badge Résiliable en bas à droite */}
-        <div className="absolute bottom-[15%] md:-right-[12%] -right-[5%] z-10 bg-amber-900 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
+        <div className="w-max absolute bottom-[0%] md:-left-[5%] -right-[5%] z-10 bg-amber-900 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
           Résiliable à tout moment
         </div>
 
         <Card className="relative w-full h-full border-none bg-transparent">
           <div className="relative h-full">
-            <div className="absolute right-[0%] -top-[14%] w-max p-8 rounded-[30px] bg-amber-600 text-center font-body-l font-[number:var(--body-l-font-weight)] text-white text-3xl md:text-4xl lg:text-5xl tracking-[var(--body-l-letter-spacing)] [font-style:var(--body-l-font-style)] z-50">
-              <p>390€</p>
+            <div className="absolute right-[0%] -top-[14%] w-max p-8 rounded-[30px] bg-amber-600 text-center font-body-l font-[number:var(--body-l-font-weight)] text-white text-3xl md:text-4xl lg:text-5xl tracking-[var(--body-l-letter-spacing)] [font-style:var(--body-l-font-style)] z-40">
+              <p>490€</p>
               <p className="mt-2 md:text-3xl text-2xl italic">
-                + 9 ou 29€/mois
+                + 19 ou 29€/mois
               </p>
             </div>
             <div className="absolute w-[75%] h-[85%] top-[12%] left-[12%] bg-amber-400 rounded-[30px] md:rounded-[40px] lg:rounded-[50px] transition-transform duration-700 hover:scale-105" />
