@@ -4,6 +4,7 @@ import type { StepProps } from '../../../types/formTypes';
 export const PersonalInfoStep: React.FC<StepProps> = ({ formData, setFormData, errors }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log(`[Form] Saisie (PersonalInfoStep): ${name} =`, value);
     setFormData({ ...formData, [name]: value });
   };
 

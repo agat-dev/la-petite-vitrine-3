@@ -11,7 +11,7 @@ export function FAQPetiteVitrine() {
   const petiteVitrineFAQItems: FAQItem[] = [
     {
       id: 1,
-      question: "Qu'est-ce qui est compris dans les 390€ ?",
+      question: "Qu'est-ce qui est compris dans les 490€ ?",
       answer: "Le tarif comprend tout ce qu'il faut pour être visible, professionnel et crédible : la création d'un site vitrine 1 page responsive (adapté mobile), le design personnalisé, le formulaire de contact, l'hébergement et le nom de domaine pour 1 an, l'optimisation pour Google (SEO local, balises, vitesse), la page Google My Business et la mise en ligne en 5 jours ouvrés. Aucun coût caché, aucun abonnement obligatoire."
     },
     {

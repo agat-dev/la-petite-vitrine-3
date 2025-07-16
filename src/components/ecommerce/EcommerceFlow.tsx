@@ -7,10 +7,8 @@ import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
-import { CheckIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
-import { cn } from '../../lib/utils';
 import { useAuthContext } from '../../hooks/useAuth';
 import { LoginForm } from '../auth/LoginForm';
 

@@ -4,7 +4,7 @@ export const PACKS: Pack[] = [
   {
     id: "pack-base",
     title: "Pack Essentiel",
-    price: 390,
+    price: 490,
     description: "Site web One Page professionnel responsive",
     features: [
       "Site web One Page professionnel responsive",
@@ -21,7 +21,7 @@ export const PACKS: Pack[] = [
   {
     id: "pack-presence", 
     title: "Pack Pro",
-    price: 590,
+    price: 690,
     description: "Tout le pack de base + réseaux sociaux",
     features: [
       "Tout le pack de base",
@@ -36,7 +36,7 @@ export const PACKS: Pack[] = [
   {
     id: "pack-metier",
     title: "Pack Pro Plus",
-    price: 890,
+    price: 990,
     description: "Solution complète avec modules métier",
     features: [
       "Tout le pack pro",
@@ -54,23 +54,23 @@ export const MAINTENANCE_OPTIONS: MaintenanceOption[] = [
   {
     id: "maintenance-basic",
     title: "Maintenance Basique",
-    price: 9,
-    description: "Hébergement + nom de domaine",
+    price: 19,
+    description: "Hébergement + nom de domaine + modifications du contenu du site",
     features: [
       "Hébergement inclus",
-      "Nom de domaine inclus"
+      "Nom de domaine inclus",      
+      "Modifications du contenu du site incluses"
     ],
     billingCycle: "monthly"
   },
   {
     id: "maintenance-premium",
     title: "Maintenance Premium",
-    price: 29,
-    description: "Hébergement + nom de domaine + modifications du contenu du site",
+    price: 49,
+    description: "Tout le pack de maintenance basique + Animation des réseaux sociaux",
     features: [
-      "Hébergement inclus",
-      "Nom de domaine inclus",
-      "Modifications du contenu du site incluses"
+      "Tout le pack de maintenance basique",
+      "Animation des réseaux sociaux",
     ],
     billingCycle: "monthly"
   }
