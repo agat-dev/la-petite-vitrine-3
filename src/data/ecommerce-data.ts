@@ -244,7 +244,7 @@ export const DEFAULT_FORM_STEPS: FormStep[] = [
     fields: [
       {
         id: "types_clients",
-        type: "radio",
+        type: "select",
         label: "Types de clients",
         required: true,
         options: [
@@ -255,7 +255,7 @@ export const DEFAULT_FORM_STEPS: FormStep[] = [
       },
       {
         id: "ton_communication",
-        type: "select",
+        type: "radio",
         label: "Ton souhaité pour la communication",
         required: true,
         options: [

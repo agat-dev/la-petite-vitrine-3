@@ -32,6 +32,8 @@ export const StepForm: React.FC<StepFormProps> = ({
 }) => {
   const [currentStepData, setCurrentStepData] = useState<Record<string, any>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
+  // Dropdown state for custom select
+  const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
 
   const currentStepInfo = steps[currentStep];
 
@@ -133,8 +135,8 @@ export const StepForm: React.FC<StepFormProps> = ({
     const error = errors[field.id];
 
     const baseInputClasses = cn(
-      "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400",
-      error ? "border-red-400" : "border-amber-300 focus:border-amber-400"
+      "w-full px-3 py-2 border-[1px] rounded-xl focus:outline-none focus:ring-1 focus:ring-amber-400",
+      error ? "border-red-400" : "border-amber-300/40 focus:border-amber-400/30"
     );
 
     switch (field.type) {
@@ -160,21 +162,56 @@ export const StepForm: React.FC<StepFormProps> = ({
             <label className="block text-sm font-medium text-blue-gray900 font-body-m">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
-            <select
-              className={baseInputClasses}
-              value={value}
-              onChange={(e) => handleFieldChange(field.id, e.target.value)}
-            >
-              <option value="">Sélectionnez une option</option>
-              {field.options?.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <button
+                type="button"
+                className={cn(
+                  "w-full flex justify-between items-center px-3 py-2 border-[1px] rounded-xl bg-white text-blue-gray900 font-body-m focus:outline-none focus:ring-2 focus:ring-amber-400",
+                  error ? "border-red-400" : "border-amber-300/40 focus:border-amber-400/30"
+                )}
+                onClick={() => setDropdownOpen(field.id)}
+              >
+                <span>{value ? field.options?.find(o => o.value === value)?.label : "Sélectionnez une option"}</span>
+                <svg className="w-4 h-4 text-amber-600 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+              </button>
+              {dropdownOpen === field.id && (
+                <ul className="absolute z-10 mt-2 w-full bg-white border border-amber-200 rounded-xl shadow-lg max-h-60 overflow-auto">
+                  <li
+                    className="px-4 py-2 text-blue-gray700 cursor-pointer hover:bg-amber-50 rounded-t-xl"
+                    onClick={() => { handleFieldChange(field.id, ""); setDropdownOpen(null); }}
+                  >Sélectionnez une option</li>
+                  {field.options?.map(option => (
+                    <li
+                      key={option.value}
+                      className={cn(
+                        "px-4 py-2 cursor-pointer hover:bg-amber-100 text-blue-gray900 font-body-m",
+                        value === option.value ? "bg-amber-100 font-bold" : ""
+                      )}
+                      onClick={() => { handleFieldChange(field.id, option.value); setDropdownOpen(null); }}
+                    >
+                      {option.label}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
         );
+  // Close dropdown on click outside
+  React.useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest('.custom-dropdown')) {
+        setDropdownOpen(null);
+      }
+    };
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, [dropdownOpen]);
 
       case 'radio':
         return (
@@ -207,11 +244,22 @@ export const StepForm: React.FC<StepFormProps> = ({
             <label className="block text-sm font-medium text-blue-gray900 font-body-m">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
-            <input
-              type="file"
-              className={baseInputClasses}
-              onChange={(e) => handleFieldChange(field.id, e.target.files?.[0])}
-            />
+            <div className="relative w-full">
+              <input
+                id={`file-input-${field.id}`}
+                type="file"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                onChange={(e) => handleFieldChange(field.id, e.target.files?.[0])}
+                aria-label={field.label}
+              />
+              <label htmlFor={`file-input-${field.id}`} className={cn(
+                "w-max flex items-center justify-center gap-2 px-4 py-1 rounded-xl bg-amber-600 text-white font-medium shadow-md cursor-pointer transition hover:bg-amber-700 border border-amber-300",
+                error ? "border-red-400" : "border-amber-300/40"
+              )}>
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M4 12l4-4m0 0l4 4m-4-4v12" /></svg>
+                <span>{formData[field.id]?.name || "Choisir un fichier"}</span>
+              </label>
+            </div>
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
         );
@@ -269,7 +317,7 @@ export const StepForm: React.FC<StepFormProps> = ({
 
       {/* Formulaire de l'étape courante */}
       <Card className="overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-amber-50 to-blue-gray-50 p-8">
+        <CardHeader className="p-8">
           <h2 className="text-2xl font-bold text-blue-gray900 font-heading-2">
             {currentStepInfo.title}
           </h2>

@@ -43,7 +43,7 @@ export const Success: React.FC = () => {
             <CheckIcon className="w-10 h-10 text-green-600" />
           </div>
           <h1 className="text-3xl font-heading-2 text-blue-gray900 mb-2">
-            Paiement réussi !
+            Commande envoyée !
           </h1>
           <p className="text-blue-gray600 font-body-l">
             Merci pour votre commande. Nous avons bien reçu votre paiement.

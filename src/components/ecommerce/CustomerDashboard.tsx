@@ -6,8 +6,6 @@ import {
   UserIcon, 
   ShoppingBagIcon, 
   CreditCardIcon, 
-  SettingsIcon,
-  LogOutIcon,
   EyeIcon,
   DownloadIcon,
   FileTextIcon,

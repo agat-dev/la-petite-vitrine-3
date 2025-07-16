@@ -33,7 +33,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
       <CardContent className="p-6 space-y-6">
         {/* Pack sélectionné */}
         {selectedPack && (
-          <div className="border-b pb-4">
+          <div className="border-b py-4">
             <h4 className="font-semibold text-blue-gray900 mb-3 font-body-m">Pack sélectionné</h4>
             <div className="bg-amber-50 p-4 rounded-xl border border-amber-200">
               <div className="flex justify-between items-start mb-2">
