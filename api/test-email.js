@@ -1,7 +1,6 @@
 // Route API Vercel pour test email avec Resend et template client
 const sendResendTestEmail = require('./_lib/sendResendTestEmail');
-const path = require('path');
-const { generateClientEmailTemplate } = require(path.resolve(__dirname, '../src/templates/emailTemplates'));
+const generateClientEmailTemplate = require('./_lib/generateClientEmailTemplate');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
