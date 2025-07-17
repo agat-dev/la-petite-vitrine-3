@@ -1,6 +1,6 @@
-// Vercel Serverless API route for test email avec Resend et template client
+// Route API Vercel pour test email avec Resend et template client
+const sendResendTestEmail = require('./_lib/sendResendTestEmail');
 const path = require('path');
-const { sendBulkEmailsWithResend } = require(path.resolve(__dirname, '../backend/resendService'));
 const { generateClientEmailTemplate } = require(path.resolve(__dirname, '../src/templates/emailTemplates'));
 
 module.exports = async (req, res) => {
@@ -28,26 +28,25 @@ module.exports = async (req, res) => {
   };
 
   // Préparation de l'email à envoyer via Resend
-  const emailsToSend = [
-    {
-      to: email,
-      subject: subject,
-      html: generateClientEmailTemplate(emailData),
-      replyTo: process.env.ADMIN_EMAIL,
-      tags: [
-        { name: 'category', value: 'confirmation' },
-        { name: 'client', value: 'test-company' }
-      ]
-    }
+  const html = generateClientEmailTemplate(emailData);
+  const replyTo = process.env.ADMIN_EMAIL;
+  const tags = [
+    { name: 'category', value: 'confirmation' },
+    { name: 'client', value: 'test-company' }
   ];
 
   try {
-    const results = await sendBulkEmailsWithResend(emailsToSend, 1);
-    const clientResult = results[0];
-    if (clientResult.success) {
-      res.status(200).json({ success: true, info: 'Email envoyé via Resend', messageId: clientResult.messageId });
+    const result = await sendResendTestEmail({
+      to: email,
+      subject,
+      html,
+      replyTo,
+      tags
+    });
+    if (result.success) {
+      res.status(200).json({ success: true, info: 'Email envoyé via Resend', messageId: result.messageId });
     } else {
-      res.status(500).json({ success: false, error: clientResult.error || 'Erreur inconnue Resend' });
+      res.status(500).json({ success: false, error: result.error || 'Erreur inconnue Resend' });
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
