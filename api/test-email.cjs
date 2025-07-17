@@ -2,7 +2,7 @@
 const sendResendTestEmail = require('./_lib/sendResendTestEmail.cjs');
 const generateClientEmailTemplate = require('./_lib/generateClientEmailTemplate.cjs');
 
-module.exports = async (req, res) => {
+module.exports = (req, res) => {
   // Test: réponse JSON minimale pour valider l’exécution
   if (req.method === 'GET') {
     res.status(200).json({ success: true, info: 'API test-email.cjs GET OK' });
