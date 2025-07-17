@@ -11,27 +11,37 @@ export const TestEmailPage: React.FC = () => {
 
   const handleSend = async () => {
     setLoading(true);
-    setLog([`[${new Date().toLocaleTimeString()}] Début de l’envoi…`]);
+    setLog([`[${new Date().toLocaleTimeString()}] ➡️ Début de l’envoi d’email`]);
     setSuccess(null);
     try {
-      setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] Requête API en cours…`]);
+      setLog(prev => [
+        ...prev,
+        `[${new Date().toLocaleTimeString()}] 📤 Préparation de la requête API`,
+        `Données envoyées: email="${email}", subject="${subject}", message="${message}"`
+      ]);
       const response = await fetch('/api/test-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, subject, message })
       });
+      setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] ⏳ Attente de la réponse du serveur…`]);
       const result = await response.json();
-      setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] Réponse API: ${JSON.stringify(result)}`]);
+      setLog(prev => [
+        ...prev,
+        `[${new Date().toLocaleTimeString()}] 📥 Réponse reçue:`,
+        `Status HTTP: ${response.status} ${response.statusText}`,
+        `Payload: ${JSON.stringify(result, null, 2)}`
+      ]);
       if (result.success) {
         setSuccess(true);
-        setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] Email envoyé avec succès !`]);
+        setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] ✅ Email envoyé avec succès !`]);
       } else {
         setSuccess(false);
-        setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] Échec de l’envoi: ${result.error || 'Erreur inconnue'}`]);
+        setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] ❌ Échec de l’envoi: ${result.error || 'Erreur inconnue'}`]);
       }
     } catch (error: any) {
       setSuccess(false);
-      setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] Exception: ${error.message}`]);
+      setLog(prev => [...prev, `[${new Date().toLocaleTimeString()}] ⚠️ Exception JS: ${error.message}`]);
     } finally {
       setLoading(false);
     }
