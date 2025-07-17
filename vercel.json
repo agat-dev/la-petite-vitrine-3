@@ -1,8 +1,14 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(?!api|_next|static|favicon.ico|.*\.(js|css|png|jpg|jpeg|svg|webp|ico|json|txt|woff|woff2|ttf|map)$)(.*)", "dest": "/index.html" }
+    {
+      "src": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "destination": "/index.html"
+    }
   ],
   
   "functions": {
