@@ -68,7 +68,7 @@ const tabs = [
   },
 ];
 
-export const CallToActionSection = (): JSX.Element => {
+export const PersonasSection = (): JSX.Element => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

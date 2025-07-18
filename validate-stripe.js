@@ -1,1 +1,0 @@
-// Fichier vidé : Stripe supprimé

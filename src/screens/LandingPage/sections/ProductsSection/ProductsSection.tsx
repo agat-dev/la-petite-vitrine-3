@@ -5,7 +5,6 @@ import { AnimatedSection } from "../../../../components/ui/animated-section";
 import { StaggeredContainer } from "../../../../components/ui/staggered-container";
 import { cn } from "../../../../lib/utils";
 import StyledWrapper from "../../../../components/ui/button-ui";
-import { MaintenanceSelector } from "../../../../components/ecommerce/MaintenanceSelector";
 
 export const ProductsSection = (): JSX.Element => {
   const [selectedPack, setSelectedPack] = useState<any>(null);
@@ -91,12 +90,6 @@ export const ProductsSection = (): JSX.Element => {
     setSelectedPack(pack);
     setShowMaintenanceSelector(false); // Reset l'affichage
     setSelectedSocialOptions([]); // Reset des options
-  };
-
-  // handleMaintenanceSelect supprimé, on utilise handleSocialOptionsSelect
-
-  const handleSocialOptionsSelect = (options: any[]) => {
-    setSelectedSocialOptions(options);
   };
 
   const handleCheckout = async () => {
