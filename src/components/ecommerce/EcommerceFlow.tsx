@@ -3,13 +3,14 @@ import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
 import { OrderSummary } from './OrderSummary';
-import { OrderEmailSender } from './OrderEmailSender';
+// import { OrderEmailSender } from './OrderEmailSender';
 import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary';
 
@@ -25,8 +26,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   preSelectedMaintenanceId
 }) => {
   const [currentFlow, setCurrentFlow] = useState<FlowStep>(initialFlow);
-
-
+  const navigate = useNavigate();
 
   const {
     stepFormData,
@@ -69,23 +69,61 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   const [sending, setSending] = useState(false);
   const [emailResult, setEmailResult] = useState<string | null>(null);
 
-  // Ajoute une ref pour accéder à la méthode d'envoi
-  const orderEmailSenderRef = React.useRef<{ send: () => Promise<void> }>(null);
+
 
   const handleCompleteOrder = async () => {
     setSending(true);
     setEmailResult(null);
     try {
       await createOrder();
-      console.log('[EcommerceFlow] Tentative d\'envoi de l\'email de commande...');
-      if (orderEmailSenderRef.current) {
-        console.log('[EcommerceFlow] Ref trouvée, appel de send()');
-        await orderEmailSenderRef.current.send();
-        console.log('[EcommerceFlow] send() appelé');
+      // Envoi direct de l'email ici
+      const pack = stepFormData.selectedPack;
+      const maintenance = stepFormData.selectedMaintenance;
+      const formData = stepFormData.formData;
+      const total = calculateTotal();
+      const adminEmail = "contact@lapetitevitrine.com";
+      if (pack && maintenance && formData.email) {
+        const html = `
+          <h2>Récapitulatif de commande</h2>
+          <h3>Pack sélectionné</h3>
+          <ul>
+            <li><strong>${pack.title}</strong> - ${pack.price}€</li>
+            ${pack.features.map((f) => `<li>${f}</li>`).join('')}
+          </ul>
+          <h3>Maintenance sélectionnée</h3>
+          <ul>
+            <li><strong>${maintenance.title}</strong> - ${maintenance.price}€/mois</li>
+            <li>${maintenance.description}</li>
+          </ul>
+          <h3>Informations client</h3>
+          <ul>
+            ${Object.entries(formData)
+              .map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`)
+              .join('')}
+          </ul>
+          <h3>Montant total</h3>
+          <p><strong>${total}€</strong> (+${maintenance.price}€/mois de maintenance)</p>
+        `;
+        const payload = {
+          to: [formData.email, adminEmail],
+          subject: 'Votre récapitulatif de commande - La Petite Vitrine',
+          html,
+        };
+        const res = await fetch('/api/send-order-recap', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          setEmailResult('Erreur lors de l’envoi de l’email : ' + text);
+        } else {
+          setEmailSent(true);
+        }
       } else {
-        console.log('[EcommerceFlow] orderEmailSenderRef.current est null');
+        setEmailResult('Erreur : données de commande incomplètes.');
       }
-      setEmailSent(true);
+      navigate('/success');
     } catch (error) {
       setEmailResult('Erreur lors de la création de la commande');
       console.log('[EcommerceFlow] Erreur lors de la commande :', error);
@@ -99,8 +137,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     setCurrentFlow('maintenance-selection');
   };
 
-  const handleFormCompleted = () => {
-    setCurrentFlow('summary');
+  const handleFormCompleted = async () => {
+    // On déclenche l'envoi d'email et la création de commande ici
+    await handleCompleteOrder();
+    navigate('/success'); // Ou navigate('/success') si tu veux aller directement à la page de succès
   };
 
   const goBack = () => {
@@ -204,13 +244,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 currentStep={stepFormData.currentStep}
                 formData={stepFormData.formData}
                 onUpdateFormData={updateFormData}
-                onNextStep={() => {
-                  if (isLastStep && isFormValid) {
-                    handleFormCompleted();
-                  } else {
-                    nextStep();
-                  }
-                }}
+                onNextStep={isLastStep ? handleFormCompleted : nextStep}
                 onPrevStep={prevStep}
                 onGoToStep={goToStep}
                 isLastStep={isLastStep}
@@ -253,19 +287,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                     </div>
 
 
-                    {/* Envoi de l'email de récapitulatif au clic sur Confirmer la commande */}
-                    {stepFormData.selectedPack && stepFormData.selectedMaintenance ? (
-                      <OrderEmailSender
-                        ref={orderEmailSenderRef}
-                        pack={stepFormData.selectedPack}
-                        maintenance={stepFormData.selectedMaintenance}
-                        formData={stepFormData.formData}
-                        total={calculateTotal()}
-                        adminEmail={"contact@lapetitevitrine.com"}
-                      />
-                    ) : (
-                      <div className="text-red-600 mb-2">Erreur : pack ou maintenance manquant.</div>
-                    )}
+                    {/* Envoi de l'email de récapitulatif déplacé dans handleCompleteOrder */}
                     <Button
                       onClick={handleCompleteOrder}
                       className="w-full bg-amber-600 hover:bg-amber-700 text-white text-lg py-4 rounded-xl shadow-lg font-medium mt-4"

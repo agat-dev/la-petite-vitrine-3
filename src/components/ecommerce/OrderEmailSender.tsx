@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 
 interface OrderEmailSenderProps {
   pack: { title: string; price: number; features: string[] };
@@ -13,7 +13,6 @@ export const OrderEmailSender = forwardRef(function OrderEmailSender(
   ref
 ) {
     
-console.log('OrderEmailSender component initialized');
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
@@ -89,6 +88,8 @@ console.log('OrderEmailSender component initialized');
   useImperativeHandle(ref, () => ({
     send: handleSendEmail,
   }));
+
+  console.log('[OrderEmailSender] Monté');
 
   return (
     <div>
