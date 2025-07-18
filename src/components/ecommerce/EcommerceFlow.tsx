@@ -77,13 +77,18 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     setEmailResult(null);
     try {
       await createOrder();
-      // Déclenche l'envoi d'email ici
+      console.log('[EcommerceFlow] Tentative d\'envoi de l\'email de commande...');
       if (orderEmailSenderRef.current) {
+        console.log('[EcommerceFlow] Ref trouvée, appel de send()');
         await orderEmailSenderRef.current.send();
+        console.log('[EcommerceFlow] send() appelé');
+      } else {
+        console.log('[EcommerceFlow] orderEmailSenderRef.current est null');
       }
       setEmailSent(true);
     } catch (error) {
       setEmailResult('Erreur lors de la création de la commande');
+      console.log('[EcommerceFlow] Erreur lors de la commande :', error);
     } finally {
       setSending(false);
     }

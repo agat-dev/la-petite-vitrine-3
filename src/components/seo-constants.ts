@@ -6,7 +6,7 @@ export const DEFAULT_SEO = {
   author: "Next Impact - La Petite Vitrine",
   twitterSite: "@lapetitevitrine",
   twitterCreator: "@nextimpact",
-  ogImage: "/og-image.jpg",
+  ogImage: "/og-image.png",
   themeColor: "#D97706", // Amber-600
   domain: "https://lapetitevitrine.com",
   phone: "+33673981638",
