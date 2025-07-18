@@ -10,7 +10,7 @@ export default async function handler(req: any, res: any) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'contact@la-petite-vitrine.fr',
+        from: 'contact@la-petite-vitrine.com',
         to,
         subject,
         html,

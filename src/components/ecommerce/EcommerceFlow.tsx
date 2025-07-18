@@ -248,7 +248,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                         maintenance={stepFormData.selectedMaintenance}
                         formData={stepFormData.formData}
                         total={calculateTotal()}
-                        adminEmail={"contact@la-petite-vitrine.fr"}
+                        adminEmail={"contact@la-petite-vitrine.com"}
                       />
                     ) : (
                       <div className="text-red-600 mb-2">Erreur : pack ou maintenance manquant.</div>
