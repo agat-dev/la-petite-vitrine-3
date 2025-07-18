@@ -12,6 +12,8 @@ export const OrderEmailSender = forwardRef(function OrderEmailSender(
   { pack, maintenance, formData, total, adminEmail }: OrderEmailSenderProps,
   ref
 ) {
+    
+console.log('OrderEmailSender component initialized');
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
