@@ -1,22 +1,4 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/assets/(.*).js",
@@ -26,15 +8,12 @@
           "value": "application/javascript"
         }
       ]
-    },
+    }
+  ],
+  "rewrites": [
     {
-      "source": "/assets/(.*).css",
-      "headers": [
-        {
-          "key": "Content-Type", 
-          "value": "text/css"
-        }
-      ]
+      "source": "/((?!assets/).*)",
+      "destination": "/index.html"
     }
   ]
 }
