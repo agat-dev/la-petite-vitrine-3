@@ -1,18 +1,14 @@
-import React from "react";
 import { MenuIcon } from "lucide-react";
-import { UserIcon } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from "../../../../components/ui/navigation-menu";
-import StyledButton from "../../../../components/ui/styled-button";
 
 export const HeaderSection = (): JSX.Element => {
   // Navigation menu items data
   const navItems = [
-    { label: "Offre", href: "#offre" },
     { label: "Démos", href: "#demos" },
     { label: "Tarifs", href: "#products" },
   ];

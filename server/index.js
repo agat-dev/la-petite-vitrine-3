@@ -1,1 +1,0 @@
-// Stripe et paiement supprimés du backend. Ce fichier est désormais vide ou à réécrire pour une logique sans paiement.

@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Play } from "lucide-react";
 import StyledWrapper from "../../../../components/ui/button-ui";
 
-export const MainContentSection = (): JSX.Element => {
+export const DemosSection = (): JSX.Element => {
 
   // Benefits list data
   const benefits = [

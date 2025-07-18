@@ -9,8 +9,6 @@ import { Card, CardContent, CardHeader } from '../ui/card';
 import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
-import { useAuthContext } from '../../hooks/useAuth';
-import { LoginForm } from '../auth/LoginForm';
 
 type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary';
 
@@ -26,16 +24,8 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   preSelectedMaintenanceId
 }) => {
   const [currentFlow, setCurrentFlow] = useState<FlowStep>(initialFlow);
-  const [showLogin, setShowLogin] = useState(false);
-  const { authState } = useAuthContext();
 
-  // Vérifier si on doit afficher la connexion via URL
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('auth') === 'true') {
-      setShowLogin(true);
-    }
-  }, []);
+
 
   const {
     stepFormData,
@@ -54,12 +44,9 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Pré-sélection du pack si spécifié
   useEffect(() => {
-    console.log('Pack useEffect - preSelectedPackId:', preSelectedPackId, 'current pack:', stepFormData.selectedPack);
     if (preSelectedPackId && !stepFormData.selectedPack) {
       const pack = PACKS.find(p => p.id === preSelectedPackId);
-      console.log('Found pack:', pack);
       if (pack) {
-        console.log('Selecting pack via useEffect:', pack);
         selectPack(pack);
       }
     }
@@ -75,17 +62,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     }
   }, [preSelectedMaintenanceId, stepFormData.selectedMaintenance, selectMaintenance]);
 
-  // Rediriger vers le dashboard si l'utilisateur est connecté
-  useEffect(() => {
-    if (authState.isAuthenticated && showLogin) {
-      setCurrentFlow('pack-selection');
-      setShowLogin(false);
-    }
-  }, [authState.isAuthenticated, showLogin]);
-
-  // Debug: afficher l'état actuel
-
-  // Gestion de la déconnexion
 
   // Finaliser la commande
   const handleCompleteOrder = async () => {
@@ -117,7 +93,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
   // Navigation entre les étapes
   const handlePackSelected = () => {
-    console.log('handlePackSelected - going to maintenance-selection');
     setCurrentFlow('maintenance-selection');
   };
 
@@ -141,14 +116,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     }
   };
 
-  // Si un client est connecté et on est sur le dashboard
-  // Removed dashboard/customer logic
-
-  // Si l'utilisateur est connecté via le système d'auth et veut voir son espace
-  // Removed client space logic
-
-  // Si l'utilisateur est connecté et on est sur le dashboard
-  // Removed client space logic
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-gray-50 py-8">
@@ -189,15 +156,6 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
           </div>
         </div>
 
-        {/* Formulaire de connexion */}
-        {showLogin && (
-          <div className="mb-8">
-            <LoginForm 
-              onSuccess={() => setCurrentFlow('pack-selection')}
-              className="bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl"
-            />
-          </div>
-        )}
 
         {/* Contenu principal */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

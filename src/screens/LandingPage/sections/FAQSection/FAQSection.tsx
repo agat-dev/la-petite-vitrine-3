@@ -1,7 +1,7 @@
 import { Button } from '../../../../components/ui/button';
 import StyledButton from '../../../../components/ui/styled-button';
 
-export const ContactSection = (): JSX.Element => {
+export const FAQSection = (): JSX.Element => {
 
   return (
     <section className="flex flex-col items-end relative">

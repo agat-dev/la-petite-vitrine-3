@@ -1,14 +1,13 @@
-import { useEffect } from "react";
-import { AboutSection } from "./sections/AboutSection";
-import { CallToActionSection } from "./sections/CallToActionSection";
+import { HeroSection } from "./sections/HeroSection";
+import { PersonasSection } from "./sections/PersonasSection";
 import { FAQPersonnalisee } from "../../components/ui/faq-petite-vitrine";
 import { FooterSection } from "./sections/FooterSection";
 import { HeaderSection } from "./sections/HeaderSection";
-import { HeroSection } from "./sections/HeroSection";
-import { MainContentSection } from "./sections/MainContentSection";
-import { SidebarSection } from "./sections/SidebarSection";
+import { AtoutsSection } from "./sections/AtoutsSection";
+import { DemosSection } from "./sections/DemosSection";
+import { FeaturesSection } from "./sections/FeaturesSection";
 import { ProductsSection } from "./sections/ProductsSection";
-import { ContactSection } from "./sections/ContactSection";
+import { FAQSection } from "./sections/FAQSection";
 import { usePageSEO } from "../../components/metadata";
 
 export const LandingPage = (): JSX.Element => {
@@ -24,14 +23,14 @@ export const LandingPage = (): JSX.Element => {
         />
 
         <HeaderSection />
-        <AboutSection />
-        <SidebarSection />
         <HeroSection />
-        <MainContentSection />
-        <CallToActionSection />
+        <FeaturesSection />
+        <AtoutsSection />
+        <DemosSection />
+        <PersonasSection />
         <ProductsSection />
         <FAQPersonnalisee />
-        <ContactSection />
+        <FAQSection />
         <FooterSection />
       </main>
     </>
