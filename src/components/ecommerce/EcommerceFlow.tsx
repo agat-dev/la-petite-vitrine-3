@@ -3,6 +3,7 @@ import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
 import { OrderSummary } from './OrderSummary';
+import { OrderEmailSender } from './OrderEmailSender';
 import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
@@ -64,30 +65,20 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
 
   // Finaliser la commande
+  const [emailSent, setEmailSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [emailResult, setEmailResult] = useState<string | null>(null);
+
   const handleCompleteOrder = async () => {
+    setSending(true);
+    setEmailResult(null);
     try {
       await createOrder();
-      // Créer une notification de succès plus élégante
-      const notification = document.createElement('div');
-      notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-      notification.textContent = 'Commande créée avec succès !';
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        document.body.removeChild(notification);
-      }, 3000);
-      
-      // Rediriger vers l'espace client
-      window.location.href = '/login';
+      setEmailSent(true);
     } catch (error) {
-      const notification = document.createElement('div');
-      notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-      notification.textContent = 'Erreur lors de la création de la commande';
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        document.body.removeChild(notification);
-      }, 3000);
+      setEmailResult('Erreur lors de la création de la commande');
+    } finally {
+      setSending(false);
     }
   };
 
@@ -249,12 +240,27 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                       </div>
                     </div>
 
+
+                    {/* Envoi de l'email de récapitulatif au clic sur Confirmer la commande */}
+                    {stepFormData.selectedPack && stepFormData.selectedMaintenance ? (
+                      <OrderEmailSender
+                        pack={stepFormData.selectedPack}
+                        maintenance={stepFormData.selectedMaintenance}
+                        formData={stepFormData.formData}
+                        total={calculateTotal()}
+                        adminEmail={"contact@la-petite-vitrine.fr"}
+                      />
+                    ) : (
+                      <div className="text-red-600 mb-2">Erreur : pack ou maintenance manquant.</div>
+                    )}
                     <Button
                       onClick={handleCompleteOrder}
-                      className="w-full bg-amber-600 hover:bg-amber-700 text-white text-lg py-4 rounded-xl shadow-lg font-medium"
+                      className="w-full bg-amber-600 hover:bg-amber-700 text-white text-lg py-4 rounded-xl shadow-lg font-medium mt-4"
+                      disabled={sending}
                     >
-                      Confirmer la commande
+                      {sending ? 'Traitement...' : 'Confirmer la commande'}
                     </Button>
+                    {emailResult && <div className="text-red-600 mt-2">{emailResult}</div>}
                     
                     <div className="text-center mt-4">
                       <Button
