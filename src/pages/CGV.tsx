@@ -1,6 +1,5 @@
-import React from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { Card, CardContent, CardHeader } from '../components/ui/card';
+import { Card, CardContent } from '../components/ui/card';
 
 export const CGVPage = (): JSX.Element => {
   const handleGoBack = () => {

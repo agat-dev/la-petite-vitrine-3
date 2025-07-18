@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
+    base: '/', // Important pour le routage
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
@@ -26,7 +27,6 @@ export default defineConfig(({ mode }) => {
         }
       }
     },
-    base: '/', // Important pour le routage
     preview: {
       port: 4173,
       host: true
