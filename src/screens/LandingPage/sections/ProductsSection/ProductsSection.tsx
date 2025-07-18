@@ -159,7 +159,7 @@ export const ProductsSection = (): JSX.Element => {
             </div>
           </AnimatedSection>
           <StaggeredContainer>
-            <div className="flex gap-6 w-full">
+            <div className="flex md:flex-row flex-col gap-6 w-full">
             {mainPacks.map((pack, index) => (
               <Card
                 key={pack.id}

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
-import { OrderSummary } from './OrderSummary';
 // import { OrderEmailSender } from './OrderEmailSender';
 import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';

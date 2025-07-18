@@ -33,9 +33,9 @@ export const FeaturesSection = (): JSX.Element => {
   ];
 
   return (
-    <section id="offre" className="max-w-[1400px] mx-auto md:mt-8 mt-36 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
+    <section id="offre" className="max-w-[1400px] mx-auto md:mt-8 mt-48 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 relative w-full">
       <StaggeredContainer 
-        className="w-fit grid grid-cols-2 max-w-[1280px] gap-32 z-40"
+        className="w-fit grid md:grid-cols-2 max-w-[1280px] md:gap-32 gap-8 z-40"
         staggerDelay={150}
         animation="slideUp"
       >

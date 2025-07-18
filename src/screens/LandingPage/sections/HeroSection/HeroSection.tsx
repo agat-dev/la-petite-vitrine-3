@@ -50,7 +50,7 @@ export const HeroSection = (): JSX.Element => {
         className="relative w-full max-w-[486px] h-[300px] md:h-[350px] lg:h-[423px] mt-20 md:mt-8 lg:mt-0"
       >
         {/* Badge Satisfait ou remboursé en haut à gauche */}
-        <div className="absolute top-[50%] -right-[15%] z-50 bg-green-500 text-white px-3 py-1 rounded-full text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300 flex items-center gap-2">
+        <div className="absolute md:top-[50%] top-[100%] md:-right-[15%] -right-[0] z-50 bg-green-500 text-white px-3 py-1 rounded-full text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300 flex items-center gap-2">
           <CheckIcon className="w-4 h-4" />
           Satisfait ou remboursé
         </div>
@@ -61,13 +61,13 @@ export const HeroSection = (): JSX.Element => {
         </div>
 
         {/* Badge Résiliable en bas à droite */}
-        <div className="w-max absolute bottom-[0%] md:-left-[5%] -right-[5%] z-10 bg-amber-900 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
+        <div className="w-max absolute md:bottom-[0%] -bottom-[40%] md:-left-[5%] -right-[5%] z-10 bg-amber-900 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
           Résiliable à tout moment
         </div>
 
         <Card className="relative w-full h-full border-none bg-transparent">
           <div className="relative h-full">
-            <div className="absolute right-[0%] -top-[14%] w-max p-8 rounded-[30px] bg-amber-600 text-center font-body-l font-[number:var(--body-l-font-weight)] text-white text-3xl md:text-4xl lg:text-5xl tracking-[var(--body-l-letter-spacing)] [font-style:var(--body-l-font-style)] z-40">
+            <div className="absolute right-[0%] md:-top-[14%] -top-[20%] w-max md:p-8 p-4 rounded-[30px] bg-amber-600 text-center font-body-l font-[number:var(--body-l-font-weight)] text-white text-3xl md:text-4xl lg:text-5xl tracking-[var(--body-l-letter-spacing)] [font-style:var(--body-l-font-style)] z-40">
               <p>490€</p>
               <p className="mt-2 md:text-3xl text-2xl italic">
                 + 19 ou 29€/mois
