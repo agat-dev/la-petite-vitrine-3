@@ -3,6 +3,7 @@ import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
 // import { OrderEmailSender } from './OrderEmailSender';
+import { OrderSummary } from './OrderSummary';
 import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
