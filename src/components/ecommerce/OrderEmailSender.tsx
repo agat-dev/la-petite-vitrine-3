@@ -9,13 +9,7 @@ interface OrderEmailSenderProps {
 }
 
 export const OrderEmailSender = forwardRef(function OrderEmailSender(
-  {
-    pack,
-    maintenance,
-    formData,
-    total,
-    adminEmail,
-  }: OrderEmailSenderProps,
+  { pack, maintenance, formData, total, adminEmail }: OrderEmailSenderProps,
   ref
 ) {
   const [sending, setSending] = useState(false);
@@ -89,6 +83,7 @@ export const OrderEmailSender = forwardRef(function OrderEmailSender(
     }
   };
 
+  // CECI EST ESSENTIEL :
   useImperativeHandle(ref, () => ({
     send: handleSendEmail,
   }));
