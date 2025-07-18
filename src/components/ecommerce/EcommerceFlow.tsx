@@ -69,11 +69,18 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   const [sending, setSending] = useState(false);
   const [emailResult, setEmailResult] = useState<string | null>(null);
 
+  // Ajoute une ref pour accéder à la méthode d'envoi
+  const orderEmailSenderRef = React.useRef<{ send: () => Promise<void> }>(null);
+
   const handleCompleteOrder = async () => {
     setSending(true);
     setEmailResult(null);
     try {
       await createOrder();
+      // Déclenche l'envoi d'email ici
+      if (orderEmailSenderRef.current) {
+        await orderEmailSenderRef.current.send();
+      }
       setEmailSent(true);
     } catch (error) {
       setEmailResult('Erreur lors de la création de la commande');
@@ -244,6 +251,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                     {/* Envoi de l'email de récapitulatif au clic sur Confirmer la commande */}
                     {stepFormData.selectedPack && stepFormData.selectedMaintenance ? (
                       <OrderEmailSender
+                        ref={orderEmailSenderRef}
                         pack={stepFormData.selectedPack}
                         maintenance={stepFormData.selectedMaintenance}
                         formData={stepFormData.formData}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 
 interface OrderEmailSenderProps {
   pack: { title: string; price: number; features: string[] };
@@ -8,29 +8,32 @@ interface OrderEmailSenderProps {
   adminEmail: string;
 }
 
-export const OrderEmailSender: React.FC<OrderEmailSenderProps> = ({
-  pack,
-  maintenance,
-  formData,
-  total,
-  adminEmail,
-}) => {
+export const OrderEmailSender = forwardRef(function OrderEmailSender(
+  {
+    pack,
+    maintenance,
+    formData,
+    total,
+    adminEmail,
+  }: OrderEmailSenderProps,
+  ref
+) {
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<string | null>(null);
 
   const handleSendEmail = async () => {
     setSending(true);
     setResult(null);
-    console.log("pack", pack);
-    console.log("maintenance", maintenance);    
-    console.log("formData", formData);
+    console.log('pack', pack);
+    console.log('maintenance', maintenance);
+    console.log('formData', formData);
 
     const html = `
       <h2>Récapitulatif de commande</h2>
       <h3>Pack sélectionné</h3>
       <ul>
         <li><strong>${pack.title}</strong> - ${pack.price}€</li>
-        ${pack.features.map(f => `<li>${f}</li>`).join('')}
+        ${pack.features.map((f) => `<li>${f}</li>`).join('')}
       </ul>
       <h3>Maintenance sélectionnée</h3>
       <ul>
@@ -39,7 +42,9 @@ export const OrderEmailSender: React.FC<OrderEmailSenderProps> = ({
       </ul>
       <h3>Informations client</h3>
       <ul>
-        ${Object.entries(formData).map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`).join('')}
+        ${Object.entries(formData)
+          .map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`)
+          .join('')}
       </ul>
       <h3>Montant total</h3>
       <p><strong>${total}€</strong> (+${maintenance.price}€/mois de maintenance)</p>
@@ -70,6 +75,10 @@ export const OrderEmailSender: React.FC<OrderEmailSenderProps> = ({
     }
   };
 
+  useImperativeHandle(ref, () => ({
+    send: handleSendEmail,
+  }));
+
   return (
     <div>
       <button
@@ -82,4 +91,4 @@ export const OrderEmailSender: React.FC<OrderEmailSenderProps> = ({
       {result && <div className="mt-2 text-sm">{result}</div>}
     </div>
   );
-};
+});
