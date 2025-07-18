@@ -189,11 +189,11 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             )}
             </div>
             <div className="flex flex-col items-center gap-4">
-            <h1 className="text-3xl font-bold text-blue-gray100 font-heading-2">
+            <h1 className="md:text-3xl text-2xl font-bold text-blue-gray100 font-heading-2 text-center">
               Commande en ligne
             </h1>
             <p className="text-blue-gray200 text-center font-body-l">
-              48h avant validation de votre commande. <br />Nous vous recontactons pour affiner votre demande et démarrer la production le plus rapidement possible.
+              Nous validons votre commande sous 48h, vous recevrez un email de confirmation avec les détails.
             </p>
             </div>
           </div>

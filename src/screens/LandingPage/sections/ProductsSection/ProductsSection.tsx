@@ -183,12 +183,12 @@ export const ProductsSection = (): JSX.Element => {
                   </div>
                 )}
                 <div
-                  className="absolute w-full h-[150px] md:h-[180px] top-0 left-0 bg-cover bg-center opacity-15"
+                  className="absolute w-full h-[170px] md:h-[180px] top-0 left-0 bg-cover bg-center opacity-15"
                   style={{
                     backgroundImage: `url(../pack-${index + 1}.jpg)`,
                   }}
                 />
-                <CardHeader className="text-center pt-6 md:pt-8 relative z-10">
+                <CardHeader className="text-center pt-12 md:pt-8 relative z-10">
                   <div className="hidden text-3xl md:text-4xl mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-110">
                     {pack.icon}
                   </div>

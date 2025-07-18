@@ -23,7 +23,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
   
   return (
     <Card className={cn("overflow-hidden", className)}>
-      <CardHeader className="bg-gradient-to-r from-amber-100 to-blue-gray-100 p-6">
+      <CardHeader className="bg-amber-100 p-6">
         <h3 className="text-xl font-bold text-blue-gray900 font-heading-6">
           Récapitulatif de votre commande
         </h3>

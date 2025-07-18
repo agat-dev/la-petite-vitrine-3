@@ -10,7 +10,7 @@ export const HeroSection = (): JSX.Element => {
         animation="slideRight"
         className="flex flex-col items-start gap-8 lg:gap-12 relative flex-1 w-full lg:w-auto"
       >
-        <div className="flex flex-col items-start gap-6 lg:gap-8 relative self-stretch w-full">
+        <div className="flex flex-col items-start gap-6 lg:gap-8 relative self-stretch w-full md:py-4 py-8">
           <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
             <h1 className="relative self-stretch mt-[-1.00px] font-heading-1-m md:font-[500] font-[600] text-blue-gray900 text-4xl md:text-6xl lg:text-6xl md:leading-[var(--heading-1-m-line-height)] [font-style:var(--heading-1-m-font-style)]">
               Site web et
@@ -32,14 +32,6 @@ export const HeroSection = (): JSX.Element => {
             <a href="#products">
               <StyledWrapper>Voir l'offre</StyledWrapper>
             </a>
-            {/*}
-            <div className="w-full sm:w-auto flex items-center px-2 py-3 rounded-lg hover:bg-amber-50 transition-colors duration-300 cursor-pointer">
-              <PlayIcon className="w-6 h-6 text-amber-900" />
-              <span className="px-2 font-button-m font-[number:var(--button-m-font-weight)] text-amber-900 text-sm md:text-base lg:text-[length:var(--button-m-font-size)] tracking-[var(--button-m-letter-spacing)] leading-[var(--button-m-line-height)] whitespace-nowrap [font-style:var(--button-m-font-style)]">
-                Voir une démo
-              </span>
-            </div>
-            */}
           </div>
         </div>
       </AnimatedSection>

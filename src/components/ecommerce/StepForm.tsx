@@ -335,27 +335,35 @@ export const StepForm: React.FC<StepFormProps> = ({
   return (
     <div className={cn("space-y-6", className)}>
       {/* Indicateur d'étapes */}
-      <div className="flex items-center justify-center space-x-4 mb-8 bg-gradient-to-r from-amber-100 to-blue-gray-100 p-6 rounded-xl">
-        {steps.map((step, index) => (
-          <div key={step.id} className="flex items-center">
-            <button
-              onClick={() => onGoToStep(index)}
-              className={cn(
-                "w-12 h-12 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 shadow-md",
-                index === currentStep
-                  ? "bg-amber-600 text-white scale-110"
-                  : step.isCompleted
+      {/* Mobile : numéro d'étape / total, Desktop : boutons étapes */}
+      <div className="mb-8">
+        {/* Mobile */}
+        <div className="flex md:hidden items-center justify-center bg-gradient-to-r from-amber-100 to-blue-gray-100 p-4 rounded-xl font-bold text-blue-gray900 text-lg">
+          Étape {currentStep + 1} / {steps.length}
+        </div>
+        {/* Desktop */}
+        <div className="hidden md:flex items-center justify-center space-x-4 bg-gradient-to-r from-amber-100 to-blue-gray-100 p-6 rounded-xl">
+          {steps.map((step, index) => (
+            <div key={step.id} className="flex items-center">
+              <button
+                onClick={() => onGoToStep(index)}
+                className={cn(
+                  "w-12 h-12 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 shadow-md",
+                  index === currentStep
+                    ? "bg-amber-600 text-white scale-110"
+                    : step.isCompleted
                     ? "bg-green-500 text-white"
                     : "bg-white text-gray-600 border-2 border-amber-200"
+                )}
+              >
+                {step.isCompleted ? <CheckIcon className="w-5 h-5" /> : index + 1}
+              </button>
+              {index < steps.length - 1 && (
+                <div className="w-12 h-1 bg-amber-200 mx-2 rounded-full" />
               )}
-            >
-              {step.isCompleted ? <CheckIcon className="w-5 h-5" /> : index + 1}
-            </button>
-            {index < steps.length - 1 && (
-              <div className="w-12 h-1 bg-amber-200 mx-2 rounded-full" />
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Formulaire de l'étape courante */}
