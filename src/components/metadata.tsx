@@ -48,6 +48,7 @@ export const SEO: React.FC<SEOProps> = ({
       }
     };
 
+
     // Métadonnées de base
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
@@ -57,6 +58,9 @@ export const SEO: React.FC<SEOProps> = ({
     updateMetaTag('theme-color', "#fbbf24");
     updateMetaTag('msapplication-TileColor', "#fbbf24");
     updateMetaTag('application-name', "La Petite Vitrine");
+
+    // Facebook Domain Verification
+    updateMetaTag('facebook-domain-verification', 'ww1e8b8ajdebwku9a3ht8ese5fqjpv');
 
     // Open Graph
     updateMetaTag('og:title', title, true);

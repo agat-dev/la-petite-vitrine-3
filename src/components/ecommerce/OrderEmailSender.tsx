@@ -21,6 +21,9 @@ export const OrderEmailSender: React.FC<OrderEmailSenderProps> = ({
   const handleSendEmail = async () => {
     setSending(true);
     setResult(null);
+    console.log("pack", pack);
+    console.log("maintenance", maintenance);    
+    console.log("formData", formData);
 
     const html = `
       <h2>Récapitulatif de commande</h2>
