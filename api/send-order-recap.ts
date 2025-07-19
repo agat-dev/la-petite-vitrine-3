@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import formidable, { File as FormidableFile } from 'formidable';
+import { IncomingForm, File as FormidableFile } from 'formidable';
 import fs from 'fs';
 import { Resend } from 'resend';
 
@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end();
   }
 
-  const form = new formidable.IncomingForm({ multiples: true });
+  const form = new IncomingForm({ multiples: true });
 
   form.parse(req, async (err, fields, files) => {
     if (err) {

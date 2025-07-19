@@ -116,7 +116,7 @@ export const DemosSection = (): JSX.Element => {
                   <Card className="backdrop-blur-md">
                     <CardHeader className="relative p-4 md:pb-2 pb-6  bg-amber-300 backdrop-blur-md rounded-t-[20px]">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-amber-900 to-amber-800 rounded-full flex items-center justify-center shadow-lg">
+                        <div className="md:block hidden w-12 h-12 bg-gradient-to-br from-amber-900 to-amber-800 rounded-full flex items-center justify-center shadow-lg">
                           <Play className="w-6 h-6 text-white ml-0.5" />
                         </div>
                         <div>
