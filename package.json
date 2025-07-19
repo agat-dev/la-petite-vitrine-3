@@ -24,6 +24,7 @@
     "dotenv": "^17.0.1",
     "embla-carousel-react": "^8.3.0",
     "express": "^5.1.0",
+    "formidable": "^3.5.4",
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.294.0",
     "motion": "^12.23.0",
