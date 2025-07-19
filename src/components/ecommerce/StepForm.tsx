@@ -36,6 +36,9 @@ export const StepForm: React.FC<StepFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   // Dropdown state for custom select
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const [visualFiles, setVisualFiles] = useState<File[]>([]);
+  const [textFiles, setTextFiles] = useState<File[]>([]);
+  const [otherFiles, setOtherFiles] = useState<File[]>([]);
 
   const currentStepInfo = steps[currentStep];
 
@@ -125,6 +128,16 @@ export const StepForm: React.FC<StepFormProps> = ({
     onUpdateFormData(currentStepInfo.id, currentStepData);
     setCurrentStepData({});
     onPrevStep();
+  };
+
+  // Soumettre le formulaire
+  const handleSubmit = () => {
+    onCompleteForm({
+      ...formData,
+      visualFiles,
+      textFiles,
+      otherFiles,
+    });
   };
 
   // Rendu d'un champ de formulaire
@@ -274,6 +287,7 @@ export const StepForm: React.FC<StepFormProps> = ({
                   handleFieldChange(field.id, e.target.files?.[0])
                 }
                 aria-label={field.label}
+                multiple
               />
               <label
                 htmlFor={`file-input-${field.id}`}

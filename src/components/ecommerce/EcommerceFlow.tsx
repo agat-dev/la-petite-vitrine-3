@@ -88,29 +88,20 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
           fd.append('subject', subject);
           fd.append('html', html);
 
-          // Ajout des fichiers
-          if (formData.visualFiles && Array.isArray(formData.visualFiles)) {
-            console.log('visualFiles trouvés :', formData.visualFiles);
-            formData.visualFiles.forEach((f: File, idx: number) => {
-              console.log(`Ajout visualFiles[${idx}]: ${f.name} (${f.size} octets)`);
-              fd.append('visualFiles', f, f.name);
-            });
-          }
-          if (formData.textFiles && Array.isArray(formData.textFiles)) {
-            console.log('textFiles trouvés :', formData.textFiles);
-            formData.textFiles.forEach((f: File, idx: number) => {
-              console.log(`Ajout textFiles[${idx}]: ${f.name} (${f.size} octets)`);
-              fd.append('textFiles', f, f.name);
-            });
-          }
-          if (formData.otherFiles && Array.isArray(formData.otherFiles)) {
-            console.log('otherFiles trouvés :', formData.otherFiles);
-            formData.otherFiles.forEach((f: File, idx: number) => {
-              console.log(`Ajout otherFiles[${idx}]: ${f.name} (${f.size} octets)`);
-              fd.append('otherFiles', f, f.name);
-            });
-          }
-          console.log('Envoi du fetch avec FormData :', fd);
+          // Utilise les fichiers locaux, pas ceux du state global
+          visualFiles.forEach((f, idx) => {
+            console.log(`Ajout visualFiles[${idx}]: ${f.name} (${f.size} octets)`);
+            fd.append('visualFiles', f, f.name);
+          });
+          textFiles.forEach((f, idx) => {
+            console.log(`Ajout textFiles[${idx}]: ${f.name} (${f.size} octets)`);
+            fd.append('textFiles', f, f.name);
+          });
+          otherFiles.forEach((f, idx) => {
+            console.log(`Ajout otherFiles[${idx}]: ${f.name} (${f.size} octets)`);
+            fd.append('otherFiles', f, f.name);
+          });
+
           return fd;
         };
 
@@ -309,14 +300,14 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     phone: "Téléphone",
     company: "Entreprise",
     secteur_activite: "Secteur d'activité",
-    address: "Adresse",
+    addresse_complete: "Adresse",
     city: "Ville",
     postalCode: "Code postal",
     zone_intervention: "Zone d'intervention",
-    mainCompetitors: "Concurrents principaux",
+    concurrents_principaux: "Concurrents principaux",
     services_proposes: "Services proposés",
     specificite_positionnement: "Positionnement spécifique",
-    type_clients: "Types de clients",
+    types_clients: "Types de clients",
     ton_communication: "Ton de communication",
     liens_contenus_existants: "Liens vers vos contenus existants",
     informations_diverses: "Informations diverses",
@@ -324,6 +315,11 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     textes_contenus: "Fichiers textes",
     autres_fichiers: "Autres fichiers",
   };
+
+  // Ajoute un state local pour les fichiers dans EcommerceFlow
+  const [visualFiles, setVisualFiles] = useState<File[]>([]);
+  const [textFiles, setTextFiles] = useState<File[]>([]);
+  const [otherFiles, setOtherFiles] = useState<File[]>([]);
 
 
   return (
@@ -416,6 +412,9 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 isLastStep={isLastStep}
                 isFirstStep={isFirstStep}
                 className="bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl"
+                setVisualFiles={setVisualFiles}
+                setTextFiles={setTextFiles}
+                setOtherFiles={setOtherFiles}
               />
             )}
 
