@@ -28,7 +28,7 @@ const StyledWrapper = styled.div`
     transition: all 0.2s;
     padding: 10px 20px;
     border-radius: 100px;
-    background: rgba(251, 191, 36, 1);
+    background: #FCD34D;
     border: 1px solid transparent;
     display: flex;
     align-items: center;

@@ -113,8 +113,8 @@ export const DemosSection = (): JSX.Element => {
             <AnimatedSection animation="slideLeft" delay={600} className="md:w-2/3 w-full md-pb-0">
               <Card className="flex items-center relative flex-1 grow mt-0 lg:mt-[-7.00px] mb-0 lg:mb-[-7.00px] rounded-[15px] lg:rounded-[20px] overflow-hidden border-[3px] lg:border-[3px] border-solid border-[#ffffff] hover:scale-105 transition-transform duration-500 z-20">
                 <AnimatePresence>
-                  <Card className="bg-amber-900 backdrop-blur-md">
-                    <CardHeader className="relative p-4 md:pb-2 pb-6 bg-gradient-to-r from-amber-50/80 to-blue-gray100/90 backdrop-blur-md rounded-t-[20px]">
+                  <Card className="backdrop-blur-md">
+                    <CardHeader className="relative p-4 md:pb-2 pb-6  bg-amber-300 backdrop-blur-md rounded-t-[20px]">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-amber-900 to-amber-800 rounded-full flex items-center justify-center shadow-lg">
                           <Play className="w-6 h-6 text-white ml-0.5" />
@@ -130,7 +130,7 @@ export const DemosSection = (): JSX.Element => {
                       </div>
                     </CardHeader>
 
-                    <CardContent className="pt-8">
+                    <CardContent className="pt-8 bg-amber-100">
                       <div className="space-y-4">
                         {/* Demo Cards - 2 colonnes */}
                         <div className="grid md:grid-cols-3 grid-cols-1 md:gap-4 gap-8">
@@ -162,7 +162,7 @@ export const DemosSection = (): JSX.Element => {
                                     </div>
                                   </div>
                                 </div>
-                                <CardContent className="p-3 pt-6 bg-white backdrop-blur-sm">
+                                <CardContent className="p-3 pt-6 bg-amber-50 backdrop-blur-sm">
                                   <h4 className="text-sm font-bold text-blue-gray900 font-heading-6 mb-1 group-hover:text-amber-900 transition-colors duration-300">
                                     {card.title}
                                   </h4>

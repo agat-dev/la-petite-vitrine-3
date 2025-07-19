@@ -27,25 +27,47 @@ export const OrderEmailSender = forwardRef(function OrderEmailSender(
     log('Payload préparé : ' + JSON.stringify({ pack, maintenance, formData, total, adminEmail }));
 
     const html = `
-      <h2>Récapitulatif de commande</h2>
-      <h3>Pack sélectionné</h3>
-      <ul>
-        <li><strong>${pack.title}</strong> - ${pack.price}€</li>
-        ${pack.features.map((f) => `<li>${f}</li>`).join('')}
-      </ul>
-      <h3>Maintenance sélectionnée</h3>
-      <ul>
-        <li><strong>${maintenance.title}</strong> - ${maintenance.price}€/mois</li>
-        <li>${maintenance.description}</li>
-      </ul>
-      <h3>Informations client</h3>
-      <ul>
-        ${Object.entries(formData)
-          .map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`)
-          .join('')}
-      </ul>
-      <h3>Montant total</h3>
-      <p><strong>${total}€</strong> (+${maintenance.price}€/mois de maintenance)</p>
+      <div style="max-width:600px;margin:0 auto;padding:32px 0 24px 0;font-family:'Inter',Arial,sans-serif;background:#F9FAFB;border-radius:18px;border:1px solid #E0E7EF;box-shadow:0 4px 24px 0 rgba(46,102,193,0.07);">
+        <div style="text-align:center;margin-bottom:32px;">
+          <img src="https://lapetitevitrine.com/logo-pv.png" alt="La Petite Vitrine" style="height:60px;margin-bottom:12px;" />
+          <h1 style="font-size:2rem;color:#2E66C1;margin:0;font-family:'Inter',Arial,sans-serif;font-weight:700;letter-spacing:-1px;">Confirmation de commande</h1>
+        </div>
+        <div style="background:#FFF8E1;border-radius:12px;padding:20px 24px;margin:0 24px 24px 24px;border:1px solid #FCD34D;">
+          <p style="font-size:1.05rem;color:#2E66C1;margin:0 0 8px 0;font-weight:600;">
+            Merci pour votre confiance !
+          </p>
+          <p style="font-size:1rem;color:#222;margin:0;">
+            Vous recevrez sous 48h une validation de votre commande avec un accès à une prise de rendez-vous en ligne pour préciser votre besoin pour être certains que notre travail corresponde à vos attentes.<br>
+            Vous recevrez également un lien pour procéder au paiement en ligne de votre commande.
+          </p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px 24px 16px 24px;margin:0 24px 24px 24px;border:1px solid #E0E7EF;">
+          <h2 style="color:#2E66C1;font-size:1.2rem;margin-bottom:12px;font-weight:700;">Récapitulatif de commande</h2>
+          <h3 style="color:#F59E42;font-size:1rem;margin-bottom:6px;font-weight:600;">Pack sélectionné</h3>
+          <ul style="margin:0 0 12px 0;padding-left:18px;">
+            <li style="color:#222;font-weight:600;">${pack.title} - ${pack.price}€</li>
+            ${pack.features.map((f) => `<li style="color:#2E66C1;">${f}</li>`).join('')}
+          </ul>
+          <h3 style="color:#F59E42;font-size:1rem;margin-bottom:6px;font-weight:600;">Maintenance sélectionnée</h3>
+          <ul style="margin:0 0 12px 0;padding-left:18px;">
+            <li style="color:#222;font-weight:600;">${maintenance.title} - ${maintenance.price}€/mois</li>
+            <li style="color:#2E66C1;">${maintenance.description}</li>
+          </ul>
+          <h3 style="color:#F59E42;font-size:1rem;margin-bottom:6px;font-weight:600;">Informations client</h3>
+          <ul style="margin:0 0 12px 0;padding-left:18px;">
+            ${Object.entries(formData)
+              .map(([k, v]) => `<li><strong style="color:#2E66C1;">${k}:</strong> <span style="color:#222;">${v}</span></li>`)
+              .join('')}
+          </ul>
+          <h3 style="color:#F59E42;font-size:1rem;margin-bottom:6px;font-weight:600;">Montant total</h3>
+          <p style="font-size:1.1rem;color:#2E66C1;font-weight:700;margin:0 0 8px 0;">
+            ${total}€ <span style="color:#222;font-weight:400;font-size:0.95rem;">(+${maintenance.price}€/mois de maintenance)</span>
+          </p>
+        </div>
+        <div style="text-align:center;color:#B0B7C3;font-size:0.9rem;margin-top:16px;">
+          La Petite Vitrine &mdash; contact@lapetitevitrine.com
+        </div>
+      </div>
     `;
 
     const payload = {

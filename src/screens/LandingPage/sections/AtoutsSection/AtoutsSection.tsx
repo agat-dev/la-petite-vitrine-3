@@ -63,16 +63,9 @@ export const AtoutsSection = (): JSX.Element => {
 
   return (
     <section className="md:-mt-56 mt-24 flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 3xl:p-24 4xl:p-32 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
-      <div className="pt-12 inset-0 w-full h-full z-500">  
-        <img
-        src="/label-satisfait.png"
-        alt="label satisfait ou remboursé"
-        className="inset-0 w-48 h-48 object-contain mx-auto"
-        />
-      </div>
       
       {/* Container pour centrer le contenu sur très grands écrans */}
-      <div className="w-full max-w-[1400px] mx-auto">
+      <div className="w-full max-w-[1400px] mx-auto md:pt-48 pt-12">
         <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 3xl:gap-24 4xl:gap-32 relative w-full">
           <AnimatedSection
             animation="slideRight"

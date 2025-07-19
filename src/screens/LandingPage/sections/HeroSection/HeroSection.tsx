@@ -42,19 +42,19 @@ export const HeroSection = (): JSX.Element => {
         className="relative w-full max-w-[486px] h-[300px] md:h-[350px] lg:h-[423px] mt-20 md:mt-8 lg:mt-0"
       >
         {/* Badge Satisfait ou remboursé en haut à gauche */}
-        <div className="absolute md:top-[50%] top-[100%] md:-right-[15%] -right-[0] z-50 bg-green-500 text-white px-3 py-1 rounded-full text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300 flex items-center gap-2">
+        <div className="absolute md:top-[50%] top-[100%] md:-right-[15%] -right-[0] z-50 bg-green-600 text-white px-3 py-1 rounded-full text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300 flex items-center gap-2">
           <CheckIcon className="w-4 h-4" />
-          Satisfait ou remboursé
+          Sans engagement
         </div>
 
         {/* Badge Livré en 5 jours en haut à droite */}
         <div className="absolute top-[5%] -right-[0%] z-10 bg-black text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
-          Livré en 5 jours
+          
         </div>
 
         {/* Badge Résiliable en bas à droite */}
         <div className="w-max absolute md:bottom-[0%] -bottom-[40%] md:-left-[5%] -right-[5%] z-10 bg-amber-900 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg hover:scale-110 transition-transform duration-300">
-          Résiliable à tout moment
+          Livré en 5 jours
         </div>
 
         <Card className="relative w-full h-full border-none bg-transparent">
