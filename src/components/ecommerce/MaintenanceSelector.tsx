@@ -39,8 +39,8 @@ export const MaintenanceSelector: React.FC<MaintenanceSelectorProps> = ({
             <Card
               key={option.id}
               className={cn(
-                "cursor-pointer transition-all duration-300",
-                isSelected ? "ring-2 ring-amber-400 bg-amber-50" : "hover:shadow-lg hover:scale-105"
+                " border border-1 border-amber-200 cursor-pointer transition-all duration-300",
+                isSelected ? "ring-1 ring-amber-400 bg-amber-50" : "hover:shadow-lg hover:scale-105"
               )}
               onClick={() => onSelectMaintenance(option)}
             >

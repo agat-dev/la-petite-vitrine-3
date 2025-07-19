@@ -29,7 +29,6 @@ export const ProductsSection = (): JSX.Element => {
         "Nom de domaine + hébergement 1 an",
         "Livraison en 5 jours",
         "Sans engagement",
-        "Remboursé sous 48h si non satisfait",
       ],
       buttonText: "Choisir ce pack",
       isRecommended: false,
@@ -50,7 +49,6 @@ export const ProductsSection = (): JSX.Element => {
         "3 pages additionnelles : Services, Réalisations, A propos, Infos pratiques",
         "Livraison en 7 jours",
         "Sans engagement",
-        "Remboursé sous 48h si non satisfait",
       ],
       buttonText: "Pack recommandé",
       isRecommended: true,
@@ -71,7 +69,6 @@ export const ProductsSection = (): JSX.Element => {
         "Réseaux sociaux professionnels",
         "Livraison en 9 jours",
         "Sans engagement",
-        "Remboursé sous 48h si non satisfait",
       ],
       buttonText: "Solution complète",
       isRecommended: false,
@@ -159,7 +156,7 @@ export const ProductsSection = (): JSX.Element => {
             </div>
           </AnimatedSection>
           <StaggeredContainer>
-            <div className="flex gap-6 w-full">
+            <div className="flex md:flex-row flex-col gap-6 w-full">
             {mainPacks.map((pack, index) => (
               <Card
                 key={pack.id}
@@ -183,12 +180,12 @@ export const ProductsSection = (): JSX.Element => {
                   </div>
                 )}
                 <div
-                  className="absolute w-full h-[150px] md:h-[180px] top-0 left-0 bg-cover bg-center opacity-15"
+                  className="absolute w-full h-[170px] md:h-[180px] top-0 left-0 bg-cover bg-center opacity-15"
                   style={{
                     backgroundImage: `url(../pack-${index + 1}.jpg)`,
                   }}
                 />
-                <CardHeader className="text-center pt-6 md:pt-8 relative z-10">
+                <CardHeader className="text-center pt-12 md:pt-8 relative z-10">
                   <div className="hidden text-3xl md:text-4xl mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-110">
                     {pack.icon}
                   </div>

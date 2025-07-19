@@ -5,6 +5,8 @@ import { MentionsLegalesPage } from './pages/MentionsLegales';
 import { PolitiqueConfidentialitePage } from './pages/PolitiqueConfidentialite';
 import { EcommercePage } from './pages/Ecommerce';
 import { Success } from './pages/Success';
+import EmailTestPage from './pages/email-test';
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
             <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
             <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/email-test" element={<EmailTestPage />} />
           </Routes>
         </Router>
       </div>

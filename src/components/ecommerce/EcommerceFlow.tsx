@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
+// import { OrderEmailSender } from './OrderEmailSender';
 import { OrderSummary } from './OrderSummary';
 import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';
@@ -9,6 +10,7 @@ import { Card, CardContent, CardHeader } from '../ui/card';
 import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary';
 
@@ -24,8 +26,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
   preSelectedMaintenanceId
 }) => {
   const [currentFlow, setCurrentFlow] = useState<FlowStep>(initialFlow);
-
-
+  const navigate = useNavigate();
 
   const {
     stepFormData,
@@ -64,30 +65,201 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
 
   // Finaliser la commande
+  const [emailSent, setEmailSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [emailResult, setEmailResult] = useState<string | null>(null);
+
+
+
   const handleCompleteOrder = async () => {
+    setSending(true);
+    setEmailResult(null);
     try {
       await createOrder();
-      // Créer une notification de succès plus élégante
-      const notification = document.createElement('div');
-      notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-      notification.textContent = 'Commande créée avec succès !';
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        document.body.removeChild(notification);
-      }, 3000);
-      
-      // Rediriger vers l'espace client
-      window.location.href = '/login';
+      const pack = stepFormData.selectedPack;
+      const maintenance = stepFormData.selectedMaintenance;
+      const formData = stepFormData.formData;
+      const total = calculateTotal();
+      const adminEmail = "contact@lapetitevitrine.com";
+      if (pack && maintenance && formData.email) {
+        // Préparation du FormData pour l'envoi de fichiers en pièce jointe
+        const buildFormData = (to: string, subject: string, html: string) => {
+          const fd = new FormData();
+          fd.append('to', to);
+          fd.append('subject', subject);
+          fd.append('html', html);
+
+          // Ajout des fichiers si présents (adapté à ta structure)
+          if (formData.visualFiles && Array.isArray(formData.visualFiles)) {
+            formData.visualFiles.forEach((f: File) => fd.append('visualFiles', f, f.name));
+          }
+          if (formData.textFiles && Array.isArray(formData.textFiles)) {
+            formData.textFiles.forEach((f: File) => fd.append('textFiles', f, f.name));
+          }
+          if (formData.otherFiles && Array.isArray(formData.otherFiles)) {
+            formData.otherFiles.forEach((f: File) => fd.append('otherFiles', f, f.name));
+          }
+          // Pour compatibilité, si tu as d'autres champs fichiers, ajoute-les ici
+          return fd;
+        };
+
+        // Email client
+        const htmlClient = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>Confirmation de commande - La Petite Vitrine</title>
+            <style>
+              body { font-family: 'Inter', Arial, sans-serif; background: #F9FAFB; color: #222; }
+              .container { max-width: 600px; margin: 0 auto; padding: 32px 0 24px 0; background: #F9FAFB; border-radius: 18px; border: 1px solid #E0E7EF; box-shadow: 0 4px 24px 0 rgba(46,102,193,0.07); }
+              .header { text-align: center; margin-bottom: 32px; }
+              .header img { height: 60px; margin-bottom: 12px; }
+              .header h1 { font-size: 2rem; color: #2E66C1; margin: 0; font-weight: 700; letter-spacing: -1px; }
+              .section { background: #FFF8E1; border-radius: 12px; padding: 20px 24px; margin: 0 24px 24px 24px; border: 1px solid #FCD34D; }
+              .recap { background: #fff; border-radius: 12px; padding: 24px 24px 16px 24px; margin: 0 24px 24px 24px; border: 1px solid #E0E7EF; }
+              .recap h2 { color: #2E66C1; font-size: 1.2rem; margin-bottom: 12px; font-weight: 700; }
+              .recap h3 { color: #F59E42; font-size: 1rem; margin-bottom: 6px; font-weight: 600; }
+              ul { margin: 0 0 12px 0; padding-left: 18px; }
+              li { color: #2E66C1; }
+              .footer { text-align: center; color: #B0B7C3; font-size: 0.9rem; margin-top: 16px; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="header">
+                <img src="https://lapetitevitrine.com/logo-pv.png" alt="La Petite Vitrine" />
+                <h1>Confirmation de commande</h1>
+              </div>
+              <div class="section">
+                <p style="font-size:1.05rem;color:#2E66C1;margin:0 0 8px 0;font-weight:600;">
+                  Merci pour votre confiance !
+                </p>
+                <p style="font-size:1rem;color:#222;margin:0;">
+                  Vous recevrez sous 48h une validation de votre commande avec un accès à une prise de rendez-vous en ligne pour préciser votre besoin pour être certains que notre travail corresponde à vos attentes.<br>
+                  Vous recevrez également un lien pour procéder au paiement en ligne de votre commande.
+                </p>
+              </div>
+              <div class="recap">
+                <h2>Récapitulatif de commande</h2>
+                <h3>Pack sélectionné</h3>
+                <ul>
+                  <li style="color:#222;font-weight:600;">${pack.title} - ${pack.price}€</li>
+                  ${pack.features.map((f) => `<li style="color:#2E66C1;">${f}</li>`).join('')}
+                </ul>
+                <h3>Maintenance sélectionnée</h3>
+                <ul>
+                  <li style="color:#222;font-weight:600;">${maintenance.title} - ${maintenance.price}€/mois</li>
+                  <li style="color:#2E66C1;">${maintenance.description}</li>
+                </ul>
+                <h3>Informations client</h3>
+                <ul>
+                  ${Object.entries(formData)
+                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${k}:</strong> <span style="color:#222;">${v}</span></li>`)
+                    .join('')}
+                </ul>
+                <h3>Montant total</h3>
+                <p style="font-size:1.1rem;color:#2E66C1;font-weight:700;margin:0 0 8px 0;">
+                  ${total}€ <span style="color:#222;font-weight:400;font-size:0.95rem;">(+${maintenance.price}€/mois de maintenance)</span>
+                </p>
+              </div>
+              <div class="footer">
+                La Petite Vitrine &mdash; contact@lapetitevitrine.com
+              </div>
+            </div>
+          </body>
+          </html>
+        `;
+
+        // Email admin
+        const htmlAdmin = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>Nouvelle commande reçue - La Petite Vitrine</title>
+            <style>
+              body { font-family: 'Inter', Arial, sans-serif; background: #F9FAFB; color: #222; }
+              .container { max-width: 600px; margin: 0 auto; padding: 32px 0 24px 0; background: #F9FAFB; border-radius: 18px; border: 1px solid #E0E7EF; box-shadow: 0 4px 24px 0 rgba(46,102,193,0.07); }
+              .header { text-align: center; margin-bottom: 32px; }
+              .header img { height: 60px; margin-bottom: 12px; }
+              .header h1 { font-size: 2rem; color: #2E66C1; margin: 0; font-weight: 700; letter-spacing: -1px; }
+              .section { background: #FFF8E1; border-radius: 12px; padding: 20px 24px; margin: 0 24px 24px 24px; border: 1px solid #FCD34D; }
+              .recap { background: #fff; border-radius: 12px; padding: 24px 24px 16px 24px; margin: 0 24px 24px 24px; border: 1px solid #E0E7EF; }
+              .recap h2 { color: #2E66C1; font-size: 1.2rem; margin-bottom: 12px; font-weight: 700; }
+              .recap h3 { color: #F59E42; font-size: 1rem; margin-bottom: 6px; font-weight: 600; }
+              ul { margin: 0 0 12px 0; padding-left: 18px; }
+              li { color: #2E66C1; }
+              .footer { text-align: center; color: #B0B7C3; font-size: 0.9rem; margin-top: 16px; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="header">
+                <img src="https://lapetitevitrine.com/logo-pv.png" alt="La Petite Vitrine" />
+                <h1>Nouvelle commande reçue</h1>
+              </div>
+              <div class="section">
+                <p style="font-size:1.05rem;color:#2E66C1;margin:0 0 8px 0;font-weight:600;">
+                  Nouvelle commande à traiter.
+                </p>
+                <p style="font-size:1rem;color:#222;margin:0;">
+                  Un client vient de passer commande. Retrouvez le récapitulatif ci-dessous.
+                </p>
+              </div>
+              <div class="recap">
+                <h2>Récapitulatif de commande</h2>
+                <h3>Pack sélectionné</h3>
+                <ul>
+                  <li style="color:#222;font-weight:600;">${pack.title} - ${pack.price}€</li>
+                  ${pack.features.map((f) => `<li style="color:#2E66C1;">${f}</li>`).join('')}
+                </ul>
+                <h3>Maintenance sélectionnée</h3>
+                <ul>
+                  <li style="color:#222;font-weight:600;">${maintenance.title} - ${maintenance.price}€/mois</li>
+                  <li style="color:#2E66C1;">${maintenance.description}</li>
+                </ul>
+                <h3>Informations client</h3>
+                <ul>
+                  ${Object.entries(formData)
+                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${k}:</strong> <span style="color:#222;">${v}</span></li>`)
+                    .join('')}
+                </ul>
+                <h3>Montant total</h3>
+                <p style="font-size:1.1rem;color:#2E66C1;font-weight:700;margin:0 0 8px 0;">
+                  ${total}€ <span style="color:#222;font-weight:400;font-size:0.95rem;">(+${maintenance.price}€/mois de maintenance)</span>
+                </p>
+              </div>
+              <div class="footer">
+                La Petite Vitrine &mdash; contact@lapetitevitrine.com
+              </div>
+            </div>
+          </body>
+          </html>
+        `;
+
+        // Envoi email client avec fichiers en PJ
+        await fetch('/api/send-order-recap', {
+          method: 'POST',
+          body: buildFormData(formData.email, 'Votre récapitulatif de commande - La Petite Vitrine', htmlClient),
+        });
+
+        // Envoi email admin avec fichiers en PJ
+        await fetch('/api/send-order-recap', {
+          method: 'POST',
+          body: buildFormData(adminEmail, 'Nouvelle commande reçue - La Petite Vitrine', htmlAdmin),
+        });
+
+        setEmailSent(true);
+      } else {
+        setEmailResult('Erreur : données de commande incomplètes.');
+      }
+      navigate('/success');
     } catch (error) {
-      const notification = document.createElement('div');
-      notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-      notification.textContent = 'Erreur lors de la création de la commande';
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        document.body.removeChild(notification);
-      }, 3000);
+      setEmailResult('Erreur lors de la création de la commande');
+      console.log('[EcommerceFlow] Erreur lors de la commande :', error);
+    } finally {
+      setSending(false);
     }
   };
 
@@ -96,8 +268,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     setCurrentFlow('maintenance-selection');
   };
 
-  const handleFormCompleted = () => {
-    setCurrentFlow('summary');
+  const handleFormCompleted = async () => {
+    // On déclenche l'envoi d'email et la création de commande ici
+    await handleCompleteOrder();
+    navigate('/success'); // Ou navigate('/success') si tu veux aller directement à la page de succès
   };
 
   const goBack = () => {
@@ -146,11 +320,11 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
             )}
             </div>
             <div className="flex flex-col items-center gap-4">
-            <h1 className="text-3xl font-bold text-blue-gray100 font-heading-2">
+            <h1 className="md:text-3xl text-2xl font-bold text-blue-gray100 font-heading-2 text-center">
               Commande en ligne
             </h1>
             <p className="text-blue-gray200 text-center font-body-l">
-              48h avant validation de votre commande. <br />Nous vous recontactons pour affiner votre demande et démarrer la production le plus rapidement possible.
+              Nous validons votre commande sous 48h, vous recevrez un email de confirmation avec les détails.
             </p>
             </div>
           </div>
@@ -201,13 +375,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 currentStep={stepFormData.currentStep}
                 formData={stepFormData.formData}
                 onUpdateFormData={updateFormData}
-                onNextStep={() => {
-                  if (isLastStep && isFormValid) {
-                    handleFormCompleted();
-                  } else {
-                    nextStep();
-                  }
-                }}
+                onNextStep={isLastStep ? handleFormCompleted : nextStep}
                 onPrevStep={prevStep}
                 onGoToStep={goToStep}
                 isLastStep={isLastStep}
@@ -249,12 +417,16 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                       </div>
                     </div>
 
+
+                    {/* Envoi de l'email de récapitulatif déplacé dans handleCompleteOrder */}
                     <Button
                       onClick={handleCompleteOrder}
-                      className="w-full bg-amber-600 hover:bg-amber-700 text-white text-lg py-4 rounded-xl shadow-lg font-medium"
+                      className="w-full bg-amber-600 hover:bg-amber-700 text-white text-lg py-4 rounded-xl shadow-lg font-medium mt-4"
+                      disabled={sending}
                     >
-                      Confirmer la commande
+                      {sending ? 'Traitement...' : 'Confirmer la commande'}
                     </Button>
+                    {emailResult && <div className="text-red-600 mt-2">{emailResult}</div>}
                     
                     <div className="text-center mt-4">
                       <Button

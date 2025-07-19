@@ -48,6 +48,7 @@ export const SEO: React.FC<SEOProps> = ({
       }
     };
 
+
     // Métadonnées de base
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);

@@ -62,18 +62,11 @@ export const AtoutsSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="-mt-56 flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 3xl:p-24 4xl:p-32 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200 overflow-hidden">
-      <div className="absolute mt-16 inset-0 w-full h-full z-50">  
-        <img
-        src="/label-satisfait.png"
-        alt="label satisfait ou remboursé"
-        className="inset-0 w-48 h-48 object-contain mx-auto"
-        />
-      </div>
+    <section className="md:-mt-56 mt-24 flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 3xl:p-24 4xl:p-32 relative w-full bg-blue-gray900 border-t [border-top-style:solid] border-b [border-bottom-style:solid] border-slate-200">
       
       {/* Container pour centrer le contenu sur très grands écrans */}
-      <div className="w-full max-w-[1400px] mx-auto">
-        <div className="pt-[18%] flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 3xl:gap-24 4xl:gap-32 relative w-full">
+      <div className="w-full max-w-[1400px] mx-auto md:pt-48 pt-12">
+        <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12 lg:gap-20 3xl:gap-24 4xl:gap-32 relative w-full">
           <AnimatedSection
             animation="slideRight"
             className="flex-1 flex flex-col items-start gap-8 md:mb-8 mb-0 md:mt-0 mt-8"
@@ -86,11 +79,11 @@ export const AtoutsSection = (): JSX.Element => {
           </AnimatedSection>
 
           <AnimatedSection animation="slideLeft" delay={200}>
-            <div onClick={() => setIsPopupOpen(true)} className="cursor-pointer mb-12">
               <StyledWrapper>
+                <a href="/#demos" className="flex items-center justify-center ">
                 Voir une démo
+                </a>
               </StyledWrapper>
-            </div>
           </AnimatedSection>
       </div>
 
@@ -102,7 +95,7 @@ export const AtoutsSection = (): JSX.Element => {
         </div>
 
         <StaggeredContainer
-          className="mb-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12 relative w-full"
+          className="md:mb-4 md:mb-0 mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12 relative w-full"
           staggerDelay={200}
           animation="slideUp"
         >

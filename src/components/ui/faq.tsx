@@ -158,7 +158,7 @@ export const FAQ = ({
                 >
                   <Card className={`w-full ${getBentoStyle(pattern.type)} rounded-2xl`}>
                     <CardContent className="p-4">
-                      <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-3 pt-4">
                         {/* Question */}
                         <h3 className="font-subtitle-XL font-[number:var(--subtitle-XL-font-weight)] text-amber-900 tracking-[var(--subtitle-XL-letter-spacing)] leading-tight [font-style:var(--subtitle-XL-font-style)] text-base">
                           {faq.question}
@@ -209,21 +209,21 @@ export const FAQ = ({
                 const baseStyles = 'transition-all duration-700';
                 switch(type) {
                   case 'hero':
-                    return `bg-amber-900 shadow-lg ${baseStyles}`;
+                    return `bg-white shadow-lg ${baseStyles}`;
                   case 'tall':
                     return `bg-indigo-100 shadow-md ${baseStyles}`;
                   case 'wide':
                     return `bg-pink-100 shadow-md ${baseStyles}`;
                   case 'square':
-                    return `bg-blue-gray200 shadow-md ${baseStyles}`;
+                    return `bg-yellow-100 shadow-md ${baseStyles}`;
                   case 'large':
                     return `bg-green-100 shadow-lg ${baseStyles}`;
                   case 'medium':
                     return `bg-green-100 shadow-md ${baseStyles}`;
                   case 'mini':
-                    return `bg-blue-gray200 shadow-sm ${baseStyles}`;
+                    return `bg-yellow-100 shadow-sm ${baseStyles}`;
                   case 'flat':
-                    return `bg-blue-gray200 shadow-sm ${baseStyles}`;
+                    return `bg-yellow-100 shadow-sm ${baseStyles}`;
                   default:
                     return `bg-white shadow-md ${baseStyles}`;
                 }
@@ -285,51 +285,3 @@ export const FAQ = ({
     </section>
   );
 };
-
-// Composant par défaut pour test et compatibilité
-export default function FAQDemo() {
-  const sophisticatedFAQItems: FAQItem[] = [
-    {
-      id: 1,
-      question: "Comment nos services peuvent-ils transformer votre entreprise ?",
-      answer: "Nos solutions sur mesure s'adaptent parfaitement à vos besoins spécifiques. Grâce à notre expertise technique et notre approche personnalisée, nous optimisons vos processus métier pour une efficacité maximale. Nos clients constatent généralement une amélioration de 40% de leur productivité dans les 3 premiers mois."
-    },
-    {
-      id: 2,
-      question: "Quels sont les délais moyens pour un projet personnalisé ?", 
-      answer: "Chaque projet étant unique, nos délais varient selon la complexité et l'étendue des fonctionnalités demandées. En moyenne, un projet standard prend entre 4 à 8 semaines, tandis qu'un projet complexe peut nécessiter 12 à 16 semaines. Nous établissons toujours un planning détaillé avec des jalons clairs dès le début de notre collaboration."
-    },
-    {
-      id: 3,
-      question: "Proposez-vous un accompagnement après la livraison ?",
-      answer: "Absolument ! Notre engagement ne s'arrête pas à la livraison. Nous offrons un support technique complet incluant la maintenance, les mises à jour, la formation de vos équipes et l'évolution de votre solution. Notre équipe dédiée reste à votre disposition pour garantir le succès à long terme de votre projet."
-    },
-    {
-      id: 4,
-      question: "Comment garantissez-vous la sécurité de nos données ?",
-      answer: "La sécurité est notre priorité absolue. Nous appliquons les dernières normes de sécurité (ISO 27001, RGPD) et utilisons des protocoles de chiffrement avancés. Nos serveurs sont hébergés dans des centres de données certifiés avec des sauvegardes automatiques quotidiennes. De plus, nous réalisons des audits de sécurité réguliers pour maintenir le plus haut niveau de protection."
-    },
-    {
-      id: 5,
-      question: "Quels sont vos tarifs et modalités de paiement ?",
-      answer: "Nos tarifs sont adaptés à la complexité et à la valeur ajoutée de chaque projet. Nous proposons plusieurs modalités : forfait global, paiement échelonné selon les livrables, ou abonnement mensuel pour les services récurrents. Un devis détaillé vous sera fourni après analyse de vos besoins spécifiques. Nous acceptons tous les modes de paiement professionnels."
-    },
-    {
-      id: 6,
-      question: "Quelles technologies utilisez-vous ?",
-      answer: "Nous maîtrisons les dernières technologies : React, Vue.js, Node.js, Python, AWS, Docker, Kubernetes. Notre stack technologique évolue constamment pour rester à la pointe de l'innovation."
-    },
-  ];
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-white">
-      <FAQ 
-        title="Questions Fréquentes"
-        subtitle="Découvrez tout ce que vous devez savoir sur nos services premium"
-        items={sophisticatedFAQItems}
-        className=""
-        maxWidth="6xl"
-      />
-    </div>
-  );
-}

@@ -6,7 +6,7 @@ export const DEFAULT_SEO = {
   author: "Next Impact - La Petite Vitrine",
   twitterSite: "@lapetitevitrine",
   twitterCreator: "@nextimpact",
-  ogImage: "/og-image.jpg",
+  ogImage: "/og-image.png",
   themeColor: "#D97706", // Amber-600
   domain: "https://lapetitevitrine.com",
   phone: "+33673981638",
@@ -16,7 +16,7 @@ export const DEFAULT_SEO = {
 // Métadonnées spécifiques par page
 export const PAGE_SEO = {
   home: {
-    title: "La petite vitrine - Sites web et Réseaux sociaux des artisans",
+    title: "La Petite Vitrine - Sites web et Réseaux sociaux des artisans",
     description: DEFAULT_SEO.description,
     canonical: "https://lapetitevitrine.com",
     keywords: DEFAULT_SEO.keywords,

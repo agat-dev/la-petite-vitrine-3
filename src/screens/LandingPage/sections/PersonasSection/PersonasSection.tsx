@@ -83,7 +83,7 @@ export const PersonasSection = (): JSX.Element => {
   }, []);
 
   return (
-    <section className="max-w-[1600px] mx-auto flex flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 pb-20 md:pb-24 lg:pb-32 px-4 md:px-8 lg:px-20 relative self-stretch w-full overflow-hidden">
+    <section className="max-w-[1600px] mx-auto md:flex hidden flex-col items-start justify-center gap-12 md:gap-16 lg:gap-20 md:pt-0 pt-20 pb-20 md:pb-24 lg:pb-32 px-4 md:px-8 lg:px-20 relative self-stretch w-full overflow-hidden">
       <img
         className="absolute w-full h-[400px] md:h-[500px] lg:h-[684px] top-[200px] md:top-[250px] lg:top-[312px] left-0 object-cover"
         alt="Waves"

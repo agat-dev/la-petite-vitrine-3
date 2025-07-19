@@ -1,24 +1,21 @@
-import React from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { Card, CardContent } from '../components/ui/card';
 
 export const MentionsLegalesPage = (): JSX.Element => {
-  const handleGoBack = () => {
-    window.history.back();
-  };
+
 
   return (
     <div className="min-h-screen bg-amber-50">
       {/* Header */}
       <header className="bg-blue-gray900 text-white py-6 px-4 md:px-8 lg:px-20">
         <div className="max-w-[1600px] mx-auto">
-          <button
-            onClick={handleGoBack}
+          <a
+            href="/"
             className="flex items-center gap-2 text-blue-gray200 hover:text-white transition-colors mb-4"
           >
             <ArrowLeftIcon className="w-5 h-5" />
             Retour
-          </button>
+          </a>
           <h1 className="text-2xl md:text-3xl font-heading-2 text-white">
             Mentions Légales
           </h1>
@@ -35,7 +32,7 @@ export const MentionsLegalesPage = (): JSX.Element => {
             <CardContent className="p-8 md:p-12 space-y-8">
               
               {/* Section 1 - Identification de l'entreprise */}
-              <section>
+              <section className='md:p-0 py-4'>
                 <h2 className="text-xl font-heading-4 text-blue-gray900 mb-4">
                   1. Identification de l'entreprise
                 </h2>
