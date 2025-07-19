@@ -217,26 +217,41 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
           </html>
         `;
 
+        // Création du FormData pour l'email client
+        const formDataToSend = new FormData();
+        formDataToSend.append('to', formData.email);
+        formDataToSend.append('subject', 'Votre récapitulatif de commande - La Petite Vitrine');
+        formDataToSend.append('html', htmlClient);
+
+        // Ajoute les fichiers s'ils existent dans formData
+        Object.entries(formData).forEach(([key, value]) => {
+          if (value instanceof File) {
+            formDataToSend.append('files', value, value.name);
+          }
+        });
+
         // Envoi email client
         await fetch('/api/send-order-recap', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: [formData.email],
-            subject: 'Votre récapitulatif de commande - La Petite Vitrine',
-            html: htmlClient,
-          }),
+          body: formDataToSend,
+        });
+
+        // Création du FormData pour l'email admin
+        const formDataToSendAdmin = new FormData();
+        formDataToSendAdmin.append('to', adminEmail);
+        formDataToSendAdmin.append('subject', 'Nouvelle commande reçue - La Petite Vitrine');
+        formDataToSendAdmin.append('html', htmlAdmin);
+
+        Object.entries(formData).forEach(([key, value]) => {
+          if (value instanceof File) {
+            formDataToSendAdmin.append('files', value, value.name);
+          }
         });
 
         // Envoi email admin
         await fetch('/api/send-order-recap', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: [adminEmail],
-            subject: 'Nouvelle commande reçue - La Petite Vitrine',
-            html: htmlAdmin,
-          }),
+          body: formDataToSendAdmin,
         });
 
         setEmailSent(true);
