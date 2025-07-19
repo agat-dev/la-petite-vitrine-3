@@ -82,6 +82,27 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
       const total = calculateTotal();
       const adminEmail = "contact@lapetitevitrine.com";
       if (pack && maintenance && formData.email) {
+        // Préparation du FormData pour l'envoi de fichiers en pièce jointe
+        const buildFormData = (to: string, subject: string, html: string) => {
+          const fd = new FormData();
+          fd.append('to', to);
+          fd.append('subject', subject);
+          fd.append('html', html);
+
+          // Ajout des fichiers si présents (adapté à ta structure)
+          if (formData.visualFiles && Array.isArray(formData.visualFiles)) {
+            formData.visualFiles.forEach((f: File) => fd.append('visualFiles', f, f.name));
+          }
+          if (formData.textFiles && Array.isArray(formData.textFiles)) {
+            formData.textFiles.forEach((f: File) => fd.append('textFiles', f, f.name));
+          }
+          if (formData.otherFiles && Array.isArray(formData.otherFiles)) {
+            formData.otherFiles.forEach((f: File) => fd.append('otherFiles', f, f.name));
+          }
+          // Pour compatibilité, si tu as d'autres champs fichiers, ajoute-les ici
+          return fd;
+        };
+
         // Email client
         const htmlClient = `
           <!DOCTYPE html>
@@ -217,26 +238,16 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
           </html>
         `;
 
-        // Envoi email client
+        // Envoi email client avec fichiers en PJ
         await fetch('/api/send-order-recap', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: [formData.email],
-            subject: 'Votre récapitulatif de commande - La Petite Vitrine',
-            html: htmlClient,
-          }),
+          body: buildFormData(formData.email, 'Votre récapitulatif de commande - La Petite Vitrine', htmlClient),
         });
 
-        // Envoi email admin
+        // Envoi email admin avec fichiers en PJ
         await fetch('/api/send-order-recap', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: [adminEmail],
-            subject: 'Nouvelle commande reçue - La Petite Vitrine',
-            html: htmlAdmin,
-          }),
+          body: buildFormData(adminEmail, 'Nouvelle commande reçue - La Petite Vitrine', htmlAdmin),
         });
 
         setEmailSent(true);
