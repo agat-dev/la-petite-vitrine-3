@@ -101,13 +101,25 @@ export const OrderEmailSender = forwardRef(function OrderEmailSender(
 
     // Ajout des fichiers si présents (adapte selon ta structure)
     if (formData.visualFiles && Array.isArray(formData.visualFiles)) {
-      formData.visualFiles.forEach((f: File) => formDataToSend.append('visualFiles', f, f.name));
+      log(`Ajout de ${formData.visualFiles.length} visualFiles en PJ`);
+      formData.visualFiles.forEach((f: File, idx: number) => {
+        log(`Ajout visualFiles[${idx}]: ${f.name} (${f.size} octets)`);
+        formDataToSend.append('visualFiles', f, f.name);
+      });
     }
     if (formData.textFiles && Array.isArray(formData.textFiles)) {
-      formData.textFiles.forEach((f: File) => formDataToSend.append('textFiles', f, f.name));
+      log(`Ajout de ${formData.textFiles.length} textFiles en PJ`);
+      formData.textFiles.forEach((f: File, idx: number) => {
+        log(`Ajout textFiles[${idx}]: ${f.name} (${f.size} octets)`);
+        formDataToSend.append('textFiles', f, f.name);
+      });
     }
     if (formData.otherFiles && Array.isArray(formData.otherFiles)) {
-      formData.otherFiles.forEach((f: File) => formDataToSend.append('otherFiles', f, f.name));
+      log(`Ajout de ${formData.otherFiles.length} otherFiles en PJ`);
+      formData.otherFiles.forEach((f: File, idx: number) => {
+        log(`Ajout otherFiles[${idx}]: ${f.name} (${f.size} octets)`);
+        formDataToSend.append('otherFiles', f, f.name);
+      });
     }
 
     try {
