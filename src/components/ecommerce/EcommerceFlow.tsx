@@ -76,14 +76,14 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     setEmailResult(null);
     try {
       await createOrder();
-      // Envoi direct de l'email ici
       const pack = stepFormData.selectedPack;
       const maintenance = stepFormData.selectedMaintenance;
       const formData = stepFormData.formData;
       const total = calculateTotal();
       const adminEmail = "contact@lapetitevitrine.com";
       if (pack && maintenance && formData.email) {
-        const html = `
+        // Email client
+        const htmlClient = `
           <!DOCTYPE html>
           <html>
           <head>
@@ -149,22 +149,97 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
           </body>
           </html>
         `;
-        const payload = {
-          to: [formData.email, adminEmail],
-          subject: 'Votre récapitulatif de commande - La Petite Vitrine',
-          html,
-        };
-        const res = await fetch('/api/send-order-recap', {
+
+        // Email admin
+        const htmlAdmin = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>Nouvelle commande reçue - La Petite Vitrine</title>
+            <style>
+              body { font-family: 'Inter', Arial, sans-serif; background: #F9FAFB; color: #222; }
+              .container { max-width: 600px; margin: 0 auto; padding: 32px 0 24px 0; background: #F9FAFB; border-radius: 18px; border: 1px solid #E0E7EF; box-shadow: 0 4px 24px 0 rgba(46,102,193,0.07); }
+              .header { text-align: center; margin-bottom: 32px; }
+              .header img { height: 60px; margin-bottom: 12px; }
+              .header h1 { font-size: 2rem; color: #2E66C1; margin: 0; font-weight: 700; letter-spacing: -1px; }
+              .section { background: #FFF8E1; border-radius: 12px; padding: 20px 24px; margin: 0 24px 24px 24px; border: 1px solid #FCD34D; }
+              .recap { background: #fff; border-radius: 12px; padding: 24px 24px 16px 24px; margin: 0 24px 24px 24px; border: 1px solid #E0E7EF; }
+              .recap h2 { color: #2E66C1; font-size: 1.2rem; margin-bottom: 12px; font-weight: 700; }
+              .recap h3 { color: #F59E42; font-size: 1rem; margin-bottom: 6px; font-weight: 600; }
+              ul { margin: 0 0 12px 0; padding-left: 18px; }
+              li { color: #2E66C1; }
+              .footer { text-align: center; color: #B0B7C3; font-size: 0.9rem; margin-top: 16px; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="header">
+                <img src="https://lapetitevitrine.com/logo-pv.png" alt="La Petite Vitrine" />
+                <h1>Nouvelle commande reçue</h1>
+              </div>
+              <div class="section">
+                <p style="font-size:1.05rem;color:#2E66C1;margin:0 0 8px 0;font-weight:600;">
+                  Nouvelle commande à traiter.
+                </p>
+                <p style="font-size:1rem;color:#222;margin:0;">
+                  Un client vient de passer commande. Retrouvez le récapitulatif ci-dessous.
+                </p>
+              </div>
+              <div class="recap">
+                <h2>Récapitulatif de commande</h2>
+                <h3>Pack sélectionné</h3>
+                <ul>
+                  <li style="color:#222;font-weight:600;">${pack.title} - ${pack.price}€</li>
+                  ${pack.features.map((f) => `<li style="color:#2E66C1;">${f}</li>`).join('')}
+                </ul>
+                <h3>Maintenance sélectionnée</h3>
+                <ul>
+                  <li style="color:#222;font-weight:600;">${maintenance.title} - ${maintenance.price}€/mois</li>
+                  <li style="color:#2E66C1;">${maintenance.description}</li>
+                </ul>
+                <h3>Informations client</h3>
+                <ul>
+                  ${Object.entries(formData)
+                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${k}:</strong> <span style="color:#222;">${v}</span></li>`)
+                    .join('')}
+                </ul>
+                <h3>Montant total</h3>
+                <p style="font-size:1.1rem;color:#2E66C1;font-weight:700;margin:0 0 8px 0;">
+                  ${total}€ <span style="color:#222;font-weight:400;font-size:0.95rem;">(+${maintenance.price}€/mois de maintenance)</span>
+                </p>
+              </div>
+              <div class="footer">
+                La Petite Vitrine &mdash; contact@lapetitevitrine.com
+              </div>
+            </div>
+          </body>
+          </html>
+        `;
+
+        // Envoi email client
+        await fetch('/api/send-order-recap', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({
+            to: [formData.email],
+            subject: 'Votre récapitulatif de commande - La Petite Vitrine',
+            html: htmlClient,
+          }),
         });
-        if (!res.ok) {
-          const text = await res.text();
-          setEmailResult('Erreur lors de l’envoi de l’email : ' + text);
-        } else {
-          setEmailSent(true);
-        }
+
+        // Envoi email admin
+        await fetch('/api/send-order-recap', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: [adminEmail],
+            subject: 'Nouvelle commande reçue - La Petite Vitrine',
+            html: htmlAdmin,
+          }),
+        });
+
+        setEmailSent(true);
       } else {
         setEmailResult('Erreur : données de commande incomplètes.');
       }
