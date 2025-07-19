@@ -93,18 +93,28 @@ export const OrderEmailSender = forwardRef(function OrderEmailSender(
       </html>
     `;
 
-    const payload = {
-      to: [formData.email, adminEmail],
-      subject: 'Votre récapitulatif de commande - La Petite Vitrine',
-      html,
-    };
+    // Préparation du FormData pour l'envoi de fichiers en pièce jointe
+    const formDataToSend = new FormData();
+    formDataToSend.append('to', formData.email);
+    formDataToSend.append('subject', 'Votre récapitulatif de commande - La Petite Vitrine');
+    formDataToSend.append('html', html);
+
+    // Ajout des fichiers si présents (adapte selon ta structure)
+    if (formData.visualFiles && Array.isArray(formData.visualFiles)) {
+      formData.visualFiles.forEach((f: File) => formDataToSend.append('visualFiles', f, f.name));
+    }
+    if (formData.textFiles && Array.isArray(formData.textFiles)) {
+      formData.textFiles.forEach((f: File) => formDataToSend.append('textFiles', f, f.name));
+    }
+    if (formData.otherFiles && Array.isArray(formData.otherFiles)) {
+      formData.otherFiles.forEach((f: File) => formDataToSend.append('otherFiles', f, f.name));
+    }
 
     try {
       log('Envoi de la requête POST à /api/send-order-recap');
       const res = await fetch('/api/send-order-recap', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: formDataToSend,
       });
       log('Statut HTTP: ' + res.status);
       let text = '';
