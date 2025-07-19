@@ -89,17 +89,29 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
           fd.append('subject', subject);
           fd.append('html', html);
 
-          // Ajout des fichiers si présents (adapté à ta structure)
+          // Ajout des fichiers
           if (formData.visualFiles && Array.isArray(formData.visualFiles)) {
-            formData.visualFiles.forEach((f: File) => fd.append('visualFiles', f, f.name));
+            console.log('visualFiles trouvés :', formData.visualFiles);
+            formData.visualFiles.forEach((f: File, idx: number) => {
+              console.log(`Ajout visualFiles[${idx}]: ${f.name} (${f.size} octets)`);
+              fd.append('visualFiles', f, f.name);
+            });
           }
           if (formData.textFiles && Array.isArray(formData.textFiles)) {
-            formData.textFiles.forEach((f: File) => fd.append('textFiles', f, f.name));
+            console.log('textFiles trouvés :', formData.textFiles);
+            formData.textFiles.forEach((f: File, idx: number) => {
+              console.log(`Ajout textFiles[${idx}]: ${f.name} (${f.size} octets)`);
+              fd.append('textFiles', f, f.name);
+            });
           }
           if (formData.otherFiles && Array.isArray(formData.otherFiles)) {
-            formData.otherFiles.forEach((f: File) => fd.append('otherFiles', f, f.name));
+            console.log('otherFiles trouvés :', formData.otherFiles);
+            formData.otherFiles.forEach((f: File, idx: number) => {
+              console.log(`Ajout otherFiles[${idx}]: ${f.name} (${f.size} octets)`);
+              fd.append('otherFiles', f, f.name);
+            });
           }
-          // Pour compatibilité, si tu as d'autres champs fichiers, ajoute-les ici
+          console.log('Envoi du fetch avec FormData :', fd);
           return fd;
         };
 
