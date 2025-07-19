@@ -16,7 +16,7 @@ export const DEFAULT_SEO = {
 // Métadonnées spécifiques par page
 export const PAGE_SEO = {
   home: {
-    title: "La petite vitrine - Sites web et Réseaux sociaux des artisans",
+    title: "La Petite vitrine - Sites web et Réseaux sociaux des artisans",
     description: DEFAULT_SEO.description,
     canonical: "https://lapetitevitrine.com",
     keywords: DEFAULT_SEO.keywords,

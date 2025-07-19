@@ -42,3 +42,11 @@ export interface StepProps {
   setFormData: (data: FormData) => void;
   errors: Record<string, string>;
 }
+
+const formDataToSend = new FormData();
+formDataToSend.append('to', formData.email);
+formDataToSend.append('subject', 'Votre récapitulatif de commande - La Petite Vitrine');
+formDataToSend.append('html', htmlClient);
+formData.visualFiles.forEach(f => formDataToSend.append('visualFiles', f, f.name));
+formData.textFiles.forEach(f => formDataToSend.append('textFiles', f, f.name));
+formData.otherFiles.forEach(f => formDataToSend.append('otherFiles', f, f.name));

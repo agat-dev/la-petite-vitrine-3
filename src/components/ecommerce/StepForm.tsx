@@ -258,6 +258,50 @@ export const StepForm: React.FC<StepFormProps> = ({
           </div>
         );
 
+      case "file":
+        return (
+          <div key={field.id} className="space-y-2">
+            <label className="block text-sm font-medium text-blue-gray900 font-body-m">
+              {field.label}{" "}
+              {field.required && <span className="text-red-500">*</span>}
+            </label>
+            <div className="relative w-full">
+              <input
+                id={`file-input-${field.id}`}
+                type="file"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                onChange={(e) =>
+                  handleFieldChange(field.id, e.target.files?.[0])
+                }
+                aria-label={field.label}
+              />
+              <label
+                htmlFor={`file-input-${field.id}`}
+                className={cn(
+                  "w-max flex items-center justify-center gap-2 px-4 py-1 rounded-xl bg-amber-600 text-white font-medium shadow-md cursor-pointer transition hover:bg-amber-700 border border-amber-300",
+                  error ? "border-red-400" : "border-amber-300/40"
+                )}
+              >
+                <svg
+                  className="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M4 12l4-4m0 0l4 4m-4-4v12"
+                  />
+                </svg>
+                <span>{formData[field.id]?.name || "Choisir un fichier"}</span>
+              </label>
+            </div>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+          </div>
+        );
+
       default:
         // On ne rend plus les champs password et confirmPassword
         if (field.id === "password" || field.id === "confirmPassword")
