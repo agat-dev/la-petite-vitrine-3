@@ -43,6 +43,34 @@ export interface StepProps {
   errors: Record<string, string>;
 }
 
+// Example formData object for demonstration purposes
+const formData: FormData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  company: '',
+  sector: '',
+  address: '',
+  city: '',
+  postalCode: '',
+  country: '',
+  interventionArea: '',
+  mainCompetitors: '',
+  proposedServices: '',
+  specificityPositioning: '',
+  typesOfClients: 'particuliers',
+  communicationTone: '',
+  visualFiles: [],
+  textFiles: [],
+  otherFiles: [],
+  existingContentLinks: '',
+  miscellaneousInfo: ''
+};
+
+// Example htmlClient string for demonstration purposes
+const htmlClient = '';
+
 const formDataToSend = new FormData();
 formDataToSend.append('to', formData.email);
 formDataToSend.append('subject', 'Votre récapitulatif de commande - La Petite Vitrine');

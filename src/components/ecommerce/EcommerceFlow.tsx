@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
-// import { OrderEmailSender } from './OrderEmailSender';
 import { OrderSummary } from './OrderSummary';
 import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';
@@ -167,7 +166,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 <h3>Informations client</h3>
                 <ul>
                   ${Object.entries(formData)
-                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${k}:</strong> <span style="color:#222;">${v}</span></li>`)
+                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${FORM_FIELD_LABELS[k] ?? k}:</strong> <span style="color:#222;">${v}</span></li>`)
                     .join('')}
                 </ul>
                 <h3>Montant total</h3>
@@ -234,7 +233,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 <h3>Informations client</h3>
                 <ul>
                   ${Object.entries(formData)
-                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${k}:</strong> <span style="color:#222;">${v}</span></li>`)
+                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${FORM_FIELD_LABELS[k] ?? k}:</strong> <span style="color:#222;">${v}</span></li>`)
                     .join('')}
                 </ul>
                 <h3>Montant total</h3>
@@ -300,6 +299,30 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
       default:
         break;
     }
+  };
+
+  // Associe les clés de FormData à leur label utilisateur pour affichage dans le récapitulatif
+  const FORM_FIELD_LABELS: Record<string, string> = {
+    firstName: "Prénom",
+    lastName: "Nom",
+    email: "Email",
+    phone: "Téléphone",
+    company: "Entreprise",
+    sector: "Secteur d'activité",
+    address: "Adresse",
+    city: "Ville",
+    postalCode: "Code postal",
+    interventionArea: "Zone d'intervention",
+    mainCompetitors: "Concurrents principaux",
+    proposedServices: "Services proposés",
+    specifityPositioning: "Positionnement spécifique",
+    typesOfClients: "Types de clients",
+    communicationTone: "Ton de communication",
+    existingContentLinks: "Liens vers vos contenus existants",
+    miscellaneousInfo: "Informations diverses",
+    visualFiles: "Fichiers visuels",
+    textFiles: "Fichiers textes",
+    otherFiles: "Autres fichiers",
   };
 
 
