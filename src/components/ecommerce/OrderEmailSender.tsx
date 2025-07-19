@@ -134,8 +134,6 @@ export const OrderEmailSender = forwardRef(function OrderEmailSender(
     send: handleSendEmail,
   }));
 
-  console.log('[OrderEmailSender] Monté');
-
   return (
     <div>
       <button
