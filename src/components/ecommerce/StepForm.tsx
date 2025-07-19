@@ -45,16 +45,9 @@ export const StepForm: React.FC<StepFormProps> = ({
       return `${field.label} est requis`;
     }
 
+    // Suppression de la vérification minLength et maxLength
     if (field.validation) {
-      const { pattern, minLength, maxLength } = field.validation;
-
-      if (minLength && value && value.toString().length < minLength) {
-        return `${field.label} doit contenir au moins ${minLength} caractères`;
-      }
-
-      if (maxLength && value && value.toString().length > maxLength) {
-        return `${field.label} ne peut pas dépasser ${maxLength} caractères`;
-      }
+      const { pattern } = field.validation;
 
       if (pattern && value && !new RegExp(pattern).test(value.toString())) {
         return `${field.label} n'est pas valide`;
