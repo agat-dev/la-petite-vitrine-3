@@ -16,6 +16,9 @@ interface StepFormProps {
   isLastStep: boolean;
   isFirstStep: boolean;
   className?: string;
+  setVisualFiles: React.Dispatch<React.SetStateAction<File[]>>;
+  setTextFiles: React.Dispatch<React.SetStateAction<File[]>>;
+  setOtherFiles: React.Dispatch<React.SetStateAction<File[]>>;
 }
 
 export const StepForm: React.FC<StepFormProps> = ({
@@ -29,6 +32,9 @@ export const StepForm: React.FC<StepFormProps> = ({
   isLastStep,
   isFirstStep,
   className,
+  setVisualFiles,
+  setTextFiles,
+  setOtherFiles,
 }) => {
   const [currentStepData, setCurrentStepData] = useState<Record<string, any>>(
     {}
@@ -36,9 +42,6 @@ export const StepForm: React.FC<StepFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   // Dropdown state for custom select
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
-  const [visualFiles, setVisualFiles] = useState<File[]>([]);
-  const [textFiles, setTextFiles] = useState<File[]>([]);
-  const [otherFiles, setOtherFiles] = useState<File[]>([]);
 
   const currentStepInfo = steps[currentStep];
 
@@ -130,15 +133,6 @@ export const StepForm: React.FC<StepFormProps> = ({
     onPrevStep();
   };
 
-  // Soumettre le formulaire
-  const handleSubmit = () => {
-    onCompleteForm({
-      ...formData,
-      visualFiles,
-      textFiles,
-      otherFiles,
-    });
-  };
 
   // Rendu d'un champ de formulaire
   const renderField = (field: FormField) => {
@@ -283,9 +277,19 @@ export const StepForm: React.FC<StepFormProps> = ({
                 id={`file-input-${field.id}`}
                 type="file"
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                onChange={(e) =>
-                  handleFieldChange(field.id, e.target.files?.[0])
-                }
+                onChange={(e) => {
+                  const files = Array.from(e.target.files || []);
+                  handleFieldChange(field.id, files[0]);
+                  if (files.length) {
+                    if (field.id === "elements_visuels") {
+                      setVisualFiles((prev) => [...prev, ...files]);
+                    } else if (field.id === "textes_contenus") {
+                      setTextFiles((prev) => [...prev, ...files]);
+                    } else if (field.id === "autres_fichiers") {
+                      setOtherFiles((prev) => [...prev, ...files]);
+                    }
+                  }
+                }}
                 aria-label={field.label}
                 multiple
               />
