@@ -9,6 +9,35 @@ export const config = {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+async function sendOrderToNotion(order: any) {
+  const token = process.env.NOTION_TOKEN as string | undefined;
+  const databaseId = process.env.NOTION_DATABASE_ID as string | undefined;
+  if (!token || !databaseId) return;
+  const name = `${order.formData?.firstName ?? ''} ${order.formData?.lastName ?? ''}`.trim();
+  try {
+    await fetch('https://api.notion.com/v1/pages', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Notion-Version': '2022-06-28',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        parent: { database_id: databaseId },
+        properties: {
+          Name: { title: [{ text: { content: name || 'Nouvelle commande' } }] },
+          Email: { rich_text: [{ text: { content: order.formData?.email ?? '' } }] },
+          Pack: { rich_text: [{ text: { content: order.pack?.title ?? '' } }] },
+          Maintenance: { rich_text: [{ text: { content: order.maintenance?.title ?? '' } }] },
+          Total: { number: order.total ?? 0 },
+        },
+      }),
+    });
+  } catch (err) {
+    console.error('[API] Notion error:', err);
+  }
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log('[API] Reçu une requête:', req.method, req.body);
   if (req.method !== 'POST') {
@@ -26,6 +55,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const to = Array.isArray(fields.to) ? fields.to[0] : fields.to;
     const subject = Array.isArray(fields.subject) ? fields.subject[0] : fields.subject;
     const html = Array.isArray(fields.html) ? fields.html[0] : fields.html;
+    const orderDataRaw = Array.isArray(fields.orderData) ? fields.orderData[0] : fields.orderData;
+    let orderData: any;
+    if (orderDataRaw) {
+      try {
+        orderData = JSON.parse(orderDataRaw as string);
+      } catch {
+        orderData = undefined;
+      }
+    }
 
     // Récupération des fichiers (supporte visualFiles[], textFiles[], otherFiles[] ou files[])
     let attachments: any[] = [];
@@ -69,6 +107,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         html,
         attachments,
       });
+      if (orderData) {
+        await sendOrderToNotion(orderData);
+      }
       res.status(200).json({ success: true });
     } catch (e: any) {
       res.status(500).json({ error: e.message });

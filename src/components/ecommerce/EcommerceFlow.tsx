@@ -100,13 +100,21 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         addFiles(textFiles, 'textFiles', 'textes_contenus');
         addFiles(otherFiles, 'otherFiles', 'autres_fichiers');
 
-        const buildFormData = (to: string, subject: string, html: string) => {
+        const buildFormData = (
+          to: string,
+          subject: string,
+          html: string,
+          order?: any,
+        ) => {
           const fd = new FormData();
           fd.append('to', to);
           fd.append('subject', subject);
           fd.append('html', html);
           if (cidList.length) {
             fd.append('cids', JSON.stringify(cidList));
+          }
+          if (order) {
+            fd.append('orderData', JSON.stringify(order));
           }
 
           visualFiles.forEach((f) => fd.append('visualFiles', f, f.name));
@@ -292,13 +300,22 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         // Envoi email client avec fichiers en PJ
         await fetch('/api/send-order-recap', {
           method: 'POST',
-          body: buildFormData(formData.email, 'Votre récapitulatif de commande - La Petite Vitrine', htmlClient),
+          body: buildFormData(
+            formData.email,
+            'Votre récapitulatif de commande - La Petite Vitrine',
+            htmlClient,
+          ),
         });
 
         // Envoi email admin avec fichiers en PJ
         await fetch('/api/send-order-recap', {
           method: 'POST',
-          body: buildFormData(adminEmail, 'Nouvelle commande reçue - La Petite Vitrine', htmlAdmin),
+          body: buildFormData(
+            adminEmail,
+            'Nouvelle commande reçue - La Petite Vitrine',
+            htmlAdmin,
+            { pack, maintenance, formData, total },
+          ),
         });
 
         setEmailSent(true);
