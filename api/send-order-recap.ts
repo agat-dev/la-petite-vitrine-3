@@ -16,12 +16,17 @@ async function sendOrderToNotion(order: any) {
 
   const name = `${order.formData?.firstName ?? ''} ${order.formData?.lastName ?? ''}`.trim();
 
-  // Construit un texte contenant toutes les informations du formulaire
-  const formFields = Object.entries(order.formData ?? {})
-    .map(([k, v]) => `${k}: ${v}`)
-    .join('\n');
-  const files = (order.attachmentNames ?? []).join(', ');
-  const details = `${formFields}${files ? `\nFichiers: ${files}` : ''}`;
+  const formProperties: Record<string, any> = {};
+  Object.entries(order.formData ?? {}).forEach(([key, value]) => {
+    formProperties[key] = {
+      rich_text: [{ text: { content: String(value) } }],
+    };
+  });
+  if (order.attachmentNames?.length) {
+    formProperties['attachments'] = {
+      rich_text: [{ text: { content: order.attachmentNames.join(', ') } }],
+    };
+  }
 
   try {
     await fetch('https://api.notion.com/v1/pages', {
@@ -35,11 +40,10 @@ async function sendOrderToNotion(order: any) {
         parent: { database_id: databaseId },
         properties: {
           Name: { title: [{ text: { content: name || 'Nouvelle commande' } }] },
-          Email: { rich_text: [{ text: { content: order.formData?.email ?? '' } }] },
           Pack: { rich_text: [{ text: { content: order.pack?.title ?? '' } }] },
           Maintenance: { rich_text: [{ text: { content: order.maintenance?.title ?? '' } }] },
           Total: { number: order.total ?? 0 },
-          Details: { rich_text: [{ text: { content: details } }] },
+          ...formProperties,
         },
       }),
     });
