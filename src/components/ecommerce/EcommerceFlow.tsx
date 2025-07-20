@@ -10,6 +10,7 @@ import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
 import { PACKS, MAINTENANCE_OPTIONS } from '../../data/ecommerce-data';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react'; // Ajoute cette import en haut si tu utilises Lucide ou adapte selon ton design system
 
 type FlowStep = 'pack-selection' | 'maintenance-selection' | 'form' | 'summary';
 
@@ -162,9 +163,31 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                   Merci pour votre confiance !
                 </p>
                 <p style="font-size:1rem;color:#222;margin:0;">
-                  Vous recevrez sous 48h une validation de votre commande avec un accès à une prise de rendez-vous en ligne pour préciser votre besoin pour être certains que notre travail corresponde à vos attentes.<br>
-                  Vous recevrez également un lien pour procéder au paiement en ligne de votre commande.
+                  Prenez dès à présent rendez-vous en ligne pour nous faire part de vos attentes précises. </br>
+                  C'est à l'issue de cet échange que nous vous enverrons un message de confirmation de commande avec un lien pour procéder au paiement en ligne.
+                  Nous commencerons alors la création de votre site internet.
                 </p>
+                <div style="text-align:center;margin:24px 0;">
+                  <a
+                    href="https://calendly.com/agat-dev/creation-du-site-internet"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="
+                      display:inline-block;
+                      background: linear-gradient(90deg, #F59E42 0%, #2E66C1 100%);
+                      color: #fff;
+                      font-weight: 600;
+                      font-size: 1.1rem;
+                      padding: 14px 36px;
+                      border-radius: 32px;
+                      text-decoration: none;
+                      box-shadow: 0 2px 8px 0 rgba(46,102,193,0.08);
+                      transition: background 0.2s;
+                    "
+                  >
+                    📅 Réserver mon rendez-vous
+                  </a>
+                </div>
               </div>
               <div class="recap">
                 <h2>Récapitulatif de commande</h2>
@@ -483,11 +506,21 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
 
                     {/* Envoi de l'email de récapitulatif déplacé dans handleCompleteOrder */}
                     <Button
-                      onClick={handleCompleteOrder}
-                      className="w-full bg-amber-600 hover:bg-amber-700 text-white text-lg py-4 rounded-xl shadow-lg font-medium mt-4"
+                      onClick={async () => {
+                        await handleCompleteOrder();
+                        // La redirection est déjà gérée dans handleCompleteOrder ou handleFormCompleted
+                      }}
+                      className="w-full bg-amber-600 hover:bg-amber-700 text-white text-lg py-4 rounded-xl shadow-lg font-medium mt-4 flex items-center justify-center gap-2"
                       disabled={sending}
                     >
-                      {sending ? 'Traitement...' : 'Confirmer la commande'}
+                      {sending ? (
+                        <>
+                          <Loader2 className="animate-spin w-5 h-5 mr-2" />
+                          Traitement...
+                        </>
+                      ) : (
+                        'Confirmer la commande'
+                      )}
                     </Button>
                     {emailResult && <div className="text-red-600 mt-2">{emailResult}</div>}
                     
