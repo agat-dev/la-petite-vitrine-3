@@ -326,7 +326,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
     phone: "Téléphone",
     company: "Entreprise",
     secteur_activite: "Secteur d'activité",
-    addresse_complete: "Adresse",
+    adresse_complete: "Adresse",
     city: "Ville",
     postalCode: "Code postal",
     zone_intervention: "Zone d'intervention",
