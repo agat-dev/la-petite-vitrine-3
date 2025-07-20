@@ -13,7 +13,16 @@ async function sendOrderToNotion(order: any) {
   const token = process.env.NOTION_TOKEN as string | undefined;
   const databaseId = process.env.NOTION_DATABASE_ID as string | undefined;
   if (!token || !databaseId) return;
+
   const name = `${order.formData?.firstName ?? ''} ${order.formData?.lastName ?? ''}`.trim();
+
+  // Construit un texte contenant toutes les informations du formulaire
+  const formFields = Object.entries(order.formData ?? {})
+    .map(([k, v]) => `${k}: ${v}`)
+    .join('\n');
+  const files = (order.attachmentNames ?? []).join(', ');
+  const details = `${formFields}${files ? `\nFichiers: ${files}` : ''}`;
+
   try {
     await fetch('https://api.notion.com/v1/pages', {
       method: 'POST',
@@ -30,6 +39,7 @@ async function sendOrderToNotion(order: any) {
           Pack: { rich_text: [{ text: { content: order.pack?.title ?? '' } }] },
           Maintenance: { rich_text: [{ text: { content: order.maintenance?.title ?? '' } }] },
           Total: { number: order.total ?? 0 },
+          Details: { rich_text: [{ text: { content: details } }] },
         },
       }),
     });
@@ -90,7 +100,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     });
 
-    // Prépare les pièces jointes pour Resend
+    // Prépare les pièces jointes pour Resend et récupère leurs noms
+    const attachmentNames = allFiles.map(
+      (file) => file.originalFilename || file.newFilename,
+    );
     attachments = await Promise.all(
       allFiles.map(async (file, idx) => ({
         filename: file.originalFilename || file.newFilename,
@@ -108,7 +121,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         attachments,
       });
       if (orderData) {
-        await sendOrderToNotion(orderData);
+        await sendOrderToNotion({ ...orderData, attachmentNames });
       }
       res.status(200).json({ success: true });
     } catch (e: any) {
