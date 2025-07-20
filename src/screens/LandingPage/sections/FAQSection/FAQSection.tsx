@@ -1,5 +1,6 @@
 import { Button } from '../../../../components/ui/button';
 import StyledButton from '../../../../components/ui/styled-button';
+import { QuickContactForm } from '../../../../components/forms';
 
 export const FAQSection = (): JSX.Element => {
 
@@ -85,6 +86,13 @@ export const FAQSection = (): JSX.Element => {
               </span>
               </a>
             </Button>
+
+              <div className="w-full max-w-md">
+                <QuickContactForm
+                  title="Pas prêt à commander ? On vous guide gratuitement par téléphone."
+                  buttonText="Être rappelé(e)"
+                />
+              </div>
 
 
 
