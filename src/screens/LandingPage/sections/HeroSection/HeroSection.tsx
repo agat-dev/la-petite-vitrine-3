@@ -30,7 +30,7 @@ export const HeroSection = (): JSX.Element => {
 
           <div className="flex flex-col sm:flex-row items-center gap-4 relative w-full sm:w-auto">
             <a href="#products">
-              <StyledWrapper bgColor="var(--amber-600)">Créer mon site</StyledWrapper>
+              <StyledWrapper bgColor="var(--amber-600)" textColor="white">Créer mon site</StyledWrapper>
             </a>
           </div>
         </div>

@@ -5,11 +5,12 @@ import { ReactNode } from 'react';
 interface ButtonUIProps {
   children: ReactNode;
   bgColor?: string;
+  textColor?: string;
 }
 
-const ButtonUI = ({ children, bgColor }: ButtonUIProps) => {
+const ButtonUI = ({ children, bgColor, textColor }: ButtonUIProps) => {
   return (
-    <StyledWrapper $bgColor={bgColor}>
+    <StyledWrapper $bgColor={bgColor} $textColor={textColor}>
       <button>
         <span>{children}</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 74 74" height={34} width={34}>
@@ -21,10 +22,10 @@ const ButtonUI = ({ children, bgColor }: ButtonUIProps) => {
   );
 }
 
-const StyledWrapper = styled.div<{ $bgColor?: string }>`
+const StyledWrapper = styled.div<{ $bgColor?: string; $textColor?: string }>`
   button {
     cursor: pointer;
-    color: black;
+    color: ${(props) => props.$textColor || 'black'};
     font-weight: 700;
     transition: all 0.2s;
     padding: 10px 20px;
