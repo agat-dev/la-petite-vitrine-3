@@ -6,7 +6,7 @@ import { QuickContactForm } from "../../../../components/forms";
 
 export const HeroSection = (): JSX.Element => {
   return (
-    <section className="max-w-[1400px] mx-auto flex flex-wrap flex-col lg:flex-row items-center gap-8 lg:gap-20 p-4 md:p-8 lg:p-20 relative self-stretch w-full">
+    <section className="max-w-[1400px] mx-auto flex flex-wrap flex-col lg:flex-row items-center p-4 md:p-8 lg:p-20 relative self-stretch w-full">
       <AnimatedSection
         animation="slideRight"
         className="md:basis-1/2 flex flex-col items-start gap-8 lg:gap-12 relative flex-1 w-full lg:w-auto"
