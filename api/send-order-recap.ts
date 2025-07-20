@@ -11,7 +11,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function sendOrderToNotion(order: any) {
   const token = process.env.NOTION_TOKEN as string | undefined;
-  const databaseId = process.env.NOTION_DATABASE_ID as string | undefined;
+  const databaseId = process.env.NOTION_ORDER_DATABASE_ID as string | undefined;
   if (!token || !databaseId) return;
 
   const name = `${order.formData?.firstName ?? ''} ${order.formData?.lastName ?? ''}`.trim();
