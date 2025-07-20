@@ -37,7 +37,7 @@ export const QuickContactForm: React.FC<QuickContactFormProps> = ({
   };
 
   if (sent) {
-    return <p className="text-green-700 font-medium">Merci, nous vous contacterons rapidement.</p>;
+    return <p className="py-2 px-4 text-green-700 font-medium">Merci, nous vous contacterons rapidement.</p>;
   }
 
   return (
@@ -53,7 +53,7 @@ export const QuickContactForm: React.FC<QuickContactFormProps> = ({
         />
         <input
           type="text"
-          placeholder="Téléphone ou email"
+          placeholder="Téléphone"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
           className="flex-1 px-3 py-2 border border-amber-300/40 rounded-xl focus:outline-none focus:ring-1 focus:ring-amber-400"
