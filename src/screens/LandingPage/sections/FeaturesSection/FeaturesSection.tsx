@@ -99,7 +99,7 @@ const features = [
 export const FeaturesSection = (): JSX.Element => (
   <section
     id="offre"
-    className="relative max-w-[1400px] mx-auto md:mt-8 mt-48 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 w-full"
+    className="relative max-w-[1400px] mx-auto md:mt-8 mt-24 flex flex-col items-center justify-center gap-12 md:gap-16 lg:gap-20 p-4 md:p-8 lg:p-20 w-full"
   >
     {/* SVG décoratifs */}
     <svg

@@ -35,7 +35,7 @@ export const LandingPage = (): JSX.Element => {
           <QuickContactForm
             title="Une question ? Besoin d\'un conseil ? Laissez vos coordonnées et on vous rappelle sous 24h."
             buttonText="Je veux en savoir plus"
-            className="max-w-xl mx-auto"
+            className="w-fit mx-auto"
           />
         </div>
         <FAQSection />

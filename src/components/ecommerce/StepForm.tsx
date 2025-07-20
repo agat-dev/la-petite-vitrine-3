@@ -141,7 +141,6 @@ export const StepForm: React.FC<StepFormProps> = ({
     onPrevStep();
   };
 
-
   // Rendu d'un champ de formulaire
   const renderField = (field: FormField) => {
     const value = currentStepData[field.id] || formData[field.id] || "";

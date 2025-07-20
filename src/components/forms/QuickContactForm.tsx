@@ -43,7 +43,7 @@ export const QuickContactForm: React.FC<QuickContactFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className={`bg-white/80 backdrop-blur-md p-4 rounded-xl shadow-md space-y-3 ${className}`}>
       <p className="font-semibold text-blue-gray900">{title}</p>
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex-wrap flex flex-col sm:flex-row gap-3">
         <input
           type="text"
           placeholder="Prénom"

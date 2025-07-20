@@ -131,7 +131,7 @@ export const AtoutsSection = (): JSX.Element => {
         <div className="w-64 mx-auto md:mb-0 mb-8">
           <a href="#products" className="w-full flex items-center justify-center">
             <StyledButton className="w-full flex items-center justify-center">
-              <span className="ml-2">Voir les offres</span>
+              <span className="ml-2">Créer mon site</span>
             </StyledButton>
           </a>
         </div>

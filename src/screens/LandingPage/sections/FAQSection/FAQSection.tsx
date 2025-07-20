@@ -87,7 +87,7 @@ export const FAQSection = (): JSX.Element => {
               </a>
             </Button>
 
-              <div className="w-full max-w-md">
+              <div className="bg-amber-50 rounded-3xl w-full max-w-md">
                 <QuickContactForm
                   title="Pas prêt à commander ? On vous guide gratuitement par téléphone."
                   buttonText="Être rappelé(e)"
