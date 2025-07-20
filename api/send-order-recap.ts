@@ -3,6 +3,34 @@ import { IncomingForm, File as FormidableFile } from 'formidable';
 import fs from 'fs';
 import { Resend } from 'resend';
 
+// Enregistre la commande dans une base Notion
+async function sendOrderToNotion(subject: string, to: string) {
+  const token = process.env.NOTION_TOKEN as string;
+  const databaseId = process.env.NOTION_ORDER_DATABASE_ID as string;
+  if (!token || !databaseId) return;
+
+  const res = await fetch('https://api.notion.com/v1/pages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Notion-Version': '2022-06-28',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      parent: { database_id: databaseId },
+      properties: {
+        Name: { title: [{ text: { content: subject } }] },
+        Email: { rich_text: [{ text: { content: to } }] },
+      },
+    }),
+  });
+
+  if (!res.ok) {
+    console.log('[sendOrderToNotion] Notion error:', res.status, await res.text());
+    return;
+  }
+}
+
 export const config = {
   api: { bodyParser: false },
 };
@@ -69,6 +97,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         html,
         attachments,
       });
+      await sendOrderToNotion(subject as string, to as string);
       res.status(200).json({ success: true });
     } catch (e: any) {
       res.status(500).json({ error: e.message });
