@@ -17,7 +17,7 @@ export const HeroSection = (): JSX.Element => {
               Sites internet
               <br />
               <div className="pt-2 font-serif italic text-amber-900">
-                pour les artisans
+                pour artisans
               </div>
             </h1>
           </div>
