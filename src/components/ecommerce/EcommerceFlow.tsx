@@ -467,6 +467,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 setVisualFiles={setVisualFiles}
                 setTextFiles={setTextFiles}
                 setOtherFiles={setOtherFiles}
+                sending={sending}
               />
             )}
 
