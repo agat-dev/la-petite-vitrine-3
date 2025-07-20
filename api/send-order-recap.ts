@@ -30,6 +30,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Récupération des fichiers (supporte visualFiles[], textFiles[], otherFiles[] ou files[])
     let attachments: any[] = [];
     const allFiles: FormidableFile[] = [];
+    let cids: string[] = [];
+    if (fields.cids) {
+      try {
+        const cidData = Array.isArray(fields.cids) ? fields.cids[0] : fields.cids;
+        cids = JSON.parse(cidData as string);
+      } catch {
+        cids = [];
+      }
+    }
 
     // Ajoute tous les fichiers des différents champs attendus
     ['visualFiles', 'textFiles', 'otherFiles', 'files'].forEach((key) => {
@@ -45,9 +54,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Prépare les pièces jointes pour Resend
     attachments = await Promise.all(
-      allFiles.map(async (file) => ({
+      allFiles.map(async (file, idx) => ({
         filename: file.originalFilename || file.newFilename,
         content: await fs.promises.readFile(file.filepath),
+        cid: cids[idx],
       }))
     );
 

@@ -2,13 +2,14 @@ import { CheckIcon } from "lucide-react";
 import { Card } from "../../../../components/ui/card";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
 import StyledWrapper from "../../../../components/ui/button-ui";
+import { QuickContactForm } from "../../../../components/forms";
 
 export const HeroSection = (): JSX.Element => {
   return (
-    <section className="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-20 p-4 md:p-8 lg:p-20 relative self-stretch w-full">
+    <section className="max-w-[1400px] mx-auto flex flex-wrap flex-col lg:flex-row items-center gap-8 lg:gap-20 p-4 md:p-8 lg:p-20 relative self-stretch w-full">
       <AnimatedSection
         animation="slideRight"
-        className="flex flex-col items-start gap-8 lg:gap-12 relative flex-1 w-full lg:w-auto"
+        className="md:basis-1/2 flex flex-col items-start gap-8 lg:gap-12 relative flex-1 w-full lg:w-auto"
       >
         <div className="flex flex-col items-start gap-6 lg:gap-8 relative self-stretch w-full md:py-4 py-8">
           <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
@@ -30,7 +31,7 @@ export const HeroSection = (): JSX.Element => {
 
           <div className="flex flex-col sm:flex-row items-center gap-4 relative w-full sm:w-auto">
             <a href="#products">
-              <StyledWrapper>Voir l'offre</StyledWrapper>
+              <StyledWrapper>Créer mon site</StyledWrapper>
             </a>
           </div>
         </div>
@@ -39,7 +40,7 @@ export const HeroSection = (): JSX.Element => {
       <AnimatedSection
         animation="slideLeft"
         delay={200}
-        className="relative w-full max-w-[486px] h-[300px] md:h-[350px] lg:h-[423px] mt-20 md:mt-8 lg:mt-0"
+        className="md:basis-1/2 relative w-full max-w-[486px] h-[300px] md:h-[350px] lg:h-[423px] mt-20 md:mt-8 lg:mt-0"
       >
         {/* Badge Satisfait ou remboursé en haut à gauche */}
         <div className="absolute md:top-[50%] top-[100%] md:-right-[15%] -right-[0] z-50 bg-green-600 text-white px-3 py-1 rounded-full text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300 flex items-center gap-2">
@@ -74,6 +75,12 @@ export const HeroSection = (): JSX.Element => {
           </div>
         </Card>
       </AnimatedSection>
+      <div className="md:basis-1/2 md:mt-8 pt-48 w-full mx-auto">
+        <QuickContactForm
+          title="Vous préférez qu'on vous rappelle ? Laissez vos infos ici 👇"
+          buttonText="Être rappelé(e)"
+        />
+      </div>
     </section>
   );
 };
