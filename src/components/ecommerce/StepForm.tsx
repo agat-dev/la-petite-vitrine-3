@@ -5,6 +5,8 @@ import { Button } from "../ui/button";
 import { FormStep, FormField } from "../../types/ecommerce";
 import { cn } from "../../lib/utils";
 
+const MAX_FILES_PER_FIELD = 3;
+
 interface StepFormProps {
   steps: FormStep[];
   currentStep: number;
@@ -16,6 +18,9 @@ interface StepFormProps {
   isLastStep: boolean;
   isFirstStep: boolean;
   className?: string;
+  visualFiles: File[];
+  textFiles: File[];
+  otherFiles: File[];
   setVisualFiles: React.Dispatch<React.SetStateAction<File[]>>;
   setTextFiles: React.Dispatch<React.SetStateAction<File[]>>;
   setOtherFiles: React.Dispatch<React.SetStateAction<File[]>>;
@@ -32,6 +37,9 @@ export const StepForm: React.FC<StepFormProps> = ({
   isLastStep,
   isFirstStep,
   className,
+  visualFiles,
+  textFiles,
+  otherFiles,
   setVisualFiles,
   setTextFiles,
   setOtherFiles,
@@ -272,6 +280,7 @@ export const StepForm: React.FC<StepFormProps> = ({
               {field.label}{" "}
               {field.required && <span className="text-red-500">*</span>}
             </label>
+            <p className="text-xs text-blue-gray-600">Jusqu'à {MAX_FILES_PER_FIELD} fichiers.</p>
             <div className="relative w-full">
               <input
                 id={`file-input-${field.id}`}
@@ -279,15 +288,30 @@ export const StepForm: React.FC<StepFormProps> = ({
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 onChange={(e) => {
                   const files = Array.from(e.target.files || []);
-                  handleFieldChange(field.id, files[0]);
-                  if (files.length) {
-                    if (field.id === "elements_visuels") {
-                      setVisualFiles((prev) => [...prev, ...files]);
-                    } else if (field.id === "textes_contenus") {
-                      setTextFiles((prev) => [...prev, ...files]);
-                    } else if (field.id === "autres_fichiers") {
-                      setOtherFiles((prev) => [...prev, ...files]);
+                  if (!files.length) return;
+                  const addFiles = (
+                    current: File[],
+                    setFiles: React.Dispatch<React.SetStateAction<File[]>>,
+                  ) => {
+                    let updated = [...current, ...files];
+                    if (updated.length > MAX_FILES_PER_FIELD) {
+                      updated = updated.slice(0, MAX_FILES_PER_FIELD);
+                      setErrors((prev) => ({
+                        ...prev,
+                        [field.id]: `Vous pouvez ajouter au maximum ${MAX_FILES_PER_FIELD} fichiers`,
+                      }));
+                    } else {
+                      setErrors((prev) => ({ ...prev, [field.id]: "" }));
                     }
+                    setFiles(updated);
+                    handleFieldChange(field.id, updated[0]);
+                  };
+                  if (field.id === "elements_visuels") {
+                    addFiles(visualFiles, setVisualFiles);
+                  } else if (field.id === "textes_contenus") {
+                    addFiles(textFiles, setTextFiles);
+                  } else if (field.id === "autres_fichiers") {
+                    addFiles(otherFiles, setOtherFiles);
                   }
                 }}
                 aria-label={field.label}
