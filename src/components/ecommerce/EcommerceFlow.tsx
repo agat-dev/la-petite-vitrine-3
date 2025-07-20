@@ -82,30 +82,54 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
       const adminEmail = "contact@lapetitevitrine.com";
       if (pack && maintenance && formData.email) {
         // Préparation du FormData pour l'envoi de fichiers en pièce jointe
+        const attachmentInfos: { cid: string; label: string; filename: string }[] = [];
+        const cidList: string[] = [];
+        const addFiles = (
+          files: File[],
+          field: 'visualFiles' | 'textFiles' | 'otherFiles',
+          labelKey: string,
+        ) => {
+          files.forEach((f, idx) => {
+            const cid = `${field}-${idx}`;
+            attachmentInfos.push({ cid, label: FORM_FIELD_LABELS[labelKey], filename: f.name });
+            cidList.push(cid);
+          });
+        };
+        addFiles(visualFiles, 'visualFiles', 'elements_visuels');
+        addFiles(textFiles, 'textFiles', 'textes_contenus');
+        addFiles(otherFiles, 'otherFiles', 'autres_fichiers');
+
         const buildFormData = (to: string, subject: string, html: string) => {
           const fd = new FormData();
           fd.append('to', to);
           fd.append('subject', subject);
           fd.append('html', html);
+          if (cidList.length) {
+            fd.append('cids', JSON.stringify(cidList));
+          }
 
-          // Utilise les fichiers locaux, pas ceux du state global
-          visualFiles.forEach((f, idx) => {
-            console.log(`Ajout visualFiles[${idx}]: ${f.name} (${f.size} octets)`);
-            fd.append('visualFiles', f, f.name);
-          });
-          textFiles.forEach((f, idx) => {
-            console.log(`Ajout textFiles[${idx}]: ${f.name} (${f.size} octets)`);
-            fd.append('textFiles', f, f.name);
-          });
-          otherFiles.forEach((f, idx) => {
-            console.log(`Ajout otherFiles[${idx}]: ${f.name} (${f.size} octets)`);
-            fd.append('otherFiles', f, f.name);
-          });
+          visualFiles.forEach((f) => fd.append('visualFiles', f, f.name));
+          textFiles.forEach((f) => fd.append('textFiles', f, f.name));
+          otherFiles.forEach((f) => fd.append('otherFiles', f, f.name));
 
           return fd;
         };
 
         // Email client
+        const filesSection = attachmentInfos.length
+          ? `
+              <h3>Fichiers transmis</h3>
+              <ul>
+                ${attachmentInfos
+                  .map(
+                    (i) =>
+                      `<li><strong style="color:#2E66C1;">${i.label}:</strong> <a href="cid:${i.cid}" style="color:#F59E42;">${i.filename}</a></li>`,
+                  )
+                  .join('')}
+              </ul>
+            `
+          : '';
+
         const htmlClient = `
           <!DOCTYPE html>
           <html>
@@ -160,6 +184,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                     .map(([k, v]) => `<li><strong style="color:#2E66C1;">${FORM_FIELD_LABELS[k] ?? k}:</strong> <span style="color:#222;">${v}</span></li>`)
                     .join('')}
                 </ul>
+                ${filesSection}
                 <h3>Montant total</h3>
                 <p style="font-size:1.1rem;color:#2E66C1;font-weight:700;margin:0 0 8px 0;">
                   ${total}€ <span style="color:#222;font-weight:400;font-size:0.95rem;">(+${maintenance.price}€/mois de maintenance)</span>
@@ -227,6 +252,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                     .map(([k, v]) => `<li><strong style="color:#2E66C1;">${FORM_FIELD_LABELS[k] ?? k}:</strong> <span style="color:#222;">${v}</span></li>`)
                     .join('')}
                 </ul>
+                ${filesSection}
                 <h3>Montant total</h3>
                 <p style="font-size:1.1rem;color:#2E66C1;font-weight:700;margin:0 0 8px 0;">
                   ${total}€ <span style="color:#222;font-weight:400;font-size:0.95rem;">(+${maintenance.price}€/mois de maintenance)</span>
