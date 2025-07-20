@@ -130,16 +130,6 @@ export const StepForm: React.FC<StepFormProps> = ({
     onPrevStep();
   };
 
-  // Soumettre le formulaire
-  const handleSubmit = () => {
-    onCompleteForm({
-      ...formData,
-      visualFiles,
-      textFiles,
-      otherFiles,
-    });
-  };
-
   // Rendu d'un champ de formulaire
   const renderField = (field: FormField) => {
     const value = currentStepData[field.id] || formData[field.id] || "";
