@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useEcommerce } from '../../hooks/useEcommerce';
 import { PackSelector } from './PackSelector';
 import { StepForm } from './StepForm';
-// import { OrderEmailSender } from './OrderEmailSender';
 import { OrderSummary } from './OrderSummary';
 import { MaintenanceSelector } from './MaintenanceSelector';
 import { Button } from '../ui/button';
@@ -83,27 +82,54 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
       const adminEmail = "contact@lapetitevitrine.com";
       if (pack && maintenance && formData.email) {
         // Préparation du FormData pour l'envoi de fichiers en pièce jointe
+        const attachmentInfos: { cid: string; label: string; filename: string }[] = [];
+        const cidList: string[] = [];
+        const addFiles = (
+          files: File[],
+          field: 'visualFiles' | 'textFiles' | 'otherFiles',
+          labelKey: string,
+        ) => {
+          files.forEach((f, idx) => {
+            const cid = `${field}-${idx}`;
+            attachmentInfos.push({ cid, label: FORM_FIELD_LABELS[labelKey], filename: f.name });
+            cidList.push(cid);
+          });
+        };
+        addFiles(visualFiles, 'visualFiles', 'elements_visuels');
+        addFiles(textFiles, 'textFiles', 'textes_contenus');
+        addFiles(otherFiles, 'otherFiles', 'autres_fichiers');
+
         const buildFormData = (to: string, subject: string, html: string) => {
           const fd = new FormData();
           fd.append('to', to);
           fd.append('subject', subject);
           fd.append('html', html);
+          if (cidList.length) {
+            fd.append('cids', JSON.stringify(cidList));
+          }
 
-          // Ajout des fichiers si présents (adapté à ta structure)
-          if (formData.visualFiles && Array.isArray(formData.visualFiles)) {
-            formData.visualFiles.forEach((f: File) => fd.append('visualFiles', f, f.name));
-          }
-          if (formData.textFiles && Array.isArray(formData.textFiles)) {
-            formData.textFiles.forEach((f: File) => fd.append('textFiles', f, f.name));
-          }
-          if (formData.otherFiles && Array.isArray(formData.otherFiles)) {
-            formData.otherFiles.forEach((f: File) => fd.append('otherFiles', f, f.name));
-          }
-          // Pour compatibilité, si tu as d'autres champs fichiers, ajoute-les ici
+          visualFiles.forEach((f) => fd.append('visualFiles', f, f.name));
+          textFiles.forEach((f) => fd.append('textFiles', f, f.name));
+          otherFiles.forEach((f) => fd.append('otherFiles', f, f.name));
+
           return fd;
         };
 
         // Email client
+        const filesSection = attachmentInfos.length
+          ? `
+              <h3>Fichiers transmis</h3>
+              <ul>
+                ${attachmentInfos
+                  .map(
+                    (i) =>
+                      `<li><strong style="color:#2E66C1;">${i.label}:</strong> <a href="cid:${i.cid}" style="color:#F59E42;">${i.filename}</a></li>`,
+                  )
+                  .join('')}
+              </ul>
+            `
+          : '';
+
         const htmlClient = `
           <!DOCTYPE html>
           <html>
@@ -155,9 +181,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 <h3>Informations client</h3>
                 <ul>
                   ${Object.entries(formData)
-                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${k}:</strong> <span style="color:#222;">${v}</span></li>`)
+                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${FORM_FIELD_LABELS[k] ?? k}:</strong> <span style="color:#222;">${v}</span></li>`)
                     .join('')}
                 </ul>
+                ${filesSection}
                 <h3>Montant total</h3>
                 <p style="font-size:1.1rem;color:#2E66C1;font-weight:700;margin:0 0 8px 0;">
                   ${total}€ <span style="color:#222;font-weight:400;font-size:0.95rem;">(+${maintenance.price}€/mois de maintenance)</span>
@@ -222,9 +249,10 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 <h3>Informations client</h3>
                 <ul>
                   ${Object.entries(formData)
-                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${k}:</strong> <span style="color:#222;">${v}</span></li>`)
+                    .map(([k, v]) => `<li><strong style="color:#2E66C1;">${FORM_FIELD_LABELS[k] ?? k}:</strong> <span style="color:#222;">${v}</span></li>`)
                     .join('')}
                 </ul>
+                ${filesSection}
                 <h3>Montant total</h3>
                 <p style="font-size:1.1rem;color:#2E66C1;font-weight:700;margin:0 0 8px 0;">
                   ${total}€ <span style="color:#222;font-weight:400;font-size:0.95rem;">(+${maintenance.price}€/mois de maintenance)</span>
@@ -289,6 +317,35 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
         break;
     }
   };
+
+  // Associe les clés de FormData à leur label utilisateur pour affichage dans le récapitulatif
+  const FORM_FIELD_LABELS: Record<string, string> = {
+    firstName: "Prénom",
+    lastName: "Nom",
+    email: "Email",
+    phone: "Téléphone",
+    company: "Entreprise",
+    secteur_activite: "Secteur d'activité",
+    adresse_complete: "Adresse",
+    city: "Ville",
+    postalCode: "Code postal",
+    zone_intervention: "Zone d'intervention",
+    concurrents_principaux: "Concurrents principaux",
+    services_proposes: "Services proposés",
+    specificite_positionnement: "Positionnement spécifique",
+    types_clients: "Types de clients",
+    ton_communication: "Ton de communication",
+    liens_contenus_existants: "Liens vers vos contenus existants",
+    informations_diverses: "Informations diverses",
+    elements_visuels: "Fichiers visuels",
+    textes_contenus: "Fichiers textes",
+    autres_fichiers: "Autres fichiers",
+  };
+
+  // Ajoute un state local pour les fichiers dans EcommerceFlow
+  const [visualFiles, setVisualFiles] = useState<File[]>([]);
+  const [textFiles, setTextFiles] = useState<File[]>([]);
+  const [otherFiles, setOtherFiles] = useState<File[]>([]);
 
 
   return (
@@ -381,6 +438,12 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                 isLastStep={isLastStep}
                 isFirstStep={isFirstStep}
                 className="bg-white/90 backdrop-blur-sm border-amber-200/50 shadow-lg rounded-2xl"
+                visualFiles={visualFiles}
+                textFiles={textFiles}
+                otherFiles={otherFiles}
+                setVisualFiles={setVisualFiles}
+                setTextFiles={setTextFiles}
+                setOtherFiles={setOtherFiles}
               />
             )}
 

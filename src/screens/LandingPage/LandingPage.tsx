@@ -9,6 +9,7 @@ import { FeaturesSection } from "./sections/FeaturesSection";
 import { ProductsSection } from "./sections/ProductsSection";
 import { FAQSection } from "./sections/FAQSection";
 import { usePageSEO } from "../../components/metadata";
+import { QuickContactForm } from "../../components/forms";
 
 export const LandingPage = (): JSX.Element => {
   return (
@@ -30,6 +31,13 @@ export const LandingPage = (): JSX.Element => {
         <PersonasSection />
         <ProductsSection />
         <FAQPersonnalisee />
+        <div className="px-4 md:px-8 lg:px-20 my-8">
+          <QuickContactForm
+            title="Une question ? Besoin d\'un conseil ? Laissez vos coordonnées et on vous rappelle sous 24h."
+            buttonText="Je veux en savoir plus"
+            className="max-w-xl mx-auto"
+          />
+        </div>
         <FAQSection />
         <FooterSection />
       </main>

@@ -2,6 +2,7 @@ import { CheckIcon } from "lucide-react";
 import { Card } from "../../../../components/ui/card";
 import { AnimatedSection } from "../../../../components/ui/animated-section";
 import StyledWrapper from "../../../../components/ui/button-ui";
+import { QuickContactForm } from "../../../../components/forms";
 
 export const HeroSection = (): JSX.Element => {
   return (
@@ -30,7 +31,7 @@ export const HeroSection = (): JSX.Element => {
 
           <div className="flex flex-col sm:flex-row items-center gap-4 relative w-full sm:w-auto">
             <a href="#products">
-              <StyledWrapper>Voir l'offre</StyledWrapper>
+              <StyledWrapper bgColor="var(--amber-600)" textColor="white">Créer mon site</StyledWrapper>
             </a>
           </div>
         </div>
@@ -74,6 +75,12 @@ export const HeroSection = (): JSX.Element => {
           </div>
         </Card>
       </AnimatedSection>
+      <div className="mt-8 w-full">
+        <QuickContactForm
+          title="Vous préférez qu\'on vous rappelle ? Laissez vos infos ici 👇"
+          buttonText="Être rappelé(e)"
+        />
+      </div>
     </section>
   );
 };
