@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon, CheckIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, CheckIcon, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Button } from "../ui/button";
 import { FormStep, FormField } from "../../types/ecommerce";
@@ -50,6 +50,7 @@ export const StepForm: React.FC<StepFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   // Dropdown state for custom select
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const currentStepInfo = steps[currentStep];
 
@@ -118,7 +119,6 @@ export const StepForm: React.FC<StepFormProps> = ({
   // Passer à l'étape suivante
   const handleNext = async () => {
     if (validateCurrentStep()) {
-      // Log du contenu du formulaire à chaque étape
       console.log("FormData (étape)", currentStepInfo.id, {
         ...formData,
         ...currentStepData,
@@ -126,8 +126,12 @@ export const StepForm: React.FC<StepFormProps> = ({
       onUpdateFormData(currentStepInfo.id, currentStepData);
       setCurrentStepData({});
       if (isLastStep) {
-        // Au lieu de window.location.href, appelle onNextStep (qui sera handleFormCompleted)
-        onNextStep();
+        setSubmitting(true);
+        try {
+          await onNextStep();
+        } finally {
+          setSubmitting(false);
+        }
       } else {
         onNextStep();
       }
@@ -443,10 +447,20 @@ export const StepForm: React.FC<StepFormProps> = ({
 
             <Button
               onClick={handleNext}
+              disabled={submitting}
               className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-xl shadow-md"
             >
-              {isLastStep ? "Terminer" : "Suivant"}
-              {!isLastStep && <ChevronRightIcon className="w-4 h-4" />}
+              {submitting ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Traitement...
+                </>
+              ) : (
+                <>
+                  {isLastStep ? "Terminer" : "Suivant"}
+                  {!isLastStep && <ChevronRightIcon className="w-4 h-4" />}
+                </>
+              )}
             </Button>
           </div>
         </CardContent>
