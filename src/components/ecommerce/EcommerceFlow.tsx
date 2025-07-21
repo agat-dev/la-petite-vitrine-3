@@ -174,7 +174,7 @@ export const EcommerceFlow: React.FC<EcommerceFlowProps> = ({
                     rel="noopener noreferrer"
                     style="
                       display:inline-block;
-                      background: linear-gradient(90deg, #F59E42 0%, #2E66C1 100%);
+                      background: #D97706;
                       color: #fff;
                       font-weight: 600;
                       font-size: 1.1rem;
