@@ -6,7 +6,7 @@ import { QuickContactForm } from "../../../../components/forms";
 
 export const HeroSection = (): JSX.Element => {
   return (
-    <section className="max-w-[1400px] mx-auto flex flex-wrap flex-col lg:flex-row items-center gap-8 lg:gap-20 p-4 md:p-8 lg:p-20 relative self-stretch w-full">
+    <section className="max-w-[1400px] mx-auto flex flex-wrap flex-col lg:flex-row items-center p-4 md:p-8 lg:p-20 relative self-stretch w-full">
       <AnimatedSection
         animation="slideRight"
         className="md:basis-1/2 flex flex-col items-start gap-8 lg:gap-12 relative flex-1 w-full lg:w-auto"
@@ -14,11 +14,10 @@ export const HeroSection = (): JSX.Element => {
         <div className="flex flex-col items-start gap-6 lg:gap-8 relative self-stretch w-full md:py-4 py-8">
           <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
             <h1 className="relative self-stretch mt-[-1.00px] font-heading-1-m md:font-[500] font-[600] text-blue-gray900 text-4xl md:text-6xl lg:text-6xl md:leading-[var(--heading-1-m-line-height)] [font-style:var(--heading-1-m-font-style)]">
-              Site web et
-              <br /> Réseaux sociaux
+              Sites internet
               <br />
               <div className="pt-2 font-serif italic text-amber-900">
-                pour les artisans
+                pour artisans
               </div>
             </h1>
           </div>
