@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon, CheckIcon, Loader2 } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, CheckIcon } from "lucide-react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Button } from "../ui/button";
 import { FormStep, FormField } from "../../types/ecommerce";
@@ -24,7 +24,6 @@ interface StepFormProps {
   setVisualFiles: React.Dispatch<React.SetStateAction<File[]>>;
   setTextFiles: React.Dispatch<React.SetStateAction<File[]>>;
   setOtherFiles: React.Dispatch<React.SetStateAction<File[]>>;
-  sending: boolean;
 }
 
 export const StepForm: React.FC<StepFormProps> = ({
@@ -44,7 +43,6 @@ export const StepForm: React.FC<StepFormProps> = ({
   setVisualFiles,
   setTextFiles,
   setOtherFiles,
-  sending,
 }) => {
   const [currentStepData, setCurrentStepData] = useState<Record<string, any>>(
     {}
@@ -446,23 +444,9 @@ export const StepForm: React.FC<StepFormProps> = ({
             <Button
               onClick={handleNext}
               className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-xl shadow-md"
-              disabled={sending}
             >
-              {isLastStep ? (
-                sending ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Traitement...
-                  </>
-                ) : (
-                  "Terminer"
-                )
-              ) : (
-                <>
-                  Suivant
-                  <ChevronRightIcon className="w-4 h-4" />
-                </>
-              )}
+              {isLastStep ? "Terminer" : "Suivant"}
+              {!isLastStep && <ChevronRightIcon className="w-4 h-4" />}
             </Button>
           </div>
         </CardContent>
